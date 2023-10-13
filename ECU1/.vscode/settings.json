@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "hesp_private.h": "c",
+        "mrcc_interface.h": "c"
+    }
+}
