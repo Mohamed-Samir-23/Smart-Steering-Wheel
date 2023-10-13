@@ -1,0 +1,13 @@
+--cpu Cortex-M3
+".\objects\hesp_program.o"
+".\objects\mgpio_program.o"
+".\objects\mrcc_program.o"
+".\objects\msystick_program.o"
+".\objects\muart_program.o"
+".\objects\main.o"
+".\objects\startup_stm32f10x_ld.o"
+".\objects\system_stm32f10x.o"
+--strict --scatter ".\Objects\WIFI-Project-STM32f103.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\WIFI-Project-STM32f103.map" -o .\Objects\WIFI-Project-STM32f103.axf

@@ -1,0 +1,78 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.30.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: non Umars, nono, LIC=R4HV2-9VS6C-E0AN4-FI8ME-SC4L2-1NJLT
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.30.0.0
+Toolchain Path:  H:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.30.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Dialog DLL:      TCM.DLL V1.42.0.0
+ 
+<h2>Project:</h2>
+H:\ITI\ITI-Graduation-Project\Smart-Steering-Wheel\Keil-WIFI project\WIFI-Project-STM32f103.uvprojx
+Project File Date:  10/14/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'H:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'WIFI'
+compiling MRCC_program.c...
+compiling HESP_program.c...
+compiling main.c...
+assembling startup_stm32f10x_ld.s...
+compiling MGPIO_program.c...
+compiling MUART_program.c...
+.\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
+  #warning F_CPU is not define so the default is 8MHz
+src\MUART_program.c: 1 warning, 0 errors
+compiling MSYSTICK_program.c...
+compiling system_stm32f10x.c...
+linking...
+Program Size: Code=5016 RO-data=268 RW-data=12 ZI-data=1644  
+FromELF: creating hex file...
+".\Objects\WIFI-Project-STM32f103.axf" - 0 Error(s), 1 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.3.0.pack
+                Keil.STM32F1xx_DFP.2.3.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+   * Component: Startup Version: 1.0.0
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\Device\STM32F103C6
+  .\RTE\_WIFI
+  H:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+  H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+
+   * Component: Keil::Device:Startup:1.0.0
+      Include file:  RTE_Driver\Config\RTE_Device.h
+      Source file:   Device\Source\ARM\startup_stm32f10x_ld.s
+      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
+      Source file:   Device\Source\system_stm32f10x.c
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
