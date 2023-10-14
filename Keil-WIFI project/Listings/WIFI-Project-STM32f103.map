@@ -24,6 +24,7 @@ Section Cross References
     hesp_program.o(i.HESP_SEND_COMMAND) refers to strncmp.o(.text) for strncmp
     hesp_program.o(i.HESP_SEND_COMMAND) refers to hesp_program.o(.data) for ISTimeOut
     hesp_program.o(i.HESP_SEND_COMMAND) refers to hesp_program.o(i.ESP_TimeOutAlarm) for ESP_TimeOutAlarm
+    hesp_program.o(i.HESP_errCheckESP) refers to hesp_program.o(i.HESP_SEND_COMMAND) for HESP_SEND_COMMAND
     hesp_program.o(i.HESP_voidInterruptDisable) refers to muart_program.o(i.MUART_voidInterruptDisable) for MUART_voidInterruptDisable
     hesp_program.o(i.HESP_voidInterruptEnable) refers to muart_program.o(i.MUART_voidInterruptEnable) for MUART_voidInterruptEnable
     mrcc_program.o(i.MRCC_stderrorInit) refers to mrcc_program.o(.data) for MRCC_u8PllCk
@@ -53,17 +54,32 @@ Section Cross References
     muart_program.o(i.MUART_voidTransimit) refers to muart_program.o(i.GetUsartPointer) for GetUsartPointer
     muart_program.o(i.USART1_IRQHandler) refers to muart_program.o(.bss) for MUART_CALLBACK
     muart_program.o(i.USART2_IRQHandler) refers to muart_program.o(.bss) for MUART_CALLBACK
+    swifi_program.o(i.SWIFI_errConfigSoftAP) refers to hesp_program.o(i.HESP_errCheckESP) for HESP_errCheckESP
+    swifi_program.o(i.SWIFI_errConfigSoftAP) refers to hesp_program.o(i.HESP_SEND_COMMAND) for HESP_SEND_COMMAND
+    swifi_program.o(i.SWIFI_errConfigSoftAP) refers to swifi_program.o(.bss) for WIFI_Buffer
+    swifi_program.o(i.SWIFI_errConnectSSID) refers to hesp_program.o(i.HESP_errCheckESP) for HESP_errCheckESP
+    swifi_program.o(i.SWIFI_errConnectSSID) refers to hesp_program.o(i.HESP_SEND_COMMAND) for HESP_SEND_COMMAND
+    swifi_program.o(i.SWIFI_errConnectSSID) refers to swifi_program.o(.bss) for WIFI_Buffer
+    swifi_program.o(i.SWIFI_errDisconnectSSID) refers to hesp_program.o(i.HESP_errCheckESP) for HESP_errCheckESP
+    swifi_program.o(i.SWIFI_errDisconnectSSID) refers to hesp_program.o(i.HESP_SEND_COMMAND) for HESP_SEND_COMMAND
+    swifi_program.o(i.SWIFI_errDisconnectSSID) refers to swifi_program.o(.bss) for WIFI_Buffer
+    swifi_program.o(i.SWIFI_errGetConnectedSSID) refers to hesp_program.o(i.HESP_errCheckESP) for HESP_errCheckESP
+    swifi_program.o(i.SWIFI_errGetConnectedSSID) refers to hesp_program.o(i.HESP_SEND_COMMAND) for HESP_SEND_COMMAND
+    swifi_program.o(i.SWIFI_errTurnOn) refers to hesp_program.o(i.HESP_errCheckESP) for HESP_errCheckESP
+    swifi_program.o(i.SWIFI_errTurnOn) refers to hesp_program.o(i.HESP_SEND_COMMAND) for HESP_SEND_COMMAND
+    swifi_program.o(i.SWIFI_errTurnOn) refers to swifi_program.o(.bss) for WIFI_Buffer
     main.o(i.app_init) refers to mrcc_program.o(i.MRCC_stderrorInit) for MRCC_stderrorInit
     main.o(i.app_init) refers to mrcc_program.o(i.RCC_EnablePeripheralClk) for RCC_EnablePeripheralClk
     main.o(i.app_init) refers to mgpio_program.o(i.MGPIO_stderrorPinModeSelect) for MGPIO_stderrorPinModeSelect
     main.o(i.app_init) refers to hesp_program.o(i.HESP_INIT) for HESP_INIT
-    main.o(i.app_init) refers to msystick_program.o(i.MSYSTICK_stderrorInit) for MSYSTICK_stderrorInit
     main.o(i.main) refers to main.o(i.app_init) for app_init
     main.o(i.main) refers to mrcc_program.o(i.MRCC_stderrorInit) for MRCC_stderrorInit
-    main.o(i.main) refers to hesp_program.o(i.HESP_SEND_COMMAND) for HESP_SEND_COMMAND
-    main.o(i.main) refers to hesp_program.o(i.ESP_errEchoEnable) for ESP_errEchoEnable
+    main.o(i.main) refers to swifi_program.o(i.SWIFI_errTurnOn) for SWIFI_errTurnOn
+    main.o(i.main) refers to swifi_program.o(i.SWIFI_errConnectSSID) for SWIFI_errConnectSSID
+    main.o(i.main) refers to swifi_program.o(i.SWIFI_errConfigSoftAP) for SWIFI_errConfigSoftAP
     main.o(i.main) refers to msystick_program.o(i.MSYSTICK_stderrorSetBusyWait) for MSYSTICK_stderrorSetBusyWait
-    main.o(i.main) refers to main.o(.bss) for Response_Buffer
+    main.o(i.main) refers to swifi_program.o(i.SWIFI_errDisconnectSSID) for SWIFI_errDisconnectSSID
+    main.o(i.main) refers to main.o(.data) for DATA
     startup_stm32f10x_ld.o(STACK) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_stm32f10x_ld.o(HEAP) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_stm32f10x_ld.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
@@ -212,6 +228,7 @@ Section Cross References
 Removing Unused input sections from the image.
 
     Removing hesp_program.o(i.ESP_errEchoDisable), (24 bytes).
+    Removing hesp_program.o(i.ESP_errEchoEnable), (24 bytes).
     Removing hesp_program.o(i.HESP_CALLBACK_INIT), (16 bytes).
     Removing hesp_program.o(i.HESP_voidInterruptEnable), (12 bytes).
     Removing mgpio_program.o(i.MGPIO_stderrorGetPinValue), (128 bytes).
@@ -230,13 +247,15 @@ Removing Unused input sections from the image.
     Removing muart_program.o(i.MUART_u8TCFlag), (26 bytes).
     Removing muart_program.o(i.MUART_voidInterruptEnable), (36 bytes).
     Removing muart_program.o(i.MUART_voidSetCallBack), (16 bytes).
+    Removing swifi_program.o(i.SWIFI_errGetConnectedSSID), (56 bytes).
+    Removing main.o(.bss), (50 bytes).
     Removing system_stm32f10x.o(.rev16_text), (4 bytes).
     Removing system_stm32f10x.o(.revsh_text), (4 bytes).
     Removing system_stm32f10x.o(.rrx_text), (6 bytes).
     Removing system_stm32f10x.o(i.SystemCoreClockUpdate), (164 bytes).
     Removing system_stm32f10x.o(.data), (20 bytes).
 
-24 unused section(s) (total 1318 bytes) removed from the image.
+27 unused section(s) (total 1448 bytes) removed from the image.
 
 ==============================================================================
 
@@ -246,51 +265,51 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strncmp.o ABSOLUTE
@@ -313,6 +332,7 @@ Image Symbol Table
     src\MRCC_program.c                       0x00000000   Number         0  mrcc_program.o ABSOLUTE
     src\MSYSTICK_program.c                   0x00000000   Number         0  msystick_program.o ABSOLUTE
     src\MUART_program.c                      0x00000000   Number         0  muart_program.o ABSOLUTE
+    src\SWIFI_program.c                      0x00000000   Number         0  swifi_program.o ABSOLUTE
     RESET                                    0x08000000   Section      236  startup_stm32f10x_ld.o(RESET)
     !!!main                                  0x080000ec   Section        8  __main.o(!!!main)
     !!!scatter                               0x080000f4   Section       52  __scatter.o(!!!scatter)
@@ -370,57 +390,62 @@ Image Symbol Table
     .text                                    0x080002d6   Section        0  indicate_semi.o(.text)
     i.ESP_TimeOutAlarm                       0x080002d8   Section        0  hesp_program.o(i.ESP_TimeOutAlarm)
     ESP_TimeOutAlarm                         0x080002d9   Thumb Code    38  hesp_program.o(i.ESP_TimeOutAlarm)
-    i.ESP_errEchoEnable                      0x08000308   Section        0  hesp_program.o(i.ESP_errEchoEnable)
-    i.GetUsartPointer                        0x08000320   Section        0  muart_program.o(i.GetUsartPointer)
-    i.HESP_INIT                              0x08000354   Section        0  hesp_program.o(i.HESP_INIT)
-    i.HESP_RESET                             0x080003a8   Section        0  hesp_program.o(i.HESP_RESET)
-    i.HESP_SEND_COMMAND                      0x080003d4   Section        0  hesp_program.o(i.HESP_SEND_COMMAND)
-    i.HESP_voidInterruptDisable              0x0800058c   Section        0  hesp_program.o(i.HESP_voidInterruptDisable)
-    i.MGPIO_stderrorPinModeSelect            0x08000598   Section        0  mgpio_program.o(i.MGPIO_stderrorPinModeSelect)
-    i.MGPIO_stderrorSetPinValue              0x080007e8   Section        0  mgpio_program.o(i.MGPIO_stderrorSetPinValue)
-    i.MRCC_stderrorInit                      0x080008b0   Section        0  mrcc_program.o(i.MRCC_stderrorInit)
-    i.MSYSTICK_stderrorInit                  0x08000adc   Section        0  msystick_program.o(i.MSYSTICK_stderrorInit)
-    i.MSYSTICK_stderrorSetBusyWait           0x08000b08   Section        0  msystick_program.o(i.MSYSTICK_stderrorSetBusyWait)
-    i.MSYSTICK_stderrorSetPeriodiceInterval  0x08000b38   Section        0  msystick_program.o(i.MSYSTICK_stderrorSetPeriodiceInterval)
-    i.MSYSTICK_voidStopTICK                  0x08000b74   Section        0  msystick_program.o(i.MSYSTICK_voidStopTICK)
-    i.MUART_u16GetData                       0x08000b86   Section        0  muart_program.o(i.MUART_u16GetData)
-    i.MUART_u8RXNEFlag                       0x08000b9e   Section        0  muart_program.o(i.MUART_u8RXNEFlag)
-    i.MUART_voidInit                         0x08000bb8   Section        0  muart_program.o(i.MUART_voidInit)
-    i.MUART_voidInterruptDisable             0x08000c8c   Section        0  muart_program.o(i.MUART_voidInterruptDisable)
-    i.MUART_voidTransimit                    0x08000ca8   Section        0  muart_program.o(i.MUART_voidTransimit)
-    i.RCC_EnablePeripheralClk                0x08000cc8   Section        0  mrcc_program.o(i.RCC_EnablePeripheralClk)
-    i.SetSysClock                            0x08000d1c   Section        0  system_stm32f10x.o(i.SetSysClock)
-    SetSysClock                              0x08000d1d   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
-    i.SetSysClockTo72                        0x08000d24   Section        0  system_stm32f10x.o(i.SetSysClockTo72)
-    SetSysClockTo72                          0x08000d25   Thumb Code   214  system_stm32f10x.o(i.SetSysClockTo72)
-    i.SysTick_Handler                        0x08000e04   Section        0  msystick_program.o(i.SysTick_Handler)
-    i.SystemInit                             0x08000e40   Section        0  system_stm32f10x.o(i.SystemInit)
-    i.USART1_IRQHandler                      0x08000ea0   Section        0  muart_program.o(i.USART1_IRQHandler)
-    i.USART2_IRQHandler                      0x08000eb4   Section        0  muart_program.o(i.USART2_IRQHandler)
-    i.app_init                               0x08000ec8   Section        0  main.o(i.app_init)
-    i.main                                   0x08000ef4   Section        0  main.o(i.main)
-    x$fpl$dadd                               0x08000f44   Section      336  daddsub_clz.o(x$fpl$dadd)
-    _dadd1                                   0x08000f55   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
-    x$fpl$ddiv                               0x08001094   Section      688  ddiv.o(x$fpl$ddiv)
-    ddiv_entry                               0x0800109b   Thumb Code     0  ddiv.o(x$fpl$ddiv)
-    x$fpl$dfix                               0x08001344   Section       94  dfix.o(x$fpl$dfix)
-    x$fpl$dflt                               0x080013a2   Section       46  dflt_clz.o(x$fpl$dflt)
-    x$fpl$dfltu                              0x080013d0   Section       38  dflt_clz.o(x$fpl$dfltu)
-    x$fpl$dmul                               0x080013f8   Section      340  dmul.o(x$fpl$dmul)
-    x$fpl$dnaninf                            0x0800154c   Section      156  dnaninf.o(x$fpl$dnaninf)
-    x$fpl$dretinf                            0x080015e8   Section       12  dretinf.o(x$fpl$dretinf)
-    x$fpl$drsb                               0x080015f4   Section       22  daddsub_clz.o(x$fpl$drsb)
-    x$fpl$dsub                               0x0800160c   Section      468  daddsub_clz.o(x$fpl$dsub)
-    _dsub1                                   0x0800161d   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
-    x$fpl$usenofp                            0x080017e0   Section        0  usenofp.o(x$fpl$usenofp)
+    i.GetUsartPointer                        0x08000308   Section        0  muart_program.o(i.GetUsartPointer)
+    i.HESP_INIT                              0x0800033c   Section        0  hesp_program.o(i.HESP_INIT)
+    i.HESP_RESET                             0x08000390   Section        0  hesp_program.o(i.HESP_RESET)
+    i.HESP_SEND_COMMAND                      0x080003bc   Section        0  hesp_program.o(i.HESP_SEND_COMMAND)
+    i.HESP_errCheckESP                       0x08000574   Section        0  hesp_program.o(i.HESP_errCheckESP)
+    i.HESP_voidInterruptDisable              0x08000590   Section        0  hesp_program.o(i.HESP_voidInterruptDisable)
+    i.MGPIO_stderrorPinModeSelect            0x0800059c   Section        0  mgpio_program.o(i.MGPIO_stderrorPinModeSelect)
+    i.MGPIO_stderrorSetPinValue              0x080007ec   Section        0  mgpio_program.o(i.MGPIO_stderrorSetPinValue)
+    i.MRCC_stderrorInit                      0x080008b4   Section        0  mrcc_program.o(i.MRCC_stderrorInit)
+    i.MSYSTICK_stderrorInit                  0x08000ae0   Section        0  msystick_program.o(i.MSYSTICK_stderrorInit)
+    i.MSYSTICK_stderrorSetBusyWait           0x08000b0c   Section        0  msystick_program.o(i.MSYSTICK_stderrorSetBusyWait)
+    i.MSYSTICK_stderrorSetPeriodiceInterval  0x08000b3c   Section        0  msystick_program.o(i.MSYSTICK_stderrorSetPeriodiceInterval)
+    i.MSYSTICK_voidStopTICK                  0x08000b78   Section        0  msystick_program.o(i.MSYSTICK_voidStopTICK)
+    i.MUART_u16GetData                       0x08000b8a   Section        0  muart_program.o(i.MUART_u16GetData)
+    i.MUART_u8RXNEFlag                       0x08000ba2   Section        0  muart_program.o(i.MUART_u8RXNEFlag)
+    i.MUART_voidInit                         0x08000bbc   Section        0  muart_program.o(i.MUART_voidInit)
+    i.MUART_voidInterruptDisable             0x08000c90   Section        0  muart_program.o(i.MUART_voidInterruptDisable)
+    i.MUART_voidTransimit                    0x08000cac   Section        0  muart_program.o(i.MUART_voidTransimit)
+    i.RCC_EnablePeripheralClk                0x08000ccc   Section        0  mrcc_program.o(i.RCC_EnablePeripheralClk)
+    i.SWIFI_errConfigSoftAP                  0x08000d20   Section        0  swifi_program.o(i.SWIFI_errConfigSoftAP)
+    i.SWIFI_errConnectSSID                   0x08000dd8   Section        0  swifi_program.o(i.SWIFI_errConnectSSID)
+    i.SWIFI_errDisconnectSSID                0x08000e60   Section        0  swifi_program.o(i.SWIFI_errDisconnectSSID)
+    i.SWIFI_errTurnOn                        0x08000e94   Section        0  swifi_program.o(i.SWIFI_errTurnOn)
+    i.SetSysClock                            0x08000f1c   Section        0  system_stm32f10x.o(i.SetSysClock)
+    SetSysClock                              0x08000f1d   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
+    i.SetSysClockTo72                        0x08000f24   Section        0  system_stm32f10x.o(i.SetSysClockTo72)
+    SetSysClockTo72                          0x08000f25   Thumb Code   214  system_stm32f10x.o(i.SetSysClockTo72)
+    i.SysTick_Handler                        0x08001004   Section        0  msystick_program.o(i.SysTick_Handler)
+    i.SystemInit                             0x08001040   Section        0  system_stm32f10x.o(i.SystemInit)
+    i.USART1_IRQHandler                      0x080010a0   Section        0  muart_program.o(i.USART1_IRQHandler)
+    i.USART2_IRQHandler                      0x080010b4   Section        0  muart_program.o(i.USART2_IRQHandler)
+    i.app_init                               0x080010c8   Section        0  main.o(i.app_init)
+    i.main                                   0x080010f0   Section        0  main.o(i.main)
+    x$fpl$dadd                               0x08001170   Section      336  daddsub_clz.o(x$fpl$dadd)
+    _dadd1                                   0x08001181   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    x$fpl$ddiv                               0x080012c0   Section      688  ddiv.o(x$fpl$ddiv)
+    ddiv_entry                               0x080012c7   Thumb Code     0  ddiv.o(x$fpl$ddiv)
+    x$fpl$dfix                               0x08001570   Section       94  dfix.o(x$fpl$dfix)
+    x$fpl$dflt                               0x080015ce   Section       46  dflt_clz.o(x$fpl$dflt)
+    x$fpl$dfltu                              0x080015fc   Section       38  dflt_clz.o(x$fpl$dfltu)
+    x$fpl$dmul                               0x08001624   Section      340  dmul.o(x$fpl$dmul)
+    x$fpl$dnaninf                            0x08001778   Section      156  dnaninf.o(x$fpl$dnaninf)
+    x$fpl$dretinf                            0x08001814   Section       12  dretinf.o(x$fpl$dretinf)
+    x$fpl$drsb                               0x08001820   Section       22  daddsub_clz.o(x$fpl$drsb)
+    x$fpl$dsub                               0x08001838   Section      468  daddsub_clz.o(x$fpl$dsub)
+    _dsub1                                   0x08001849   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    x$fpl$usenofp                            0x08001a0c   Section        0  usenofp.o(x$fpl$usenofp)
     .data                                    0x20000000   Section        8  hesp_program.o(.data)
     .data                                    0x20000008   Section        1  mrcc_program.o(.data)
     MRCC_u8PllCk                             0x20000008   Data           1  mrcc_program.o(.data)
     .data                                    0x2000000c   Section        5  msystick_program.o(.data)
     MSYSTICK_pvoidfUserFunctionSysTick       0x2000000c   Data           4  msystick_program.o(.data)
     MSYSTICK_u8SelectISR                     0x20000010   Data           1  msystick_program.o(.data)
+    .data                                    0x20000011   Section        1  main.o(.data)
     .bss                                     0x20000014   Section       12  muart_program.o(.bss)
-    .bss                                     0x20000020   Section       50  main.o(.bss)
+    .bss                                     0x20000020   Section       50  swifi_program.o(.bss)
     .bss                                     0x20000054   Section       96  libspace.o(.bss)
     HEAP                                     0x200000b8   Section      512  startup_stm32f10x_ld.o(HEAP)
     Heap_Mem                                 0x200000b8   Data         512  startup_stm32f10x_ld.o(HEAP)
@@ -572,56 +597,61 @@ Image Symbol Table
     __I$use$semihosting                      0x080002d5   Thumb Code     0  use_no_semi.o(.text)
     __use_no_semihosting_swi                 0x080002d5   Thumb Code     2  use_no_semi.o(.text)
     __semihosting_library_function           0x080002d7   Thumb Code     0  indicate_semi.o(.text)
-    ESP_errEchoEnable                        0x08000309   Thumb Code    14  hesp_program.o(i.ESP_errEchoEnable)
-    GetUsartPointer                          0x08000321   Thumb Code    38  muart_program.o(i.GetUsartPointer)
-    HESP_INIT                                0x08000355   Thumb Code    82  hesp_program.o(i.HESP_INIT)
-    HESP_RESET                               0x080003a9   Thumb Code    36  hesp_program.o(i.HESP_RESET)
-    HESP_SEND_COMMAND                        0x080003d5   Thumb Code   388  hesp_program.o(i.HESP_SEND_COMMAND)
-    HESP_voidInterruptDisable                0x0800058d   Thumb Code    12  hesp_program.o(i.HESP_voidInterruptDisable)
-    MGPIO_stderrorPinModeSelect              0x08000599   Thumb Code   586  mgpio_program.o(i.MGPIO_stderrorPinModeSelect)
-    MGPIO_stderrorSetPinValue                0x080007e9   Thumb Code   194  mgpio_program.o(i.MGPIO_stderrorSetPinValue)
-    MRCC_stderrorInit                        0x080008b1   Thumb Code   548  mrcc_program.o(i.MRCC_stderrorInit)
-    MSYSTICK_stderrorInit                    0x08000add   Thumb Code    44  msystick_program.o(i.MSYSTICK_stderrorInit)
-    MSYSTICK_stderrorSetBusyWait             0x08000b09   Thumb Code    46  msystick_program.o(i.MSYSTICK_stderrorSetBusyWait)
-    MSYSTICK_stderrorSetPeriodiceInterval    0x08000b39   Thumb Code    50  msystick_program.o(i.MSYSTICK_stderrorSetPeriodiceInterval)
-    MSYSTICK_voidStopTICK                    0x08000b75   Thumb Code    18  msystick_program.o(i.MSYSTICK_voidStopTICK)
-    MUART_u16GetData                         0x08000b87   Thumb Code    24  muart_program.o(i.MUART_u16GetData)
-    MUART_u8RXNEFlag                         0x08000b9f   Thumb Code    26  muart_program.o(i.MUART_u8RXNEFlag)
-    MUART_voidInit                           0x08000bb9   Thumb Code   202  muart_program.o(i.MUART_voidInit)
-    MUART_voidInterruptDisable               0x08000c8d   Thumb Code    28  muart_program.o(i.MUART_voidInterruptDisable)
-    MUART_voidTransimit                      0x08000ca9   Thumb Code    32  muart_program.o(i.MUART_voidTransimit)
-    RCC_EnablePeripheralClk                  0x08000cc9   Thumb Code    80  mrcc_program.o(i.RCC_EnablePeripheralClk)
-    SysTick_Handler                          0x08000e05   Thumb Code    52  msystick_program.o(i.SysTick_Handler)
-    SystemInit                               0x08000e41   Thumb Code    78  system_stm32f10x.o(i.SystemInit)
-    USART1_IRQHandler                        0x08000ea1   Thumb Code    16  muart_program.o(i.USART1_IRQHandler)
-    USART2_IRQHandler                        0x08000eb5   Thumb Code    16  muart_program.o(i.USART2_IRQHandler)
-    app_init                                 0x08000ec9   Thumb Code    44  main.o(i.app_init)
-    main                                     0x08000ef5   Thumb Code    60  main.o(i.main)
-    __aeabi_dadd                             0x08000f45   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
-    _dadd                                    0x08000f45   Thumb Code   332  daddsub_clz.o(x$fpl$dadd)
-    __aeabi_ddiv                             0x08001095   Thumb Code     0  ddiv.o(x$fpl$ddiv)
-    _ddiv                                    0x08001095   Thumb Code   552  ddiv.o(x$fpl$ddiv)
-    __aeabi_d2iz                             0x08001345   Thumb Code     0  dfix.o(x$fpl$dfix)
-    _dfix                                    0x08001345   Thumb Code    94  dfix.o(x$fpl$dfix)
-    __aeabi_i2d                              0x080013a3   Thumb Code     0  dflt_clz.o(x$fpl$dflt)
-    _dflt                                    0x080013a3   Thumb Code    46  dflt_clz.o(x$fpl$dflt)
-    __aeabi_ui2d                             0x080013d1   Thumb Code     0  dflt_clz.o(x$fpl$dfltu)
-    _dfltu                                   0x080013d1   Thumb Code    38  dflt_clz.o(x$fpl$dfltu)
-    __aeabi_dmul                             0x080013f9   Thumb Code     0  dmul.o(x$fpl$dmul)
-    _dmul                                    0x080013f9   Thumb Code   332  dmul.o(x$fpl$dmul)
-    __fpl_dnaninf                            0x0800154d   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
-    __fpl_dretinf                            0x080015e9   Thumb Code    12  dretinf.o(x$fpl$dretinf)
-    __aeabi_drsub                            0x080015f5   Thumb Code     0  daddsub_clz.o(x$fpl$drsb)
-    _drsb                                    0x080015f5   Thumb Code    22  daddsub_clz.o(x$fpl$drsb)
-    __aeabi_dsub                             0x0800160d   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
-    _dsub                                    0x0800160d   Thumb Code   464  daddsub_clz.o(x$fpl$dsub)
-    Region$$Table$$Base                      0x080017e0   Number         0  anon$$obj.o(Region$$Table)
-    __I$use$fp                               0x080017e0   Number         0  usenofp.o(x$fpl$usenofp)
-    Region$$Table$$Limit                     0x08001800   Number         0  anon$$obj.o(Region$$Table)
+    GetUsartPointer                          0x08000309   Thumb Code    38  muart_program.o(i.GetUsartPointer)
+    HESP_INIT                                0x0800033d   Thumb Code    82  hesp_program.o(i.HESP_INIT)
+    HESP_RESET                               0x08000391   Thumb Code    36  hesp_program.o(i.HESP_RESET)
+    HESP_SEND_COMMAND                        0x080003bd   Thumb Code   388  hesp_program.o(i.HESP_SEND_COMMAND)
+    HESP_errCheckESP                         0x08000575   Thumb Code    18  hesp_program.o(i.HESP_errCheckESP)
+    HESP_voidInterruptDisable                0x08000591   Thumb Code    12  hesp_program.o(i.HESP_voidInterruptDisable)
+    MGPIO_stderrorPinModeSelect              0x0800059d   Thumb Code   586  mgpio_program.o(i.MGPIO_stderrorPinModeSelect)
+    MGPIO_stderrorSetPinValue                0x080007ed   Thumb Code   194  mgpio_program.o(i.MGPIO_stderrorSetPinValue)
+    MRCC_stderrorInit                        0x080008b5   Thumb Code   548  mrcc_program.o(i.MRCC_stderrorInit)
+    MSYSTICK_stderrorInit                    0x08000ae1   Thumb Code    44  msystick_program.o(i.MSYSTICK_stderrorInit)
+    MSYSTICK_stderrorSetBusyWait             0x08000b0d   Thumb Code    46  msystick_program.o(i.MSYSTICK_stderrorSetBusyWait)
+    MSYSTICK_stderrorSetPeriodiceInterval    0x08000b3d   Thumb Code    50  msystick_program.o(i.MSYSTICK_stderrorSetPeriodiceInterval)
+    MSYSTICK_voidStopTICK                    0x08000b79   Thumb Code    18  msystick_program.o(i.MSYSTICK_voidStopTICK)
+    MUART_u16GetData                         0x08000b8b   Thumb Code    24  muart_program.o(i.MUART_u16GetData)
+    MUART_u8RXNEFlag                         0x08000ba3   Thumb Code    26  muart_program.o(i.MUART_u8RXNEFlag)
+    MUART_voidInit                           0x08000bbd   Thumb Code   202  muart_program.o(i.MUART_voidInit)
+    MUART_voidInterruptDisable               0x08000c91   Thumb Code    28  muart_program.o(i.MUART_voidInterruptDisable)
+    MUART_voidTransimit                      0x08000cad   Thumb Code    32  muart_program.o(i.MUART_voidTransimit)
+    RCC_EnablePeripheralClk                  0x08000ccd   Thumb Code    80  mrcc_program.o(i.RCC_EnablePeripheralClk)
+    SWIFI_errConfigSoftAP                    0x08000d21   Thumb Code   150  swifi_program.o(i.SWIFI_errConfigSoftAP)
+    SWIFI_errConnectSSID                     0x08000dd9   Thumb Code   108  swifi_program.o(i.SWIFI_errConnectSSID)
+    SWIFI_errDisconnectSSID                  0x08000e61   Thumb Code    36  swifi_program.o(i.SWIFI_errDisconnectSSID)
+    SWIFI_errTurnOn                          0x08000e95   Thumb Code    84  swifi_program.o(i.SWIFI_errTurnOn)
+    SysTick_Handler                          0x08001005   Thumb Code    52  msystick_program.o(i.SysTick_Handler)
+    SystemInit                               0x08001041   Thumb Code    78  system_stm32f10x.o(i.SystemInit)
+    USART1_IRQHandler                        0x080010a1   Thumb Code    16  muart_program.o(i.USART1_IRQHandler)
+    USART2_IRQHandler                        0x080010b5   Thumb Code    16  muart_program.o(i.USART2_IRQHandler)
+    app_init                                 0x080010c9   Thumb Code    38  main.o(i.app_init)
+    main                                     0x080010f1   Thumb Code    76  main.o(i.main)
+    __aeabi_dadd                             0x08001171   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    _dadd                                    0x08001171   Thumb Code   332  daddsub_clz.o(x$fpl$dadd)
+    __aeabi_ddiv                             0x080012c1   Thumb Code     0  ddiv.o(x$fpl$ddiv)
+    _ddiv                                    0x080012c1   Thumb Code   552  ddiv.o(x$fpl$ddiv)
+    __aeabi_d2iz                             0x08001571   Thumb Code     0  dfix.o(x$fpl$dfix)
+    _dfix                                    0x08001571   Thumb Code    94  dfix.o(x$fpl$dfix)
+    __aeabi_i2d                              0x080015cf   Thumb Code     0  dflt_clz.o(x$fpl$dflt)
+    _dflt                                    0x080015cf   Thumb Code    46  dflt_clz.o(x$fpl$dflt)
+    __aeabi_ui2d                             0x080015fd   Thumb Code     0  dflt_clz.o(x$fpl$dfltu)
+    _dfltu                                   0x080015fd   Thumb Code    38  dflt_clz.o(x$fpl$dfltu)
+    __aeabi_dmul                             0x08001625   Thumb Code     0  dmul.o(x$fpl$dmul)
+    _dmul                                    0x08001625   Thumb Code   332  dmul.o(x$fpl$dmul)
+    __fpl_dnaninf                            0x08001779   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
+    __fpl_dretinf                            0x08001815   Thumb Code    12  dretinf.o(x$fpl$dretinf)
+    __aeabi_drsub                            0x08001821   Thumb Code     0  daddsub_clz.o(x$fpl$drsb)
+    _drsb                                    0x08001821   Thumb Code    22  daddsub_clz.o(x$fpl$drsb)
+    __aeabi_dsub                             0x08001839   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    _dsub                                    0x08001839   Thumb Code   464  daddsub_clz.o(x$fpl$dsub)
+    Region$$Table$$Base                      0x08001a0c   Number         0  anon$$obj.o(Region$$Table)
+    __I$use$fp                               0x08001a0c   Number         0  usenofp.o(x$fpl$usenofp)
+    Region$$Table$$Limit                     0x08001a2c   Number         0  anon$$obj.o(Region$$Table)
     ISTimeOut                                0x20000000   Data           1  hesp_program.o(.data)
     L_u32TimeOutCounter                      0x20000004   Data           4  hesp_program.o(.data)
+    DATA                                     0x20000011   Data           1  main.o(.data)
     MUART_CALLBACK                           0x20000014   Data          12  muart_program.o(.bss)
-    Response_Buffer                          0x20000020   Data          50  main.o(.bss)
+    WIFI_Buffer                              0x20000020   Data          50  swifi_program.o(.bss)
     __libspace_start                         0x20000054   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x200000b4   Data           0  libspace.o(.bss)
 
@@ -633,132 +663,138 @@ Memory Map of the image
 
   Image Entry point : 0x080000ed
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00001814, Max: 0x00008000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00001a40, Max: 0x00008000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00001800, Max: 0x00008000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00001a2c, Max: 0x00008000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x08000000   0x000000ec   Data   RO          371    RESET               startup_stm32f10x_ld.o
-    0x080000ec   0x080000ec   0x00000008   Code   RO          451  * !!!main             c_w.l(__main.o)
-    0x080000f4   0x080000f4   0x00000034   Code   RO          635    !!!scatter          c_w.l(__scatter.o)
-    0x08000128   0x08000128   0x0000001a   Code   RO          637    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x08000000   0x08000000   0x000000ec   Data   RO          423    RESET               startup_stm32f10x_ld.o
+    0x080000ec   0x080000ec   0x00000008   Code   RO          503  * !!!main             c_w.l(__main.o)
+    0x080000f4   0x080000f4   0x00000034   Code   RO          687    !!!scatter          c_w.l(__scatter.o)
+    0x08000128   0x08000128   0x0000001a   Code   RO          689    !!handler_copy      c_w.l(__scatter_copy.o)
     0x08000142   0x08000142   0x00000002   PAD
-    0x08000144   0x08000144   0x0000001c   Code   RO          639    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x08000160   0x08000160   0x00000002   Code   RO          505    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          512    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          514    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          517    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          519    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          521    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          524    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          526    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          528    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          530    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          532    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          534    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          536    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          538    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          540    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          542    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          544    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          548    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          550    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          552    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000000   Code   RO          554    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x08000162   0x08000162   0x00000002   Code   RO          555    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x08000164   0x08000164   0x00000002   Code   RO          575    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          588    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          590    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          593    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          596    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          598    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x08000166   0x08000166   0x00000000   Code   RO          601    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x08000166   0x08000166   0x00000002   Code   RO          602    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
-    0x08000168   0x08000168   0x00000000   Code   RO          475    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x08000168   0x08000168   0x00000000   Code   RO          482    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x08000168   0x08000168   0x00000006   Code   RO          494    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x0800016e   0x0800016e   0x00000000   Code   RO          484    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x0800016e   0x0800016e   0x00000004   Code   RO          485    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x08000172   0x08000172   0x00000000   Code   RO          487    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x08000172   0x08000172   0x00000008   Code   RO          488    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0800017a   0x0800017a   0x00000002   Code   RO          509    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x0800017c   0x0800017c   0x00000000   Code   RO          557    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x0800017c   0x0800017c   0x00000004   Code   RO          558    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x08000180   0x08000180   0x00000006   Code   RO          559    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x08000144   0x08000144   0x0000001c   Code   RO          691    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x08000160   0x08000160   0x00000002   Code   RO          557    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          564    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          566    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          569    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          571    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          573    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          576    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          578    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          580    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          582    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          584    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          586    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          588    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          590    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          592    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          594    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          596    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          600    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          602    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          604    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000000   Code   RO          606    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x08000162   0x08000162   0x00000002   Code   RO          607    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x08000164   0x08000164   0x00000002   Code   RO          627    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          640    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          642    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          645    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          648    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          650    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x08000166   0x08000166   0x00000000   Code   RO          653    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x08000166   0x08000166   0x00000002   Code   RO          654    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
+    0x08000168   0x08000168   0x00000000   Code   RO          527    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x08000168   0x08000168   0x00000000   Code   RO          534    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x08000168   0x08000168   0x00000006   Code   RO          546    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0800016e   0x0800016e   0x00000000   Code   RO          536    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0800016e   0x0800016e   0x00000004   Code   RO          537    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x08000172   0x08000172   0x00000000   Code   RO          539    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x08000172   0x08000172   0x00000008   Code   RO          540    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0800017a   0x0800017a   0x00000002   Code   RO          561    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x0800017c   0x0800017c   0x00000000   Code   RO          609    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x0800017c   0x0800017c   0x00000004   Code   RO          610    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x08000180   0x08000180   0x00000006   Code   RO          611    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x08000186   0x08000186   0x00000002   PAD
-    0x08000188   0x08000188   0x00000040   Code   RO          372    .text               startup_stm32f10x_ld.o
-    0x080001c8   0x080001c8   0x00000096   Code   RO          447    .text               c_w.l(strncmp.o)
-    0x0800025e   0x0800025e   0x00000006   Code   RO          449    .text               c_w.l(heapauxi.o)
-    0x08000264   0x08000264   0x0000004a   Code   RO          496    .text               c_w.l(sys_stackheap_outer.o)
-    0x080002ae   0x080002ae   0x00000012   Code   RO          498    .text               c_w.l(exit.o)
-    0x080002c0   0x080002c0   0x00000008   Code   RO          506    .text               c_w.l(libspace.o)
-    0x080002c8   0x080002c8   0x0000000c   Code   RO          567    .text               c_w.l(sys_exit.o)
-    0x080002d4   0x080002d4   0x00000002   Code   RO          578    .text               c_w.l(use_no_semi.o)
-    0x080002d6   0x080002d6   0x00000000   Code   RO          580    .text               c_w.l(indicate_semi.o)
+    0x08000188   0x08000188   0x00000040   Code   RO          424    .text               startup_stm32f10x_ld.o
+    0x080001c8   0x080001c8   0x00000096   Code   RO          499    .text               c_w.l(strncmp.o)
+    0x0800025e   0x0800025e   0x00000006   Code   RO          501    .text               c_w.l(heapauxi.o)
+    0x08000264   0x08000264   0x0000004a   Code   RO          548    .text               c_w.l(sys_stackheap_outer.o)
+    0x080002ae   0x080002ae   0x00000012   Code   RO          550    .text               c_w.l(exit.o)
+    0x080002c0   0x080002c0   0x00000008   Code   RO          558    .text               c_w.l(libspace.o)
+    0x080002c8   0x080002c8   0x0000000c   Code   RO          619    .text               c_w.l(sys_exit.o)
+    0x080002d4   0x080002d4   0x00000002   Code   RO          630    .text               c_w.l(use_no_semi.o)
+    0x080002d6   0x080002d6   0x00000000   Code   RO          632    .text               c_w.l(indicate_semi.o)
     0x080002d6   0x080002d6   0x00000002   PAD
     0x080002d8   0x080002d8   0x00000030   Code   RO            1    i.ESP_TimeOutAlarm  hesp_program.o
-    0x08000308   0x08000308   0x00000018   Code   RO            3    i.ESP_errEchoEnable  hesp_program.o
-    0x08000320   0x08000320   0x00000034   Code   RO          261    i.GetUsartPointer   muart_program.o
-    0x08000354   0x08000354   0x00000052   Code   RO            5    i.HESP_INIT         hesp_program.o
-    0x080003a6   0x080003a6   0x00000002   PAD
-    0x080003a8   0x080003a8   0x0000002c   Code   RO            6    i.HESP_RESET        hesp_program.o
-    0x080003d4   0x080003d4   0x000001b8   Code   RO            7    i.HESP_SEND_COMMAND  hesp_program.o
-    0x0800058c   0x0800058c   0x0000000c   Code   RO            8    i.HESP_voidInterruptDisable  hesp_program.o
-    0x08000598   0x08000598   0x00000250   Code   RO           99    i.MGPIO_stderrorPinModeSelect  mgpio_program.o
-    0x080007e8   0x080007e8   0x000000c8   Code   RO          101    i.MGPIO_stderrorSetPinValue  mgpio_program.o
-    0x080008b0   0x080008b0   0x0000022c   Code   RO          137    i.MRCC_stderrorInit  mrcc_program.o
-    0x08000adc   0x08000adc   0x0000002c   Code   RO          179    i.MSYSTICK_stderrorInit  msystick_program.o
-    0x08000b08   0x08000b08   0x0000002e   Code   RO          180    i.MSYSTICK_stderrorSetBusyWait  msystick_program.o
-    0x08000b36   0x08000b36   0x00000002   PAD
-    0x08000b38   0x08000b38   0x0000003c   Code   RO          181    i.MSYSTICK_stderrorSetPeriodiceInterval  msystick_program.o
-    0x08000b74   0x08000b74   0x00000012   Code   RO          185    i.MSYSTICK_voidStopTICK  msystick_program.o
-    0x08000b86   0x08000b86   0x00000018   Code   RO          262    i.MUART_u16GetData  muart_program.o
-    0x08000b9e   0x08000b9e   0x0000001a   Code   RO          263    i.MUART_u8RXNEFlag  muart_program.o
-    0x08000bb8   0x08000bb8   0x000000d4   Code   RO          266    i.MUART_voidInit    muart_program.o
-    0x08000c8c   0x08000c8c   0x0000001c   Code   RO          267    i.MUART_voidInterruptDisable  muart_program.o
-    0x08000ca8   0x08000ca8   0x00000020   Code   RO          270    i.MUART_voidTransimit  muart_program.o
-    0x08000cc8   0x08000cc8   0x00000054   Code   RO          140    i.RCC_EnablePeripheralClk  mrcc_program.o
-    0x08000d1c   0x08000d1c   0x00000008   Code   RO          380    i.SetSysClock       system_stm32f10x.o
-    0x08000d24   0x08000d24   0x000000e0   Code   RO          381    i.SetSysClockTo72   system_stm32f10x.o
-    0x08000e04   0x08000e04   0x0000003c   Code   RO          186    i.SysTick_Handler   msystick_program.o
-    0x08000e40   0x08000e40   0x00000060   Code   RO          383    i.SystemInit        system_stm32f10x.o
-    0x08000ea0   0x08000ea0   0x00000014   Code   RO          271    i.USART1_IRQHandler  muart_program.o
-    0x08000eb4   0x08000eb4   0x00000014   Code   RO          272    i.USART2_IRQHandler  muart_program.o
-    0x08000ec8   0x08000ec8   0x0000002c   Code   RO          345    i.app_init          main.o
-    0x08000ef4   0x08000ef4   0x00000050   Code   RO          346    i.main              main.o
-    0x08000f44   0x08000f44   0x00000150   Code   RO          453    x$fpl$dadd          fz_ws.l(daddsub_clz.o)
-    0x08001094   0x08001094   0x000002b0   Code   RO          460    x$fpl$ddiv          fz_ws.l(ddiv.o)
-    0x08001344   0x08001344   0x0000005e   Code   RO          463    x$fpl$dfix          fz_ws.l(dfix.o)
-    0x080013a2   0x080013a2   0x0000002e   Code   RO          468    x$fpl$dflt          fz_ws.l(dflt_clz.o)
-    0x080013d0   0x080013d0   0x00000026   Code   RO          467    x$fpl$dfltu         fz_ws.l(dflt_clz.o)
-    0x080013f6   0x080013f6   0x00000002   PAD
-    0x080013f8   0x080013f8   0x00000154   Code   RO          473    x$fpl$dmul          fz_ws.l(dmul.o)
-    0x0800154c   0x0800154c   0x0000009c   Code   RO          476    x$fpl$dnaninf       fz_ws.l(dnaninf.o)
-    0x080015e8   0x080015e8   0x0000000c   Code   RO          478    x$fpl$dretinf       fz_ws.l(dretinf.o)
-    0x080015f4   0x080015f4   0x00000016   Code   RO          454    x$fpl$drsb          fz_ws.l(daddsub_clz.o)
-    0x0800160a   0x0800160a   0x00000002   PAD
-    0x0800160c   0x0800160c   0x000001d4   Code   RO          455    x$fpl$dsub          fz_ws.l(daddsub_clz.o)
-    0x080017e0   0x080017e0   0x00000000   Code   RO          480    x$fpl$usenofp       fz_ws.l(usenofp.o)
-    0x080017e0   0x080017e0   0x00000020   Data   RO          633    Region$$Table       anon$$obj.o
+    0x08000308   0x08000308   0x00000034   Code   RO          267    i.GetUsartPointer   muart_program.o
+    0x0800033c   0x0800033c   0x00000052   Code   RO            5    i.HESP_INIT         hesp_program.o
+    0x0800038e   0x0800038e   0x00000002   PAD
+    0x08000390   0x08000390   0x0000002c   Code   RO            6    i.HESP_RESET        hesp_program.o
+    0x080003bc   0x080003bc   0x000001b8   Code   RO            7    i.HESP_SEND_COMMAND  hesp_program.o
+    0x08000574   0x08000574   0x0000001c   Code   RO            8    i.HESP_errCheckESP  hesp_program.o
+    0x08000590   0x08000590   0x0000000c   Code   RO            9    i.HESP_voidInterruptDisable  hesp_program.o
+    0x0800059c   0x0800059c   0x00000250   Code   RO          105    i.MGPIO_stderrorPinModeSelect  mgpio_program.o
+    0x080007ec   0x080007ec   0x000000c8   Code   RO          107    i.MGPIO_stderrorSetPinValue  mgpio_program.o
+    0x080008b4   0x080008b4   0x0000022c   Code   RO          143    i.MRCC_stderrorInit  mrcc_program.o
+    0x08000ae0   0x08000ae0   0x0000002c   Code   RO          185    i.MSYSTICK_stderrorInit  msystick_program.o
+    0x08000b0c   0x08000b0c   0x0000002e   Code   RO          186    i.MSYSTICK_stderrorSetBusyWait  msystick_program.o
+    0x08000b3a   0x08000b3a   0x00000002   PAD
+    0x08000b3c   0x08000b3c   0x0000003c   Code   RO          187    i.MSYSTICK_stderrorSetPeriodiceInterval  msystick_program.o
+    0x08000b78   0x08000b78   0x00000012   Code   RO          191    i.MSYSTICK_voidStopTICK  msystick_program.o
+    0x08000b8a   0x08000b8a   0x00000018   Code   RO          268    i.MUART_u16GetData  muart_program.o
+    0x08000ba2   0x08000ba2   0x0000001a   Code   RO          269    i.MUART_u8RXNEFlag  muart_program.o
+    0x08000bbc   0x08000bbc   0x000000d4   Code   RO          272    i.MUART_voidInit    muart_program.o
+    0x08000c90   0x08000c90   0x0000001c   Code   RO          273    i.MUART_voidInterruptDisable  muart_program.o
+    0x08000cac   0x08000cac   0x00000020   Code   RO          276    i.MUART_voidTransimit  muart_program.o
+    0x08000ccc   0x08000ccc   0x00000054   Code   RO          146    i.RCC_EnablePeripheralClk  mrcc_program.o
+    0x08000d20   0x08000d20   0x000000b8   Code   RO          351    i.SWIFI_errConfigSoftAP  swifi_program.o
+    0x08000dd8   0x08000dd8   0x00000088   Code   RO          352    i.SWIFI_errConnectSSID  swifi_program.o
+    0x08000e60   0x08000e60   0x00000034   Code   RO          353    i.SWIFI_errDisconnectSSID  swifi_program.o
+    0x08000e94   0x08000e94   0x00000088   Code   RO          355    i.SWIFI_errTurnOn   swifi_program.o
+    0x08000f1c   0x08000f1c   0x00000008   Code   RO          432    i.SetSysClock       system_stm32f10x.o
+    0x08000f24   0x08000f24   0x000000e0   Code   RO          433    i.SetSysClockTo72   system_stm32f10x.o
+    0x08001004   0x08001004   0x0000003c   Code   RO          192    i.SysTick_Handler   msystick_program.o
+    0x08001040   0x08001040   0x00000060   Code   RO          435    i.SystemInit        system_stm32f10x.o
+    0x080010a0   0x080010a0   0x00000014   Code   RO          277    i.USART1_IRQHandler  muart_program.o
+    0x080010b4   0x080010b4   0x00000014   Code   RO          278    i.USART2_IRQHandler  muart_program.o
+    0x080010c8   0x080010c8   0x00000026   Code   RO          396    i.app_init          main.o
+    0x080010ee   0x080010ee   0x00000002   PAD
+    0x080010f0   0x080010f0   0x00000080   Code   RO          397    i.main              main.o
+    0x08001170   0x08001170   0x00000150   Code   RO          505    x$fpl$dadd          fz_ws.l(daddsub_clz.o)
+    0x080012c0   0x080012c0   0x000002b0   Code   RO          512    x$fpl$ddiv          fz_ws.l(ddiv.o)
+    0x08001570   0x08001570   0x0000005e   Code   RO          515    x$fpl$dfix          fz_ws.l(dfix.o)
+    0x080015ce   0x080015ce   0x0000002e   Code   RO          520    x$fpl$dflt          fz_ws.l(dflt_clz.o)
+    0x080015fc   0x080015fc   0x00000026   Code   RO          519    x$fpl$dfltu         fz_ws.l(dflt_clz.o)
+    0x08001622   0x08001622   0x00000002   PAD
+    0x08001624   0x08001624   0x00000154   Code   RO          525    x$fpl$dmul          fz_ws.l(dmul.o)
+    0x08001778   0x08001778   0x0000009c   Code   RO          528    x$fpl$dnaninf       fz_ws.l(dnaninf.o)
+    0x08001814   0x08001814   0x0000000c   Code   RO          530    x$fpl$dretinf       fz_ws.l(dretinf.o)
+    0x08001820   0x08001820   0x00000016   Code   RO          506    x$fpl$drsb          fz_ws.l(daddsub_clz.o)
+    0x08001836   0x08001836   0x00000002   PAD
+    0x08001838   0x08001838   0x000001d4   Code   RO          507    x$fpl$dsub          fz_ws.l(daddsub_clz.o)
+    0x08001a0c   0x08001a0c   0x00000000   Code   RO          532    x$fpl$usenofp       fz_ws.l(usenofp.o)
+    0x08001a0c   0x08001a0c   0x00000020   Data   RO          685    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08001800, Size: 0x000006b8, Max: 0x00002800, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08001a2c, Size: 0x000006b8, Max: 0x00002800, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08001800   0x00000008   Data   RW           10    .data               hesp_program.o
-    0x20000008   0x08001808   0x00000001   Data   RW          141    .data               mrcc_program.o
-    0x20000009   0x08001809   0x00000003   PAD
-    0x2000000c   0x0800180c   0x00000005   Data   RW          187    .data               msystick_program.o
-    0x20000011   0x08001811   0x00000003   PAD
-    0x20000014        -       0x0000000c   Zero   RW          273    .bss                muart_program.o
-    0x20000020        -       0x00000032   Zero   RW          347    .bss                main.o
-    0x20000052   0x08001811   0x00000002   PAD
-    0x20000054        -       0x00000060   Zero   RW          507    .bss                c_w.l(libspace.o)
-    0x200000b4   0x08001811   0x00000004   PAD
-    0x200000b8        -       0x00000200   Zero   RW          370    HEAP                startup_stm32f10x_ld.o
-    0x200002b8        -       0x00000400   Zero   RW          369    STACK               startup_stm32f10x_ld.o
+    0x20000000   0x08001a2c   0x00000008   Data   RW           11    .data               hesp_program.o
+    0x20000008   0x08001a34   0x00000001   Data   RW          147    .data               mrcc_program.o
+    0x20000009   0x08001a35   0x00000003   PAD
+    0x2000000c   0x08001a38   0x00000005   Data   RW          193    .data               msystick_program.o
+    0x20000011   0x08001a3d   0x00000001   Data   RW          399    .data               main.o
+    0x20000012   0x08001a3e   0x00000002   PAD
+    0x20000014        -       0x0000000c   Zero   RW          279    .bss                muart_program.o
+    0x20000020        -       0x00000032   Zero   RW          356    .bss                swifi_program.o
+    0x20000052   0x08001a3e   0x00000002   PAD
+    0x20000054        -       0x00000060   Zero   RW          559    .bss                c_w.l(libspace.o)
+    0x200000b4   0x08001a3e   0x00000004   PAD
+    0x200000b8        -       0x00000200   Zero   RW          422    HEAP                startup_stm32f10x_ld.o
+    0x200002b8        -       0x00000400   Zero   RW          421    STACK               startup_stm32f10x_ld.o
 
 
 ==============================================================================
@@ -768,19 +804,20 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       650         80          0          8          0       9777   hesp_program.o
-       124         20          0          0         50       1600   main.o
+       654         80          0          8          0       9828   hesp_program.o
+       166         52          0          1          0       1621   main.o
        792         24          0          0          0       1602   mgpio_program.o
        640         18          0          1          0       1874   mrcc_program.o
        228         18          0          5          0       3429   msystick_program.o
        414         32          0          0         12       7141   muart_program.o
         64         26        236          0       1536        868   startup_stm32f10x_ld.o
+       508        130          0          0         50       4093   swifi_program.o
        328         28          0          0          0       5133   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-      3244        246        268         20       1600      31424   Object Totals
+      3800        408        268         20       1600      35589   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         4          0          0          6          2          0   (incl. Padding)
+         6          0          0          5          2          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -837,15 +874,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5876        438        268         20       1700      31104   Grand Totals
-      5876        438        268         20       1700      31104   ELF Image Totals
-      5876        438        268         20          0          0   ROM Totals
+      6432        600        268         20       1700      35061   Grand Totals
+      6432        600        268         20       1700      35061   ELF Image Totals
+      6432        600        268         20          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 6144 (   6.00kB)
+    Total RO  Size (Code + RO Data)                 6700 (   6.54kB)
     Total RW  Size (RW Data + ZI Data)              1720 (   1.68kB)
-    Total ROM Size (Code + RO Data + RW Data)       6164 (   6.02kB)
+    Total ROM Size (Code + RO Data + RW Data)       6720 (   6.56kB)
 
 ==============================================================================
 

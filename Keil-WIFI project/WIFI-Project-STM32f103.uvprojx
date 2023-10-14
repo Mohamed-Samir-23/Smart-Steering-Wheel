@@ -408,6 +408,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\MUART_program.c</FilePath>
             </File>
+            <File>
+              <FileName>SWIFI_program.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\SWIFI_program.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -492,6 +497,16 @@
               <FileName>MUART_private.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\include\MUART_private.h</FilePath>
+            </File>
+            <File>
+              <FileName>SWIFI_interface.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\include\SWIFI_interface.h</FilePath>
+            </File>
+            <File>
+              <FileName>SWIFI_private.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\include\SWIFI_private.h</FilePath>
             </File>
           </Files>
         </Group>

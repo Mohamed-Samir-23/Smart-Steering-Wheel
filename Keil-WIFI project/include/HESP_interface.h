@@ -32,6 +32,8 @@ void HESP_voidInterruptEnable(void);
 void HESP_voidInterruptDisable(void);
 
 
+ESP_ERR_T HESP_errCheckESP(void);
+
 ESP_ERR_T ESP_errEchoDisable(void);
 ESP_ERR_T ESP_errEchoEnable(void);
 

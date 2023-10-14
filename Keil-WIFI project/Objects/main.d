@@ -8,3 +8,4 @@
 .\objects\main.o: .\include\MUART_interface.h
 .\objects\main.o: .\include\HESP_config.h
 .\objects\main.o: .\include\HESP_interface.h
+.\objects\main.o: .\include\SWIFI_interface.h

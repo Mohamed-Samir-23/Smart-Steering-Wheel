@@ -36,6 +36,9 @@
 
 ESP_ERR_T ISTimeOut = ESP_OK;
 u32 L_u32TimeOutCounter =0;
+
+
+
 void HESP_INIT(void)
 {
 	MSYSTICK_stderrorInit(AHB_DIV_8);
@@ -120,13 +123,13 @@ ESP_ERR_T HESP_SEND_COMMAND(const u8 * Copy_pu8Command, u8 * Copy_pu8Response, u
 ESP_ERR_T ESP_errEchoEnable(void)
 {
 	
-	return HESP_SEND_COMMAND("ATE1\r\n",NULL_POINTER,10);
+	return HESP_SEND_COMMAND((const u8 *)"ATE1\r\n",NULL_POINTER,10);
 }	
 
 ESP_ERR_T ESP_errEchoDisable(void)
 {
 	
-	return HESP_SEND_COMMAND("ATE0\r\n",NULL_POINTER,10);
+	return HESP_SEND_COMMAND((const u8 *)"ATE0\r\n",NULL_POINTER,10);
 }	
 
 void HESP_CALLBACK_INIT(FUNC_T FUNC)
@@ -144,6 +147,12 @@ void HESP_voidInterruptEnable(void)
 void HESP_voidInterruptDisable(void)
 {
 	MUART_voidInterruptDisable(ESP_UART_NUMBER,MUART_INTERRUPT_DS);
+}
+
+ESP_ERR_T HESP_errCheckESP(void)
+{
+	u8 temp[20];
+	return HESP_SEND_COMMAND((const u8 *)"AT\r\n",temp,10);
 }
 
 static void ESP_TimeOutAlarm(void)

@@ -27,24 +27,35 @@ Project File Date:  10/14/2023
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'H:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'WIFI'
+compiling HESP_program.c...
+.\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
+  #warning F_CPU is not define so the default is 8MHz
+src\HESP_program.c: 1 warning, 0 errors
+compiling MGPIO_program.c...
+compiling main.c...
+main.c(42): warning:  #188-D: enumerated type mixed with another type
+  	WIFI_ERROR_T DATA = ESP_OK ;
+main.c(52): warning:  #188-D: enumerated type mixed with another type
+  	DATA 	=	MSYSTICK_stderrorSetBusyWait(8000000*10);
+main.c: 2 warnings, 0 errors
+compiling MRCC_program.c...
+compiling MSYSTICK_program.c...
+compiling SWIFI_program.c...
+.\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
+  #warning F_CPU is not define so the default is 8MHz
+.\include\SWIFI_private.h(16): warning:  #1-D: last line of file ends without a newline
+  #endif
+src\SWIFI_program.c: 2 warnings, 0 errors
 compiling MUART_program.c...
 .\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
   #warning F_CPU is not define so the default is 8MHz
 src\MUART_program.c: 1 warning, 0 errors
 assembling startup_stm32f10x_ld.s...
-compiling HESP_program.c...
-.\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
-  #warning F_CPU is not define so the default is 8MHz
-src\HESP_program.c: 1 warning, 0 errors
-compiling main.c...
-compiling MRCC_program.c...
-compiling MSYSTICK_program.c...
-compiling MGPIO_program.c...
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=5876 RO-data=268 RW-data=20 ZI-data=1700  
+Program Size: Code=6432 RO-data=268 RW-data=20 ZI-data=1700  
 FromELF: creating hex file...
-".\Objects\WIFI-Project-STM32f103.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\WIFI-Project-STM32f103.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -75,7 +86,7 @@ Package Vendor: Keil
       Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Source file:   Device\Source\ARM\startup_stm32f10x_ld.s
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

@@ -32,16 +32,25 @@
 #include "HESP_config.h"
 #include "HESP_interface.h"
 
-/*********API********/
-void app_init(void);
+#include "SWIFI_interface.h"
 
 u8 Response_Buffer[50] = {0};
 
+/*********API********/
+void app_init(void);
+
+	WIFI_ERROR_T DATA = ESP_OK ;
 int main()
 {
-	ESP_ERR_T DATA = ESP_OK ;
+
 	app_init();
 	MRCC_stderrorInit(HSI,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
+	
+	DATA	=	SWIFI_errTurnOn(SWIFI_MODE_STATION_AND_SOFTAP);
+	DATA 	=	SWIFI_errConnectSSID("N9","m123m456");
+	DATA	= SWIFI_errConfigSoftAP("MyESP","12345678","10",SWIFI_CHANNEL_WPA_WPA2_PSK);
+	DATA 	=	MSYSTICK_stderrorSetBusyWait(8000000*10);
+	DATA 	=	SWIFI_errDisconnectSSID();
 	while(1)
 	{
 		/*MGPIO_stderrorSetPinValue(GPIOA,PIN0,HIGH);
@@ -49,7 +58,7 @@ int main()
 		MGPIO_stderrorSetPinValue(GPIOA,PIN0,LOW);
 		
 		*/
-		DATA = HESP_SEND_COMMAND("AT\r\n",Response_Buffer,10);
+		/*DATA = HESP_SEND_COMMAND((const u8 *)"AT\r\n",Response_Buffer,10);
 		ESP_errEchoEnable();
 		if ( ESP_OK ==   DATA)
 		{
@@ -61,11 +70,11 @@ int main()
 				ESP_errEchoEnable();
 		}
 	}
-	
+	*/
+	//SWIFI_
+	}
 
 }
-
-
 void app_init(void)
 {
 	MRCC_stderrorInit(HSI,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
@@ -76,7 +85,7 @@ void app_init(void)
 	/*****ESP initialization********/
 	HESP_INIT();
 
-	MSYSTICK_stderrorInit(AHB);
+	//MSYSTICK_stderrorInit(AHB_);
 
 }
 /*void UART_INIT(void)
