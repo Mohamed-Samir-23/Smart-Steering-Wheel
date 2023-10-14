@@ -50,6 +50,10 @@ void MUART_voidSetCallBack( u8 Copy_u8UART_Number,FUNC_T  Copy_pvUserFunc);
 void MUART_voidInterruptEnable(u8 Copy_u8UART_Number, u8 Copy_u8InterruptType);
 void MUART_voidInterruptDisable(u8 Copy_u8UART_Number, u8 Copy_u8InterruptType);
 
+u8 MUART_u8TCFlag(u8 Copy_u8UART_Number);
+u8 MUART_u8RXNEFlag(u8 Copy_u8UART_Number);
+u16 MUART_u16GetData(u8 Copy_u8UART_Number);
+
 volatile void * GetUsartPointer(u8 Copy_u8UART_Number);
 
 

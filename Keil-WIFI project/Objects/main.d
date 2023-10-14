@@ -6,3 +6,5 @@
 .\objects\main.o: .\include\MGPIO_interface.h
 .\objects\main.o: .\include\MSYSTICK_interface.h
 .\objects\main.o: .\include\MUART_interface.h
+.\objects\main.o: .\include\HESP_config.h
+.\objects\main.o: .\include\HESP_interface.h

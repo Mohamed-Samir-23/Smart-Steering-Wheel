@@ -23,7 +23,7 @@ void MUART_voidInit( u8 Copy_u8UART_Number,u32 Copy_u32BaudRate,u8 Copy_u8Parity
 	volatile USART_T* L_pMyUart = GetUsartPointer(Copy_u8UART_Number);
 	if(NULL_POINTER != L_pMyUart)
 	{
-		L_pMyUart->CR1 |= (L_pMyUart->CR1 & PCE_CLEAR & PS_CLEAR & M_CLEAR ) | ((Copy_u8ParityType>>1)<<PCE_BIT) | ((Copy_u8ParityType & 1)<< PS_BIT) | TE_SET | RE_SET | (Copy_u8WordSize<<M_BIT);
+		L_pMyUart->CR1 |= (L_pMyUart->CR1 & PCE_CLEAR & PS_CLEAR & M_CLEAR ) | (( (~Copy_u8ParityType>>1)&1 )<<PCE_BIT) | ((Copy_u8ParityType & 1)<< PS_BIT) | TE_SET | RE_SET | (Copy_u8WordSize<<M_BIT);
 		mantessa = ((f64)F_CPU / (Copy_u32BaudRate*16.0));
 		fraction = ( mantessa - ((int)mantessa) ) *16;
 		L_pMyUart->BRR = ( ((int)mantessa)<<4 | ((int)fraction) );
@@ -43,12 +43,42 @@ void MUART_voidTransimit( u8 Copy_u8UART_Number,  u16 Copy_u8Data)
 	}
 }
 
+u8 MUART_u8RXNEFlag(u8 Copy_u8UART_Number)
+{
+	volatile USART_T* L_pMyUart = GetUsartPointer(Copy_u8UART_Number);
+	if(NULL_POINTER != L_pMyUart)
+	{
+		return GET_BIT(L_pMyUart->SR,RXNE_BIT);
+	}
+	return 0;
+}
+
+u8 MUART_u8TCFlag(u8 Copy_u8UART_Number)
+{
+	volatile USART_T* L_pMyUart = GetUsartPointer(Copy_u8UART_Number);
+	if(NULL_POINTER != L_pMyUart)
+	{
+		return GET_BIT(L_pMyUart->SR,TC_BIT);
+	}
+	return 0;
+}
+u16 MUART_u16GetData(u8 Copy_u8UART_Number)
+{
+	volatile USART_T* L_pMyUart = GetUsartPointer(Copy_u8UART_Number);
+	if(NULL_POINTER != L_pMyUart)
+	{
+		return (u16) L_pMyUart->DR ;
+	}
+	return 0;
+		
+}
+
 u16 MUART_u8ReceivePolling( u8 Copy_u8UART_Number)
 {
 	volatile USART_T* L_pMyUart = GetUsartPointer(Copy_u8UART_Number);
 	if(NULL_POINTER != L_pMyUart)
 	{
-		while(!GET_BIT(L_pMyUart->SR,RXNE_BIT));
+		while(!MUART_u8RXNEFlag(Copy_u8UART_Number));
 		return (u16) L_pMyUart->DR ;
 		
 	}

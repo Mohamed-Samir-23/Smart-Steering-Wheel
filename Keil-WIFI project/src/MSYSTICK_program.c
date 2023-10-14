@@ -32,7 +32,7 @@ STD_error_t MSYSTICK_stderrorInit
 		STK_CTRL =(STK_CTRL&(~STK_CTRL_Flag));
 		/*Select Clock Source*/
 		STK_CTRL|=(ARG_udtCLkSRC<<2);
-		
+		STK_VAL = 0;
 	}
 	else
 	{
@@ -50,12 +50,13 @@ STD_error_t MSYSTICK_stderrorSetBusyWait
 	u32 ARG_u32Ticks
 )
 {
+	
 	STD_error_t L_stderrorError=E_NOK;
 	STK_LOAD =ARG_u32Ticks-1;
 	STK_VAL=0;
-	STK_CTRL |=1U;
+	STK_CTRL = 1U;
 	while(((STK_CTRL>>16)&1)!=1);
-	STK_CTRL &=~(1U);
+	STK_CTRL = 0;
 	return L_stderrorError;
 }
 
@@ -210,7 +211,8 @@ void SysTick_Handler(void)
 	{
 		
 		MSYSTICK_pvoidfUserFunctionSysTick();
-		STK_CTRL &=~(2U);
+		STK_CTRL &=~(3U);
+		STK_VAL = 0;
 	}
 	else if(MSYSTICK_u8SelectISR ==1)
 	{

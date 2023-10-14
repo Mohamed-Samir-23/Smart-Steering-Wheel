@@ -424,6 +424,11 @@
               <FilePath>.\include\HESP_private.h</FilePath>
             </File>
             <File>
+              <FileName>HESP_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\include\HESP_config.h</FilePath>
+            </File>
+            <File>
               <FileName>LBIT_math.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\include\LBIT_math.h</FilePath>
@@ -553,5 +558,20 @@
       </file>
     </files>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>&lt;Project Info&gt;</LayName>
+        <LayDesc></LayDesc>
+        <LayUrl></LayUrl>
+        <LayKeys></LayKeys>
+        <LayCat></LayCat>
+        <LayLic></LayLic>
+        <LayTarg>0</LayTarg>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

@@ -11,24 +11,31 @@
 #define _HESP_INTERFACE_H_
 
 
+typedef enum 
+{
+    ESP_OK = 1,
+    ESP_TIMEOUT,
+    ESP_ERROR,
+    ESP_FAIL,
+    ESP_BUSY,
+    ESP_RESETED
+}ESP_ERR_T;
 
-#define ON 1
-#define OFF 0
+
 void HESP_INIT(void);
 void HESP_RESET(void);
+ESP_ERR_T HESP_SEND_COMMAND(const u8 * Copy_pu8Command, u8 * Copy_pu8Response, u32 timeout );
+
+
 void HESP_CALLBACK_INIT(FUNC_T FUNC);
-//ESP_ERR_T HESP_SEND_COMMAND(const u8 * command,u8 * response,u16 timeout );
 void HESP_voidInterruptEnable(void);
 void HESP_voidInterruptDisable(void);
 
 
-/*void ESP_SEND_DATA(char * DATA);
+ESP_ERR_T ESP_errEchoDisable(void);
+ESP_ERR_T ESP_errEchoEnable(void);
 
-ESP_ERR_T  ESP_ECHO(uint16_t State, unsigned char * response);
-uint16_t ESP_SENDCOMMAND_CONFIRM(char * command,unsigned char * response,uint16_t timeout , uint16_t TIME_UNIT);
-int String_LENGTH(char * DATA);
-
-void EMPTY_ARR(unsigned char * response);*/
+static void ESP_TimeOutAlarm(void);
 
 
 

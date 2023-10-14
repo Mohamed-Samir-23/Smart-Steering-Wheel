@@ -30,6 +30,7 @@ typedef struct
 #define USART3 ((volatile USART_T * ) 0x40004800)
 
 
+
 // Bit Numbers
 #define UE_BIT      13
 #define M_BIT       12
