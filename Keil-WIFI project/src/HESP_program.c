@@ -81,6 +81,8 @@ ESP_ERR_T HESP_SEND_COMMAND(const u8 * Copy_pu8Command, u8 * Copy_pu8Response, u
 	ISTimeOut = ESP_OK;
 	L_u32TimeOutCounter = timeout;
 	MUART_u16GetData(ESP_UART_NUMBER);
+	
+	
 	/*******Sending Command********/
 	while('\0' != Copy_pu8Command[L_u32Count] )
 	{

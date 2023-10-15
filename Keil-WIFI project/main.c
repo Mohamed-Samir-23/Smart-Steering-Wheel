@@ -39,18 +39,20 @@ u8 Response_Buffer[50] = {0};
 /*********API********/
 void app_init(void);
 
-	WIFI_ERROR_T DATA = ESP_OK ;
+WIFI_ERROR_T DATA = WIFI_OK ;
+
 int main()
 {
-
 	app_init();
 	MRCC_stderrorInit(HSI,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
 	
 	DATA	=	SWIFI_errTurnOn(SWIFI_MODE_STATION_AND_SOFTAP);
+	DATA	= SWIFI_errConfigSoftAP("MyESP","12345678",SWIFI_CNANNEL_10,SWIFI_ENCRYPTION_WPA_WPA2_PSK);
 	DATA 	=	SWIFI_errConnectSSID("N9","m123m456");
-	DATA	= SWIFI_errConfigSoftAP("MyESP","12345678","10",SWIFI_CHANNEL_WPA_WPA2_PSK);
-	DATA 	=	MSYSTICK_stderrorSetBusyWait(8000000*10);
+	
+	MSYSTICK_stderrorSetBusyWait(8000000*10);
 	DATA 	=	SWIFI_errDisconnectSSID();
+	
 	while(1)
 	{
 		/*MGPIO_stderrorSetPinValue(GPIOA,PIN0,HIGH);
