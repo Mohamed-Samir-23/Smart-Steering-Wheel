@@ -38,7 +38,7 @@ typedef double f64;
 /*************************************** NULL_POINTER Define *****************************************/
 typedef enum 
 {
-	E_NOK,
+	E_NOK=0,
 	E_OK,
 	E_NULL_POINTER,
 	E_TIME_OUT,

@@ -32,6 +32,7 @@ STD_error_t MSYSTICK_stderrorInit
 		STK_CTRL =(STK_CTRL&(~STK_CTRL_Flag));
 		/*Select Clock Source*/
 		STK_CTRL|=(ARG_udtCLkSRC<<2);
+		L_stderrorError=E_OK;
 		
 	}
 	else
@@ -75,7 +76,7 @@ STD_error_t MSYSTICK_stderrorSetSingleInterval
 		MSYSTICK_pvoidfUserFunctionSysTick=ARG_pvoidfUserFunction;
 		STK_LOAD =ARG_u32Ticks;
 		STK_CTRL |=3U;
-		
+		L_stderrorError=E_OK;
 	}
 	else
 	{
@@ -102,7 +103,7 @@ STD_error_t MSYSTICK_stderrorSetPeriodiceInterval
 		MSYSTICK_pvoidfUserFunctionSysTick=ARG_pvoidfUserFunction;
 		STK_LOAD =ARG_u32Ticks;
 		STK_CTRL |=3U;
-		
+		L_stderrorError=E_OK;
 	}
 	else
 	{
