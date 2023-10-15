@@ -136,7 +136,7 @@ WIFI_ERROR_T	SWIFI_errGetConnectedSSID(u8 * Copy_pu8SSID)
 
 	if( ESP_OK == L_errESP_Status )
 	{
-		L_errESP_Status = HESP_SEND_COMMAND((const u8 *)"AT+ CWJAP?",Copy_pu8SSID,100);
+		L_errESP_Status = HESP_SEND_COMMAND((const u8 *)"AT+CWJAP?\r\n",Copy_pu8SSID,100);
 		if(ESP_OK == L_errESP_Status)
 		{
 			L_errWIFI_Status = WIFI_OK;
@@ -195,7 +195,7 @@ WIFI_ERROR_T	SWIFI_errCreateTCPServer(const u8 * Copy_u16PortNumber)
 
 	if( ESP_OK == L_errWIFI_Status )
 	{
-			HESP_SEND_COMMAND((const u8 *)"AT+CIPMUX=1",WIFI_Buffer,100);
+			HESP_SEND_COMMAND((const u8 *)"AT+CIPMUX=1\r\n",WIFI_Buffer,100);
 			HESP_SEND_COMMAND((const u8 *)"AT+CIPSERVER=1,",NULL_POINTER,100);
 			HESP_SEND_COMMAND((const u8 *)Copy_u16PortNumber,NULL_POINTER,100);
 			L_errWIFI_Status = (WIFI_ERROR_T)HESP_SEND_COMMAND((const u8 *)"\r\n",WIFI_Buffer,3000);

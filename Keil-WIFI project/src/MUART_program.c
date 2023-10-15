@@ -13,7 +13,7 @@
 
 #include "MUART_private.h"
 #include "MUART_interface.h"
-
+#include "stm32f10x.h"                  // Device header
 /******CallBack*******/
 FUNC_T MUART_CALLBACK[3] = {0};
 /**********APIs************/
@@ -109,6 +109,7 @@ void MUART_voidInterruptDisable(u8 Copy_u8UART_Number, u8 Copy_u8InterruptType)
 	volatile USART_T* L_pMyUart = GetUsartPointer(Copy_u8UART_Number);
 	if(NULL_POINTER != L_pMyUart)
 	{
+			
 			CLEAR_BIT(L_pMyUart->CR1,Copy_u8InterruptType);
 	}
 }

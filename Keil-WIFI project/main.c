@@ -48,10 +48,11 @@ int main()
 	
 	DATA	=	SWIFI_errTurnOn(SWIFI_MODE_STATION_AND_SOFTAP);
 	DATA	= SWIFI_errConfigSoftAP("MyESP","12345678",SWIFI_CNANNEL_10,SWIFI_ENCRYPTION_WPA_WPA2_PSK);
-	DATA 	=	SWIFI_errConnectSSID("N9","m123m456");
+	DATA 	=	SWIFI_errConnectSSID("Redmi","15935715");
+	DATA 	=	SWIFI_errGetConnectedSSID(Response_Buffer);
+	DATA 	=	SWIFI_errCreateTCPServer("8080");
+	DATA 	=	SWIFI_errStartCommunicationHandler();
 	
-	MSYSTICK_stderrorSetBusyWait(8000000*10);
-	DATA 	=	SWIFI_errDisconnectSSID();
 	
 	while(1)
 	{
