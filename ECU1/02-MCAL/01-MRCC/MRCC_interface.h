@@ -41,6 +41,16 @@ typedef enum
 }RCC_APBPreScaler_t;
 
 
+
+typedef enum
+{
+	Wait_States_0=0,/*if  0 < clk < 24 MHZ*/
+	Wait_States_1=1,/*if 24 < clk < 48 MHZ*/
+	Wait_States_2=2,/*if 48 < clk < 72 MHZ*/
+
+
+}RCC_FLASH_LATENCY_t;
+
 typedef enum
 {
 	AHB_PreScaler1=0,
@@ -138,7 +148,8 @@ STD_error_t MRCC_stderrorInit
 
 STD_error_t MRCC_stderrorSetPllClockFreq
 (
-	RCC_PLLPreScaler_t 	ARG_udtPLLPreScaler
+	RCC_PLLPreScaler_t 	ARG_udtPLLPreScaler,
+	RCC_FLASH_LATENCY_t ARG_udtLatency
 );
 
 STD_error_t RCC_EnablePeripheralClk

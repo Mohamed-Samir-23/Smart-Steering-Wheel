@@ -42,7 +42,12 @@
 #define RCC_CSR				*((uv32*)(0x24+RCC_OFFSET))
 
 
+#ifndef FLASH_ACR
+#define FLASH_ACR			*((uv32*)(0x40022000))
+#define LATENCY				0U
+#endif
 
+#define LATENCY_FLAG		7U
 
 
 
@@ -53,6 +58,9 @@
 
 #define HSE_FLAG			0X01
 #define PLL_SYS_FLAG		0X02
+
+
+
 
 
 #endif

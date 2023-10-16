@@ -139,24 +139,34 @@ STD_error_t MRCC_stderrorInit
 	return L_stderrorError;
 }
 
+
+
 STD_error_t MRCC_stderrorSetPllClockFreq
 (
-	RCC_PLLPreScaler_t 	ARG_udtPLLPreScaler
+	RCC_PLLPreScaler_t 	ARG_udtPLLPreScaler,
+	RCC_FLASH_LATENCY_t ARG_udtLatency
 )
 {
 	STD_error_t L_stderrorError=E_NOK;
 	
-	if((MRCC_u8PllCk==1)&&(ARG_udtPLLPreScaler<=14))
+	if((MRCC_u8PllCk==1)&&(ARG_udtPLLPreScaler<=14)&&(ARG_udtLatency<=2))
 	{
+
 		/*Set PLLM, PLLN, PLLP, PLLQ*/
 		RCC_CFGR=(RCC_CFGR&(~(15U<<PLLMUL)));
 		RCC_CFGR|=(ARG_udtPLLPreScaler<<PLLMUL);
-		/*SYSCLK equal to PLL*/
-		RCC_CFGR=(RCC_CFGR&(~(3U<<SW)));
-		RCC_CFGR|=PLL_SYS_FLAG;
 		/*Enable PLL*/
 		RCC_CR|=(1U<<PLLRON);
 		while((((RCC_CR>>PLLRDY)&1))==0);
+
+		/*set Latency*/
+		FLASH_ACR&=~(LATENCY_FLAG);
+		FLASH_ACR|=ARG_udtLatency;
+
+		/*SYSCLK equal to PLL*/
+		RCC_CFGR=(RCC_CFGR&(~(3U<<SW)));
+		RCC_CFGR|=PLL_SYS_FLAG;
+
 		L_stderrorError = E_OK;
 	}
 	else
