@@ -17,4 +17,10 @@ typedef enum
 
 direction state;
 
+void	HREC_voidInit(void);
+
+u16	HREC_u16Postition(void);
+
+direction HREC_directionState(void);
+
 #endif
