@@ -59,7 +59,8 @@ u16	HREC_u16Postition(void)
 	else if(counter < midPoint)
 	{
 		angle = midpoint - counter;
-	}	
+	}
+	return angle;
 }
 
 
@@ -73,4 +74,5 @@ direction HREC_directionState(void)
 	{
 		state = anticlockwise;
 	}
+	return state;
 }
