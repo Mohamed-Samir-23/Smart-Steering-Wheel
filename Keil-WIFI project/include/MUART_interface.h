@@ -35,7 +35,7 @@
 
 
 #ifndef F_CPU 
-#define F_CPU 8000000
+#define F_CPU 72000000
 #warning F_CPU is not define so the default is 8MHz
 #endif
 

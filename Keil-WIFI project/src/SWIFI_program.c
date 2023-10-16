@@ -34,6 +34,7 @@
 #include "SWIFI_config.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 u8 WIFI_Buffer[WIFI_Buffer_Size] = {0};
 
@@ -42,7 +43,7 @@ u8 WIFI_Buffer[WIFI_Buffer_Size] = {0};
 		const u8* 	Dest_Name;
 		const u8		Dest_Name_size;		*/
 #define SYSCALL_SIZE 5
-SWIFI_COMM_T SystemCalls[SYSCALL_SIZE] = 
+SWIFI_COMM_SYS_T SystemCalls[SYSCALL_SIZE] = 
 {
 	{	
 		NULL_POINTER,
@@ -51,28 +52,28 @@ SWIFI_COMM_T SystemCalls[SYSCALL_SIZE] =
 	},
 	
 	{	
-		NULL_POINTER,
-		"CONNECT\r\n",
+		Connected,
+		",CONNECT",
+		8
+	},
+	{	
+		Connected,
+		",CLOSED",
 		7
 	},
 	{	
-		NULL_POINTER,
-		"CLOSED\r\n",
-		7
-	},
-	{	
-		NULL_POINTER,
+		SWIFI_voidIPDHandler,
 		"IPD,",
 		4
 	},
 	{	
 		NULL_POINTER,
 		"CONNECT FAIL",
-		4
+		12
 	}
 	
 };
-SWIFI_COMM_T * UserDefinedKeys = NULL_POINTER;
+SWIFI_COMM_Handler_T * UserDefinedKeys = NULL_POINTER;
 u8 						 UserDefinedKeysNumber = 0;
 
 WIFI_ERROR_T	SWIFI_errTurnOn(u8 Copy_u8WIFIMode)
@@ -251,24 +252,26 @@ WIFI_ERROR_T	SWIFI_errSendDataTCP(u8 Copy_u16ID, const u8 * Data,const u8 * Data
 }
 
 
-WIFI_ERROR_T	SWIFI_errStartCommunicationHandler(void)
+void	SWIFI_errStartCommunicationHandler(void)
 {
-	HESP_CALLBACK_INIT(SWIFI_voidCommunicationCapture);
+	HESP_CALLBACK_INIT(SWIFI_voidKeysCapture);
 	HESP_voidInterruptEnable();
 }
-WIFI_ERROR_T	SWIFI_errSetCaptureKeys(SWIFI_COMM_T * Copy_pUserKeys , u8 Copy_u8KeysNumbers)
+WIFI_ERROR_T	SWIFI_errSetCaptureKeys(SWIFI_COMM_Handler_T * Copy_pUserKeys , u8 Copy_u8KeysNumbers)
 {
 	if(NULL_POINTER != Copy_pUserKeys)
 	{
 		UserDefinedKeys = Copy_pUserKeys;
 		UserDefinedKeysNumber =Copy_u8KeysNumbers;
+		return WIFI_OK;
 	}
+	return WIFI_ERROR;
 }
 
 
-static void SWIFI_voidCommunicationCapture(void)
+static void SWIFI_voidKeysCapture(void)
 {
-  static u8 L_u8Buffer_Count = 0;
+	static u8 L_u8Buffer_Count = 0;
 	int L_intCounter = 0;
 	WIFI_Buffer[L_u8Buffer_Count] = MUART_u16GetData(ESP_UART_NUMBER);
 	
@@ -279,26 +282,14 @@ static void SWIFI_voidCommunicationCapture(void)
 		{
 			if(NULL_POINTER != SystemCalls[L_intCounter].pDest_Function)
 			{
+				L_u8Buffer_Count=0;
 				SystemCalls[L_intCounter].pDest_Function();
+				break;
 			}
-			L_u8Buffer_Count++;
-			return;
 		}
 	}
-	//Capturing the user keywords
-	for(L_intCounter = 0 ; L_intCounter < UserDefinedKeysNumber ; L_intCounter++ )
-	{
-		if ( 1 == UserCaptureKey)
-		{
-			if(NULL_POINTER != UserDefinedKeys[L_intCounter].pDest_Function)
-			{
-				UserDefinedKeys[L_intCounter].pDest_Function();
-			}
-			L_u8Buffer_Count++;
-			return;
-		}
-		
-	}
+
+	L_u8Buffer_Count++;
 	//Buffer Overflow
 	if(L_u8Buffer_Count == WIFI_Buffer_Size )
 	{
@@ -308,3 +299,110 @@ static void SWIFI_voidCommunicationCapture(void)
 	return;
 	
 }
+
+static void SWIFI_voidIPDHandler(void)
+{
+	HESP_CALLBACK_INIT(SWIFI_voidMessageCapture);
+}
+
+/*IPD,ID,length:Data*/
+static void SWIFI_voidMessageCapture(void)
+{
+	static u8 L_u8Buffer_Count = 0;
+	static u8 L_u8IsRecLength = 0;
+	static u8 L_u8IsRecData = 0;
+	static u8 L_u8Data_size = 0;
+	static SWIFI_MSG_T * MSG;
+	static u8 L_u8MSG_Counter = 0;
+	WIFI_Buffer[L_u8Buffer_Count] = MUART_u16GetData(ESP_UART_NUMBER);
+
+	//Capturing the user keywords
+	if(L_u8IsRecData == 1 )
+	{
+		MSG->Data[L_u8IsRecLength] = WIFI_Buffer[L_u8Buffer_Count] ;
+		L_u8IsRecLength++;
+		if(L_u8IsRecLength == L_u8Data_size )
+		{
+			HESP_CALLBACK_INIT(SWIFI_voidKeysCapture);
+			MSG->Data[L_u8IsRecLength] = '\0';
+			//Reset everything
+			L_u8Buffer_Count = 0;
+			L_u8IsRecLength = 0;
+			L_u8IsRecData = 0;
+			L_u8Data_size = 0;
+			L_u8MSG_Counter = 0;
+			SWIFI_voidCommunicationHandler(MSG);
+
+			return;
+		}
+	}
+	else
+	{
+		
+		if(L_u8Buffer_Count == 0)
+		{
+			L_u8IsRecLength = 1;
+		}
+		else if(L_u8Buffer_Count >= 2 && L_u8IsRecLength == 1)
+		{
+			if(WIFI_Buffer[L_u8Buffer_Count]  != ':')
+			{
+				L_u8Data_size = L_u8Data_size * 10 + (WIFI_Buffer[L_u8Buffer_Count] - '0');
+			}
+			else
+			{
+				MSG = CreateMsg(L_u8Data_size);
+				L_u8IsRecData = 1;
+				L_u8IsRecLength=0;
+			}	
+		}
+		
+	}
+	L_u8Buffer_Count++;
+}
+
+static void SWIFI_voidCommunicationHandler(SWIFI_MSG_T* Copy_pMSG)
+{
+	int L_intCounter = 0;
+	
+	for(L_intCounter = 0 ; L_intCounter < UserDefinedKeysNumber ; L_intCounter++ )
+	{
+		if( 1 == UserCaptureKey )
+		{
+			if(NULL_POINTER != UserDefinedKeys[L_intCounter].pDest_Function)
+			{
+				UserDefinedKeys[L_intCounter].pDest_Function(Copy_pMSG);
+			}
+			break;
+		}
+	}
+	
+}
+
+SWIFI_MSG_T * CreateMsg(u8 Copy_u8MSG_Size)
+{
+	SWIFI_MSG_T * temp = malloc(sizeof(u8) + sizeof(u8 *));
+	if(temp != NULL_POINTER)
+	{
+	temp->Data = malloc(Copy_u8MSG_Size+1);
+	temp->Data_size = Copy_u8MSG_Size;
+	return temp;
+	}
+	else
+	{
+		return NULL_POINTER;
+	}
+}
+
+void DeleteMsg(SWIFI_MSG_T * Copy_pMSG)
+{
+	if(Copy_pMSG != NULL_POINTER)
+	{
+		free(Copy_pMSG->Data);
+		free(Copy_pMSG);
+	}
+}
+void Connected(void)
+{
+}
+

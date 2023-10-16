@@ -10,8 +10,14 @@
 #ifndef _SWIFI_PRIVATE_H_
 #define _SWIFI_PRIVATE_H_
 
-#define SysCaptureKey (!strncmp( (const char *) &WIFI_Buffer[L_u8Buffer_Count-SystemCalls[L_intCounter].Dest_Name_size - 1] ,(const char *) SystemCalls[L_intCounter].Dest_Name,SystemCalls[L_intCounter].Dest_Name_size))
+typedef struct
+{
+	FUNC_T 			pDest_Function;
+	const u8* 	Dest_Name;
+	const u8		Dest_Name_size;			
+}SWIFI_COMM_SYS_T;
 
-#define UserCaptureKey (!strncmp( (const char *) &WIFI_Buffer[L_u8Buffer_Count-UserDefinedKeys[L_intCounter].Dest_Name_size - 1] ,(const char *) UserDefinedKeys[L_intCounter].Dest_Name,UserDefinedKeys[L_intCounter].Dest_Name_size))
+#define SysCaptureKey (!strncmp( (const char *) &WIFI_Buffer[L_u8Buffer_Count+ 1 -SystemCalls[L_intCounter].Dest_Name_size ] ,(const char *) SystemCalls[L_intCounter].Dest_Name,SystemCalls[L_intCounter].Dest_Name_size))
 
+#define UserCaptureKey (!strncmp(( char *)(Copy_pMSG->Data),( char *)(UserDefinedKeys[L_intCounter].Dest_Name),UserDefinedKeys[L_intCounter].Dest_Name_size ) )
 #endif

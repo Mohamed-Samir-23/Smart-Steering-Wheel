@@ -47,15 +47,15 @@ void MNVIC_vSetPriorityIRQ(u8 IRQn,u8 Copy_u8GroupId, u8 Copy_u8SubGroupId)
 	u8 L_u8Priority = 0;
 	switch (PriorityConfig) {
 
-		case MNVIC_PRIORITY_GROUPS_0_SUBGROUPS_16:
+		case MNVIC_PRIORITY_GROUPS_0_SUBGROUPS_16 :
 			L_u8Priority = Copy_u8SubGroupId<<4;
 			break;
 
-		case MNVIC_PRIORITY_GROUPS_16_SUBGROUPS_0:
+		case MNVIC_PRIORITY_GROUPS_16_SUBGROUPS_0 :
 			L_u8Priority = Copy_u8GroupId<<4;
 			break;
 
-		case MNVIC_PRIORITY_GROUPS_2_SUBGROUPS_8:
+		case MNVIC_PRIORITY_GROUPS_2_SUBGROUPS_8 :
 			L_u8Priority = (Copy_u8GroupId<<7) | ((Copy_u8SubGroupId<<4) & 0x70);
 			break;
 
@@ -63,14 +63,16 @@ void MNVIC_vSetPriorityIRQ(u8 IRQn,u8 Copy_u8GroupId, u8 Copy_u8SubGroupId)
 			L_u8Priority = 	(Copy_u8GroupId<<6)	| ((Copy_u8SubGroupId<<4) & 0x30);
 			break;
 
-		case MNVIC_PRIORITY_GROUPS_8_SUBGROUPS_2:
+		case MNVIC_PRIORITY_GROUPS_8_SUBGROUPS_2 :
 			L_u8Priority = 	(Copy_u8GroupId<<5)	| ((Copy_u8SubGroupId<<4) & 0x10);
 			break;
 
 		default:
 			//error
 			return;
-			break;
+
+	
+			
 	}
 	MNVIC->IPR[IRQn/4] |= (L_u8Priority   << (8*(IRQn%4) )  );
 }

@@ -41,7 +41,7 @@
 #define RCC_BDCR			*((uv32*)(0x20+RCC_OFFSET))
 #define RCC_CSR				*((uv32*)(0x24+RCC_OFFSET))
 
-
+#define RCC_CFGR2			*((uv32*)(0x02C+RCC_OFFSET))
 
 
 

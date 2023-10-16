@@ -13,7 +13,6 @@
 
 #include "MUART_private.h"
 #include "MUART_interface.h"
-#include "stm32f10x.h"                  // Device header
 /******CallBack*******/
 FUNC_T MUART_CALLBACK[3] = {0};
 /**********APIs************/
@@ -146,6 +145,7 @@ void USART1_IRQHandler(void)
 	{
 		MUART_CALLBACK[MUART1-1]();
 	}
+
 }
 void USART2_IRQHandler(void)
 {

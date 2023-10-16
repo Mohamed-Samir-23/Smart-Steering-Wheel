@@ -8,7 +8,7 @@
 /*   Last Edit   : N/A                   */
 /*****************************************/
 
-#define F_CPU 8000000
+
 
 /*********inclusion section********/
 /*****LIB*****/
@@ -34,24 +34,38 @@
 
 #include "SWIFI_interface.h"
 
+
+#define F_CPU 72000000
 u8 Response_Buffer[50] = {0};
 
 /*********API********/
 void app_init(void);
 
 WIFI_ERROR_T DATA = WIFI_OK ;
+void test(SWIFI_MSG_T *MSG );
+
+
+SWIFI_COMM_Handler_T mytestkeys = 
+{
+	test,
+	"TEST",
+	4
+};
+
 
 int main()
 {
 	app_init();
-	MRCC_stderrorInit(HSI,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
+	SWIFI_errSetCaptureKeys(&mytestkeys,1);
+	//MRCC_stderrorSetPllClockFreq(7);
+	//MRCC_stderrorInit(PLL_HSE,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
 	
 	DATA	=	SWIFI_errTurnOn(SWIFI_MODE_STATION_AND_SOFTAP);
 	DATA	= SWIFI_errConfigSoftAP("MyESP","12345678",SWIFI_CNANNEL_10,SWIFI_ENCRYPTION_WPA_WPA2_PSK);
-	DATA 	=	SWIFI_errConnectSSID("Redmi","15935715");
+	DATA 	=	SWIFI_errConnectSSID("Hello World2","H*#*#10#*#*");
 	DATA 	=	SWIFI_errGetConnectedSSID(Response_Buffer);
 	DATA 	=	SWIFI_errCreateTCPServer("8080");
-	DATA 	=	SWIFI_errStartCommunicationHandler();
+		SWIFI_errStartCommunicationHandler();
 	
 	
 	while(1)
@@ -78,9 +92,15 @@ int main()
 	}
 
 }
+void test(SWIFI_MSG_T *MSG )
+{
+	
+}
+
 void app_init(void)
 {
-	MRCC_stderrorInit(HSI,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
+	//MRCC_stderrorSetPllClockFreq(7);
+//	MRCC_stderrorInit(PLL_HSE,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
 	
 	RCC_EnablePeripheralClk(APB2,GPIOA_PER);
 	MGPIO_stderrorPinModeSelect(GPIOA,PIN0,OUTPUT_PUSH_PULL_SPEED_50MHZ);

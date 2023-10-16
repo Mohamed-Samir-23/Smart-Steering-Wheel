@@ -20,13 +20,18 @@ typedef enum
     WIFI_RESETED
 }WIFI_ERROR_T;
 
+typedef struct
+{
+		u8		Data_size;		
+		u8* 	Data;
+}SWIFI_MSG_T;
 
 typedef struct
 {
-	FUNC_T 			pDest_Function;
+	void 				(*pDest_Function)(SWIFI_MSG_T *);
 	const u8* 	Dest_Name;
 	const u8		Dest_Name_size;			
-}SWIFI_COMM_T;
+}SWIFI_COMM_Handler_T;
 
 #define SWIFI_MODE_STATION							1
 #define SWIFI_MODE_SOFTAP								2
@@ -58,10 +63,20 @@ WIFI_ERROR_T	SWIFI_errConfigSoftAP(u8 * Copy_pu8SSID, u8 * Copy_puPassword , u8 
 
 /*******TCP**********/
 WIFI_ERROR_T	SWIFI_errCreateTCPServer(const u8 * Copy_u16PortNumber);
+WIFI_ERROR_T	SWIFI_errConnectTCP(u8 Copy_u16ID, const u8 * Copy_pu8ServerIP, const u8 * Copy_pu8ServerPort);
 
-WIFI_ERROR_T	SWIFI_errStartCommunicationHandler(void);
-static void SWIFI_voidCommunicationCapture(void);
+WIFI_ERROR_T	SWIFI_errSetCaptureKeys(SWIFI_COMM_Handler_T * Copy_pUserKeys , u8 Copy_u8KeysNumbers);
+void	SWIFI_errStartCommunicationHandler(void);
 
+static void SWIFI_voidKeysCapture(void);
+static void SWIFI_voidMessageCapture(void);
+static void SWIFI_voidCommunicationHandler(SWIFI_MSG_T* Copy_pMSG);
+static void SWIFI_voidIPDHandler(void);
+
+SWIFI_MSG_T * CreateMsg(u8 Copy_u8MSG_Size);
+void DeleteMsg(SWIFI_MSG_T * Copy_pMSG);
+
+void Connected(void);
 
 /*
 

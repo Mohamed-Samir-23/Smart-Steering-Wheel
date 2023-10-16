@@ -10,7 +10,7 @@
 #ifndef _HESP_CONFIG_H_
 #define _HESP_CONFIG_H_
 
-#define TICK_FOR_MSEC 				1000
+#define TICK_FOR_MSEC 				72000
 #define ESP_BAUDRATE					115200
 #define ESP_UART_NUMBER				MUART1
 #define ESP_UART_PARITY				MUART_PARITY_OFF

@@ -65,7 +65,7 @@ void HESP_RESET(void)
 	MGPIO_stderrorSetPinValue(ESP_PORT,ESP_RESET_PIN,LOW);
 	ESP_Delay_ms(100);
 	MGPIO_stderrorSetPinValue(ESP_PORT,ESP_RESET_PIN,HIGH);
-	ESP_Delay_ms(1200);
+	ESP_Delay_ms(1500);
 	#else
 	/******Software Reset*******/
 	HESP_SEND_COMMAND("AT+RST",NULL_POINTER,20000);
@@ -143,17 +143,19 @@ void HESP_CALLBACK_INIT(FUNC_T FUNC)
 }
 void HESP_voidInterruptEnable(void)
 {
+	MNVIC_vEnableIRQ(37);
 	MUART_voidInterruptEnable(ESP_UART_NUMBER,MUART_INTERRUPT_RXNE);
 }
 
 void HESP_voidInterruptDisable(void)
 {
+	MNVIC_vDisableIRQ(37);
 	MUART_voidInterruptDisable(ESP_UART_NUMBER,MUART_INTERRUPT_DS);
 }
 
 ESP_ERR_T HESP_errCheckESP(void)
 {
-	u8 temp[20];
+	u8 temp[10];
 	return HESP_SEND_COMMAND((const u8 *)"AT\r\n",temp,10);
 }
 

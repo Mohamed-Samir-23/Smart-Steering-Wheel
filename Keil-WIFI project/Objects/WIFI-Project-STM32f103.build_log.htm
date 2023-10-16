@@ -22,52 +22,39 @@ Dialog DLL:      TCM.DLL V1.42.0.0
  
 <h2>Project:</h2>
 H:\ITI\ITI-Graduation-Project\Smart-Steering-Wheel\Keil-WIFI project\WIFI-Project-STM32f103.uvprojx
-Project File Date:  10/15/2023
+Project File Date:  10/16/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'H:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'WIFI'
-compiling MSYSTICK_program.c...
-compiling MRCC_program.c...
-compiling MGPIO_program.c...
-compiling main.c...
-compiling SWIFI_program.c...
-.\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
-  #warning F_CPU is not define so the default is 8MHz
-src\SWIFI_program.c(258): warning:  #940-D: missing return statement at end of non-void function "SWIFI_errStartCommunicationHandler" 
-  }
-src\SWIFI_program.c(266): warning:  #940-D: missing return statement at end of non-void function "SWIFI_errSetCaptureKeys" 
-  }
-src\SWIFI_program.c(310): warning:  #1-D: last line of file ends without a newline
-  }
-src\SWIFI_program.c: 4 warnings, 0 errors
 compiling HESP_program.c...
 .\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
   #warning F_CPU is not define so the default is 8MHz
 src\HESP_program.c: 1 warning, 0 errors
-assembling startup_stm32f10x_ld.s...
+compiling MSYSTICK_program.c...
+compiling MNVIC_program.c...
+compiling MGPIO_program.c...
+compiling MRCC_program.c...
 compiling MUART_program.c...
 .\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
   #warning F_CPU is not define so the default is 8MHz
-H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h(492): error:  #256: invalid redeclaration of type name "s32"  (declared at line 21 of ".\include\LSTD_types.h")
-  typedef int32_t  s32;
-H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h(508): error:  #256: invalid redeclaration of type name "u32"  (declared at line 16 of ".\include\LSTD_types.h")
-  typedef uint32_t  u32;
-H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h(1399): warning:  #47-D: incompatible redefinition of macro "USART2"  (declared at line 29 of ".\include\MUART_private.h")
-  #define USART2              ((USART_TypeDef *) USART2_BASE)
-H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h(1400): warning:  #47-D: incompatible redefinition of macro "USART3"  (declared at line 30 of ".\include\MUART_private.h")
-  #define USART3              ((USART_TypeDef *) USART3_BASE)
-H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h(1425): warning:  #47-D: incompatible redefinition of macro "USART1"  (declared at line 28 of ".\include\MUART_private.h")
-  #define USART1              ((USART_TypeDef *) USART1_BASE)
-H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h(8309): warning:  #47-D: incompatible redefinition of macro "SET_BIT"  (declared at line 13 of ".\include\LBIT_math.h")
-  #define SET_BIT(REG, BIT)     ((REG) |= (BIT))
-H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h(8311): warning:  #47-D: incompatible redefinition of macro "CLEAR_BIT"  (declared at line 14 of ".\include\LBIT_math.h")
-  #define CLEAR_BIT(REG, BIT)   ((REG) &= ~(BIT))
-src\MUART_program.c(20): error:  #147-D: declaration is incompatible with "void MUART_voidInit(u8, u32, u8, u8, u8)"  (declared at line 42 of ".\include\MUART_interface.h")
-  void MUART_voidInit( u8 Copy_u8UART_Number,u32 Copy_u32BaudRate,u8 Copy_u8ParityType, u8 Copy_u8StopBit,u8 Copy_u8WordSize)
-src\MUART_program.c: 6 warnings, 3 errors
+src\MUART_program.c: 1 warning, 0 errors
+compiling SWIFI_program.c...
+.\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
+  #warning F_CPU is not define so the default is 8MHz
+src\SWIFI_program.c(316): warning:  #550-D: variable "L_u8MSG_Counter"  was set but never used
+  	static u8 L_u8MSG_Counter = 0;
+src\SWIFI_program.c: 2 warnings, 0 errors
+assembling startup_stm32f10x_ld.s...
+compiling main.c...
+.\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
+  #warning F_CPU is not define so the default is 8MHz
+main.c: 1 warning, 0 errors
 compiling system_stm32f10x.c...
-".\Objects\WIFI-Project-STM32f103.axf" - 3 Error(s), 11 Warning(s).
+linking...
+Program Size: Code=5608 RO-data=328 RW-data=120 ZI-data=1648  
+FromELF: creating hex file...
+".\Objects\WIFI-Project-STM32f103.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -94,12 +81,11 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\system_stm32f10x.c
-      Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
+      Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\startup_stm32f10x_ld.s
-Target not created.
-Build Time Elapsed:  00:00:00
+      Source file:   Device\Source\system_stm32f10x.c
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

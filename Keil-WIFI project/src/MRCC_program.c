@@ -154,6 +154,7 @@ STD_error_t MRCC_stderrorSetPllClockFreq
 		/*SYSCLK equal to PLL*/
 		RCC_CFGR=(RCC_CFGR&(~(3U<<SW)));
 		RCC_CFGR|=PLL_SYS_FLAG;
+		RCC_CFGR2 |= 7 ;
 		/*Enable PLL*/
 		RCC_CR|=(1U<<PLLRON);
 		while((((RCC_CR>>PLLRDY)&1))==0);

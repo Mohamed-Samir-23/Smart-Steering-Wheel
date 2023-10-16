@@ -12,3 +12,4 @@
 .\objects\swifi_program.o: .\include\SWIFI_private.h
 .\objects\swifi_program.o: .\include\SWIFI_config.h
 .\objects\swifi_program.o: H:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\swifi_program.o: H:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

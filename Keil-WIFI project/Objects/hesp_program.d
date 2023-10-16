@@ -10,3 +10,4 @@
 .\objects\hesp_program.o: .\include\HESP_private.h
 .\objects\hesp_program.o: .\include\HESP_interface.h
 .\objects\hesp_program.o: H:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\hesp_program.o: .\include\MNVIC_interface.h
