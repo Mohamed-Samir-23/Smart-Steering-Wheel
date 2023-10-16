@@ -11,7 +11,7 @@
 #define _HREC_CONFIG_H_
 
 #define HREC_OUTPUT_A	GPIOA,PIN0
-#define HREC_OUTPUT_b	GPIOA,PIN1
+#define HREC_OUTPUT_B	GPIOA,PIN1
 
 
 #endif
