@@ -155,7 +155,7 @@ void HESP_voidInterruptDisable(void)
 
 ESP_ERR_T HESP_errCheckESP(void)
 {
-	u8 temp[10];
+	u8 temp[20];
 	return HESP_SEND_COMMAND((const u8 *)"AT\r\n",temp,10);
 }
 

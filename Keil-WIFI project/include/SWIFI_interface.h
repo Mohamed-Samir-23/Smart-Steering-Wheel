@@ -63,6 +63,8 @@ WIFI_ERROR_T	SWIFI_errConfigSoftAP(u8 * Copy_pu8SSID, u8 * Copy_puPassword , u8 
 
 /*******TCP**********/
 WIFI_ERROR_T	SWIFI_errCreateTCPServer(const u8 * Copy_u16PortNumber);
+WIFI_ERROR_T	SWIFI_errSendDataTCP(u8 Copy_u16ID, const u8 * Data,const u8 * Data_size );
+
 WIFI_ERROR_T	SWIFI_errConnectTCP(u8 Copy_u16ID, const u8 * Copy_pu8ServerIP, const u8 * Copy_pu8ServerPort);
 
 WIFI_ERROR_T	SWIFI_errSetCaptureKeys(SWIFI_COMM_Handler_T * Copy_pUserKeys , u8 Copy_u8KeysNumbers);
@@ -73,7 +75,7 @@ static void SWIFI_voidMessageCapture(void);
 static void SWIFI_voidCommunicationHandler(SWIFI_MSG_T* Copy_pMSG);
 static void SWIFI_voidIPDHandler(void);
 
-SWIFI_MSG_T * CreateMsg(u8 Copy_u8MSG_Size);
+SWIFI_MSG_T * CreateMsg(u16 Copy_u8MSG_Size);
 void DeleteMsg(SWIFI_MSG_T * Copy_pMSG);
 
 void Connected(void);

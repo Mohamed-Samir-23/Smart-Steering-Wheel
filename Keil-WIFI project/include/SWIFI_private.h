@@ -19,5 +19,5 @@ typedef struct
 
 #define SysCaptureKey (!strncmp( (const char *) &WIFI_Buffer[L_u8Buffer_Count+ 1 -SystemCalls[L_intCounter].Dest_Name_size ] ,(const char *) SystemCalls[L_intCounter].Dest_Name,SystemCalls[L_intCounter].Dest_Name_size))
 
-#define UserCaptureKey (!strncmp(( char *)(Copy_pMSG->Data),( char *)(UserDefinedKeys[L_intCounter].Dest_Name),UserDefinedKeys[L_intCounter].Dest_Name_size ) )
+#define UserCaptureKey (!strncmp(( char *)(MSG->Data),( char *)(UserDefinedKeys[L_intCounter].Dest_Name),UserDefinedKeys[L_intCounter].Dest_Name_size ) )
 #endif

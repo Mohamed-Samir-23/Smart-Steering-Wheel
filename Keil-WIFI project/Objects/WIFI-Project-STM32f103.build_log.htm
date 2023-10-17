@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.42.0.0
  
 <h2>Project:</h2>
 H:\ITI\ITI-Graduation-Project\Smart-Steering-Wheel\Keil-WIFI project\WIFI-Project-STM32f103.uvprojx
-Project File Date:  10/16/2023
+Project File Date:  10/17/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'H:\Keil_v5\ARM\ARMCC\Bin'
@@ -31,30 +31,32 @@ compiling HESP_program.c...
 .\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
   #warning F_CPU is not define so the default is 8MHz
 src\HESP_program.c: 1 warning, 0 errors
-compiling MSYSTICK_program.c...
-compiling MNVIC_program.c...
-compiling MGPIO_program.c...
-compiling MRCC_program.c...
 compiling MUART_program.c...
 .\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
   #warning F_CPU is not define so the default is 8MHz
 src\MUART_program.c: 1 warning, 0 errors
+compiling MRCC_program.c...
+compiling MSYSTICK_program.c...
+compiling MNVIC_program.c...
 compiling SWIFI_program.c...
 .\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
   #warning F_CPU is not define so the default is 8MHz
 src\SWIFI_program.c(316): warning:  #550-D: variable "L_u8MSG_Counter"  was set but never used
-  	static u8 L_u8MSG_Counter = 0;
-src\SWIFI_program.c: 2 warnings, 0 errors
-assembling startup_stm32f10x_ld.s...
+  	static u16 L_u8MSG_Counter = 0;
+src\SWIFI_program.c(391): warning:  #177-D: function "SWIFI_voidCommunicationHandler"  was declared but never referenced
+  static void SWIFI_voidCommunicationHandler(SWIFI_MSG_T* Copy_pMSG)
+src\SWIFI_program.c: 3 warnings, 0 errors
+compiling MGPIO_program.c...
 compiling main.c...
 .\include\MUART_interface.h(39): warning:  #1215-D: #warning directive: F_CPU is not define so the default is 8MHz
   #warning F_CPU is not define so the default is 8MHz
 main.c: 1 warning, 0 errors
+assembling startup_stm32f10x_ld.s...
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=5608 RO-data=328 RW-data=120 ZI-data=1648  
+Program Size: Code=5424 RO-data=332 RW-data=140 ZI-data=3140  
 FromELF: creating hex file...
-".\Objects\WIFI-Project-STM32f103.axf" - 0 Error(s), 5 Warning(s).
+".\Objects\WIFI-Project-STM32f103.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -81,10 +83,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device\Source\system_stm32f10x.c
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\startup_stm32f10x_ld.s
-      Source file:   Device\Source\system_stm32f10x.c
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

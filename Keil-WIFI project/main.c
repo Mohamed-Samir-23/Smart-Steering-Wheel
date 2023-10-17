@@ -33,7 +33,7 @@
 #include "HESP_interface.h"
 
 #include "SWIFI_interface.h"
-
+#include <stdlib.h>
 
 #define F_CPU 72000000
 u8 Response_Buffer[50] = {0};
@@ -45,28 +45,56 @@ WIFI_ERROR_T DATA = WIFI_OK ;
 void test(SWIFI_MSG_T *MSG );
 
 
-SWIFI_COMM_Handler_T mytestkeys = 
+//CAN
+//Jetson
+//ARM
+//Encoder
+
+/*
+
+	void 				(*pDest_Function)(SWIFI_MSG_T *);
+	const u8* 	Dest_Name;
+	const u8		Dest_Name_size;			
+
+*/
+
+void CAN(SWIFI_MSG_T *msg)
 {
-	test,
-	"TEST",
-	4
+	//SWIFI_errSendDataTCP(0,"OK","2");
+	DeleteMsg(msg);
+}
+void Jetson(SWIFI_MSG_T *msg)
+{
+	//SWIFI_errSendDataTCP(0,"OK","2");
+	DeleteMsg(msg);
+}
+SWIFI_COMM_Handler_T Mykeys[2] = 
+{
+	{
+	CAN,
+	"CAN",
+	3
+	},
+	{
+	Jetson,
+	"JETSON",
+	6
+	}
+	
 };
+
 
 
 int main()
 {
+
 	app_init();
-	SWIFI_errSetCaptureKeys(&mytestkeys,1);
-	//MRCC_stderrorSetPllClockFreq(7);
-	//MRCC_stderrorInit(PLL_HSE,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
-	
-	DATA	=	SWIFI_errTurnOn(SWIFI_MODE_STATION_AND_SOFTAP);
-	DATA	= SWIFI_errConfigSoftAP("MyESP","12345678",SWIFI_CNANNEL_10,SWIFI_ENCRYPTION_WPA_WPA2_PSK);
-	DATA 	=	SWIFI_errConnectSSID("Hello World2","H*#*#10#*#*");
-	DATA 	=	SWIFI_errGetConnectedSSID(Response_Buffer);
-	DATA 	=	SWIFI_errCreateTCPServer("8080");
-		SWIFI_errStartCommunicationHandler();
-	
+	SWIFI_errSetCaptureKeys(Mykeys,2);
+	SWIFI_errTurnOn(SWIFI_MODE_STATION_AND_SOFTAP);
+	SWIFI_errConnectSSID("Hello World2","H*#*#10#*#*");
+	SWIFI_errCreateTCPServer("8080");
+	SWIFI_errStartCommunicationHandler();
+
 	
 	while(1)
 	{
@@ -91,10 +119,6 @@ int main()
 	//SWIFI_
 	}
 
-}
-void test(SWIFI_MSG_T *MSG )
-{
-	
 }
 
 void app_init(void)
