@@ -53,11 +53,11 @@ u16	HREC_u16Postition(void)
 	
 	if(counter > midPoint)
 	{
-		angle = counter - midpoint;
+		angle = counter - PulsePerRev;
 	}
 	else if(counter < midPoint)
 	{
-		angle = midpoint - counter;
+		angle = PulsePerRev - counter;
 	}
 	return (angle * 360)/PulsePerRev;
 }
