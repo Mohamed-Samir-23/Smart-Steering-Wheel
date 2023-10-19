@@ -39,7 +39,7 @@ void HREC_voidInit(void)
 u16	HREC_u16Postition(void)
 {
 	MGPIO_stderrorGetPinValue(HREC_OUTPUT_A, &aStartState);
-	do
+	if(aStartState != aLastState)
 	{
 		if(aStartState > aEndState)
 		{
@@ -50,7 +50,6 @@ u16	HREC_u16Postition(void)
 			counter--;
 		}
 	}
-	while(aStartState != aLastState);
 	
 	if(counter > midPoint)
 	{
