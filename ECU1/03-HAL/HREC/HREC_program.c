@@ -19,8 +19,8 @@
 #include "HREC_private.h"
 #include "HREC_config.h"
 
-u16 midPoint = 255;
-u16 counter = midPoint;
+u16 PulsePerRev = 600;
+u16 counter = PulsePerRev;
 u16 angle;
 u8 aStartState;
 u8 aEndState;
@@ -60,13 +60,13 @@ u16	HREC_u16Postition(void)
 	{
 		angle = midpoint - counter;
 	}
-	return angle;
+	return (angle * 360)/PulsePerRev;
 }
 
 
 direction HREC_directionState(void)
 {
-	if(counter > 255)
+	if(counter > PulsePerRev)
 	{
 		state = clockwise;
 	}
