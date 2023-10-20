@@ -1,9 +1,9 @@
 /************************************/
-/*	Auothor: MOHAMED ABOUBAKR       */
-/*	SWC:     ROTARY ENCODER         */
-/*	Layer:   HAL                    */
-/*	Version: 1.0                    */
-/*	Date:    OCTOBER 20, 2023       */
+/*  Auothor: MOHAMED ABOUBAKR       */
+/*  SWC:     ROTARY ENCODER         */
+/*  Layer:   HAL                    */
+/*  Version: 1.0                    */
+/*  Date:    OCTOBER 20, 2023       */
 /************************************/
 
 #ifndef _HREC_CONFIG_H_
