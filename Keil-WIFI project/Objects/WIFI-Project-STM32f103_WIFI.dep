@@ -1,98 +1,0 @@
-Dependencies for Project 'WIFI-Project-STM32f103', Target 'WIFI': (DO NOT MODIFY !)
-CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
-F (.\src\HESP_program.c)(0x652D3DAB)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\hesp_program.o --omf_browse .\objects\hesp_program.crf --depend .\objects\hesp_program.d)
-I (.\include\LBIT_math.h)(0x652D35AC)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\MRCC_interface.h)(0x652D35AC)
-I (.\include\MGPIO_config.h)(0x652D35AC)
-I (.\include\MGPIO_interface.h)(0x652D35AC)
-I (.\include\MSYSTICK_interface.h)(0x652D35AC)
-I (.\include\MUART_interface.h)(0x652D35AC)
-I (.\include\HESP_config.h)(0x652D35AC)
-I (.\include\HESP_private.h)(0x652D35AC)
-I (.\include\HESP_interface.h)(0x652D35AC)
-I (H:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
-I (.\include\MNVIC_interface.h)(0x652D35AC)
-F (.\src\MGPIO_program.c)(0x652D35AC)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\mgpio_program.o --omf_browse .\objects\mgpio_program.crf --depend .\objects\mgpio_program.d)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\MGPIO_config.h)(0x652D35AC)
-I (.\include\MGPIO_private.h)(0x652D35AC)
-I (.\include\MGPIO_interface.h)(0x652D35AC)
-F (.\src\MRCC_program.c)(0x652D35AC)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\mrcc_program.o --omf_browse .\objects\mrcc_program.crf --depend .\objects\mrcc_program.d)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\MRCC_config.h)(0x652D35AC)
-I (.\include\MRCC_private.h)(0x652D35AC)
-I (.\include\MRCC_interface.h)(0x652D35AC)
-F (.\src\MSYSTICK_program.c)(0x652D35AC)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\msystick_program.o --omf_browse .\objects\msystick_program.crf --depend .\objects\msystick_program.d)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\MSYSTICK_private.h)(0x652D35AC)
-I (.\include\MSYSTICK_config.h)(0x652D35AC)
-I (.\include\MSYSTICK_interface.h)(0x652D35AC)
-F (.\src\MUART_program.c)(0x652D35AC)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\muart_program.o --omf_browse .\objects\muart_program.crf --depend .\objects\muart_program.d)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\LBIT_math.h)(0x652D35AC)
-I (.\include\MUART_private.h)(0x652D35AC)
-I (.\include\MUART_interface.h)(0x652D35AC)
-F (.\src\SWIFI_program.c)(0x652DD126)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\swifi_program.o --omf_browse .\objects\swifi_program.crf --depend .\objects\swifi_program.d)
-I (.\include\LBIT_math.h)(0x652D35AC)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\MRCC_interface.h)(0x652D35AC)
-I (.\include\MGPIO_config.h)(0x652D35AC)
-I (.\include\MGPIO_interface.h)(0x652D35AC)
-I (.\include\MSYSTICK_interface.h)(0x652D35AC)
-I (.\include\MUART_interface.h)(0x652D35AC)
-I (.\include\HESP_config.h)(0x652D35AC)
-I (.\include\HESP_interface.h)(0x652D35AC)
-I (.\include\SWIFI_interface.h)(0x652DCA94)
-I (.\include\SWIFI_private.h)(0x652DA25C)
-I (.\include\SWIFI_config.h)(0x652D35AC)
-I (H:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E53A4BC)
-I (H:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E53A4BC)
-F (.\src\MNVIC_program.c)(0x652D35AC)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\mnvic_program.o --omf_browse .\objects\mnvic_program.crf --depend .\objects\mnvic_program.d)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\LBIT_math.h)(0x652D35AC)
-I (.\include\MNVIC_interface.h)(0x652D35AC)
-I (.\include\MNVIC_private.h)(0x652D35AC)
-F (.\include\HESP_interface.h)(0x652D35AC)()
-F (.\include\HESP_private.h)(0x652D35AC)()
-F (.\include\HESP_config.h)(0x652D35AC)()
-F (.\include\LBIT_math.h)(0x652D35AC)()
-F (.\include\LSTD_types.h)(0x652D35AC)()
-F (.\include\MGPIO_config.h)(0x652D35AC)()
-F (.\include\MGPIO_interface.h)(0x652D35AC)()
-F (.\include\MGPIO_private.h)(0x652D35AC)()
-F (.\include\MRCC_config.h)(0x652D35AC)()
-F (.\include\MRCC_interface.h)(0x652D35AC)()
-F (.\include\MRCC_private.h)(0x652D35AC)()
-F (.\include\MSYSTICK_config.h)(0x652D35AC)()
-F (.\include\MSYSTICK_interface.h)(0x652D35AC)()
-F (.\include\MSYSTICK_private.h)(0x652D35AC)()
-F (.\include\MUART_interface.h)(0x652D35AC)()
-F (.\include\MUART_private.h)(0x652D35AC)()
-F (.\include\SWIFI_interface.h)(0x652DCA94)()
-F (.\include\SWIFI_private.h)(0x652DA25C)()
-F (.\include\MNVIC_interface.h)(0x652D35AC)()
-F (.\include\MNVIC_private.h)(0x652D35AC)()
-F (.\main.c)(0x652D8CD4)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (.\include\LBIT_math.h)(0x652D35AC)
-I (.\include\LSTD_types.h)(0x652D35AC)
-I (.\include\MRCC_interface.h)(0x652D35AC)
-I (.\include\MGPIO_config.h)(0x652D35AC)
-I (.\include\MGPIO_interface.h)(0x652D35AC)
-I (.\include\MSYSTICK_interface.h)(0x652D35AC)
-I (.\include\MUART_interface.h)(0x652D35AC)
-I (.\include\HESP_config.h)(0x652D35AC)
-I (.\include\HESP_interface.h)(0x652D35AC)
-I (.\include\SWIFI_interface.h)(0x652DCA94)
-I (H:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E53A4BC)
-F (RTE\Device\STM32F103C6\RTE_Device.h)(0x652D35AC)()
-F (RTE\Device\STM32F103C6\startup_stm32f10x_ld.s)(0x652DD14D)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include--pd "__UVISION_VERSION SETA 530" --pd "_RTE_ SETA 1" --pd "STM32F10X_LD SETA 1" --pd "_RTE_ SETA 1"--list .\listings\startup_stm32f10x_ld.lst --xref -o .\objects\startup_stm32f10x_ld.o --depend .\objects\startup_stm32f10x_ld.d)
-F (RTE\Device\STM32F103C6\system_stm32f10x.c)(0x652D35AC)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\include-I.\RTE\Device\STM32F103C6-I.\RTE\_WIFI-IH:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IH:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32F10X_LD -D_RTE_-o .\objects\system_stm32f10x.o --omf_browse .\objects\system_stm32f10x.crf --depend .\objects\system_stm32f10x.d)
-I (H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58257EBC)
-I (.\RTE\_WIFI\RTE_Components.h)(0x652D35AC)
-I (H:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626F831E)
-I (H:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E53A4BC)
-I (H:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F831E)
-I (H:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F831E)
-I (H:\Users\Umars\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h)(0x626F831E)
-I (H:\Users\Umars\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58257EBC)
