@@ -1,11 +1,10 @@
-/************************************/
-/*	Author: 	Mohamed Osama		*/
-/*	SWC: 		TIMERS				*/
-/*	Layer: 		MCAL				*/
-/*	Version: 	1.0					*/
-/*	Date: 		OCTOBER 17, 2023	*/
-/*	Last Edit:	N/ARP				*/
-/************************************/
+/*************************************/
+/*  Auothor : MOHAMED ABOUBAKR       */
+/*  SWC     : TIMERS                 */
+/*  Layer   : MCAL                   */
+/*  Version : 1.0                    */
+/*  Date    : OCTOBER 17, 2023       */
+/*************************************/
 
 #ifndef _MTIM_PRIVATE_H_
 #define _MTIM_PRIVATE_H_
