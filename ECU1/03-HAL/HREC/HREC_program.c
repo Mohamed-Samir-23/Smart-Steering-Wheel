@@ -1,10 +1,10 @@
-/************************************/
-/*  Auothor: MOHAMED ABOUBAKR       */
-/*  SWC:     ROTARY ENCODER         */
-/*  Layer:   HAL                    */
-/*  Version: 1.0                    */
-/*  Date:    OCTOBER 20, 2023       */
-/************************************/
+/*************************************/
+/*  Auothor : MOHAMED ABOUBAKR       */
+/*  SWC     : ROTARY ENCODER         */
+/*  Layer   : HAL                    */
+/*  Version : 1.0                    */
+/*  Date    : OCTOBER 20, 2023       */
+/*************************************/
 
 /* Library Includes */
 #include "LSTD_types.h"
