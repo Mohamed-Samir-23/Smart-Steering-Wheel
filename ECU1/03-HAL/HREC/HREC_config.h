@@ -12,6 +12,6 @@
 #define  HREC_OUTPUT_A   MGPIO_PORTA,PIN0
 #define  HREC_OUTPUT_B   MGPIO_PORTA,PIN1
 
-#define HREC_WHEEL_TURN  4
+#define  HREC_WHEEL_TURN  4
 
 #endif
