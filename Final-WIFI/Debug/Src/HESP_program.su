@@ -1,0 +1,10 @@
+../Src/HESP_program.c:55:6:HESP_INIT	16	static
+../Src/HESP_program.c:73:6:HESP_RESET	8	static
+../Src/HESP_program.c:90:11:HESP_SEND_COMMAND	32	static
+../Src/HESP_program.c:166:11:ESP_errEchoEnable	8	static
+../Src/HESP_program.c:172:11:ESP_errEchoDisable	8	static
+../Src/HESP_program.c:178:6:HESP_CALLBACK_INIT	16	static
+../Src/HESP_program.c:185:6:HESP_voidInterruptEnable	8	static
+../Src/HESP_program.c:191:6:HESP_voidInterruptDisable	8	static
+../Src/HESP_program.c:199:11:HESP_errCheckESP	8	static
+../Src/HESP_program.c:205:13:ESP_TimeOutAlarm	8	static

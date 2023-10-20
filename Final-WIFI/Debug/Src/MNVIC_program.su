@@ -1,0 +1,7 @@
+../Src/MNVIC_program.c:17:6:MNVIC_vEnableIRQ	16	static
+../Src/MNVIC_program.c:22:6:MNVIC_vDisableIRQ	16	static
+../Src/MNVIC_program.c:26:6:MNVIC_vSetPendingIRQ	16	static
+../Src/MNVIC_program.c:30:6:MNVIC_vClearPendingIRQ	16	static
+../Src/MNVIC_program.c:34:4:MNVIC_u8GetPendingIRQ	16	static
+../Src/MNVIC_program.c:39:6:MNVIC_vSetPriorityConfig	16	static
+../Src/MNVIC_program.c:45:6:MNVIC_vSetPriorityIRQ	24	static

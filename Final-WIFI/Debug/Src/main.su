@@ -1,0 +1,16 @@
+../Src/main.c:125:5:main	8	static
+../Src/main.c:154:6:App_init	8	static
+../Src/main.c:165:6:WIFI_init	8	static
+../Src/main.c:174:6:MCU1ToMailBox	16	static
+../Src/main.c:179:6:MCU2ToMailBox	16	static
+../Src/main.c:184:6:JETSONToMailBox	16	static
+../Src/main.c:189:6:CheckToMailBox	16	static
+../Src/main.c:194:6:CheckForUpdates	16	static
+../Src/main.c:215:6:MCU1_Update	16	static
+../Src/main.c:259:6:MCU2_Update	16	static
+../Src/main.c:302:6:JETSON_Update	16	static
+../Src/main.c:345:6:simpleXOREncrypt	24	static
+../Src/main.c:351:14:RequestCodeLine	56	static
+../Src/main.c:389:14:RequestHexSize	32	static
+../Src/main.c:426:8:GetCell	32	static
+../Src/main.c:452:6:Delay_ms	24	static
