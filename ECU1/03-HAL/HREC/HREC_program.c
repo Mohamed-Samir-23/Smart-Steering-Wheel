@@ -55,24 +55,30 @@ void HREC_voidInit(void)
    
    
 	/* Configure TIM2 in encoder mode */
-  TIM2 -> SMCR &= ~0b111; // Clear SMS bits for encoder mode
-  TIM2 -> SMCR |= 0b011; // Set SMS bits to count on TI1 and TI2 edges
+	TIM2 -> SMCR &= ~0b111; // Clear SMS bits for encoder mode
+	TIM2 -> SMCR |= 0b011; // Set SMS bits to count on TI1 and TI2 edges
 	
 	TIM2 -> CNT = midPoint; //set Preload to midpoint value
 	
 	TIM2 -> ARR = 0xFFFF; //set autoreload to max value
 	
-  SET_BIT(TIM2->CCER, 0 ); // Enable capture (input)
+	SET_BIT(TIM2->CCER, 0 ); // Enable capture (input)
 
 	
 	SET_BIT( TIM2->DIER, 1 ); // Enable interrupt for input capture
     
-  MNVIC_vEnableIRQ( TIM2_IRQn ); // Enable TIM2 interrupt in NVIC
-
-	/* Start TIM2 */
-	SET_BIT(TIM2->CR1, 0)
+	MNVIC_vEnableIRQ( TIM2_IRQn ); // Enable TIM2 interrupt in NVIC
 }
 
+void HREC_voidEnableEncoder(void)
+{
+	SET_BIT(TIM2->CR1, 0);
+}
+
+void HREC_voidDisableEncoder(void)
+{
+	CLEAR_BIT(TIM2->CR1, 0);
+}
 
 void HREC_u16currentPosition( u16 *ARG_u16Angle, u8 *ARG_u8Rev )
 {
@@ -95,13 +101,13 @@ void HREC_u16currentPosition( u16 *ARG_u16Angle, u8 *ARG_u8Rev )
 
 void TIM2_IRQHandler()
 {
-  if ( GET_BIT (TIM2 -> SR, 1 ) )
-  {
-    // Input capture event occurred on channel 1
-    // Read the encoder count from the corresponding register
-    encoderCount = TIM2 -> CCR1;
+	if ( GET_BIT (TIM2 -> SR, 1 ) )
+	{
+		// Input capture event occurred on channel 1
+		// Read the encoder count from the corresponding register
+		encoderCount = TIM2 -> CCR1;
 		
-    //Check if DIR bit is 0 upcounter or 1 downcounter
-    encoderDirection = GET_BIT(TIM2 -> CR1, 4 );
-    }
+		//Check if DIR bit is 0 upcounter or 1 downcounter
+		encoderDirection = GET_BIT(TIM2 -> CR1, 4 );
+	}
 }
