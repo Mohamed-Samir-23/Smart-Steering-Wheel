@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: GPIO					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
+/*  Version		: 1.1					*/
 /*  Date		: October 09, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: October 23, 2023		*/
 /****************************************/
 
 /* Library Include */
@@ -434,3 +434,35 @@ STD_error_t MGPIO_stderrorSetPinPull_Up_Down
 	return L_stderrorError;
 	
 }
+
+
+
+
+STD_error_t MGPIO_stderrorSerialWireJTAGConfiguration
+(
+	MGPIO_JTAG_Configuration_t ARG_udtJTAGConfiguration
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+
+	if((ARG_udtJTAGConfiguration<=2)||(ARG_udtJTAGConfiguration==4))
+	{
+		/*Serial wire JTAG configuration*/
+		AFIO_MAPR&=(~(SWJ_CFG_FLAG<<SWJ_CFG));
+		AFIO_MAPR|=(ARG_udtJTAGConfiguration<<SWJ_CFG);
+
+		L_stderrorError=E_OK;
+
+	}
+	else
+	{
+
+		L_stderrorError=E_NOK;
+
+	}
+
+	return L_stderrorError;
+
+}
+
+

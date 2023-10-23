@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: GPIO					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
+/*  Version		: 1.1					*/
 /*  Date		: October 09, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: October 23, 2023		*/
 /****************************************/
 
 #ifndef _MGPIO_PRIVATE_H_
@@ -66,6 +66,12 @@
 #define GPIOE_BRR           *((uv32 *)(0x14 + GPIOA_BASE))
 #define GPIOE_LCKR          *((uv32 *)(0x18 + GPIOA_BASE))
 
+
+#ifndef AFIO_MAPR
+#define AFIO_MAPR			*((uv32*)(0x04+0x40010000))
+#define SWJ_CFG				24U
+#endif
+#define SWJ_CFG_FLAG		7U
 
 
 

@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
+/*  Version		: 1.1					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: October 23, 2023		*/
 /****************************************/
 
 
@@ -55,6 +55,8 @@ typedef enum
 {
 	RETRANSMISSION_UNTIL_DONE=0,
 	RETRANSMISSION_ONLY_ONCE=1,
+
+
 
 }MCAN_Retransmission_Mode_t;
 
@@ -107,7 +109,7 @@ typedef enum
 
 typedef enum 
 {
-	RJW_1=1,
+	RJW_1=0,
 	RJW_2,
 	RJW_3,
 	RJW_4,
@@ -246,6 +248,28 @@ typedef struct
 
 
 
+typedef enum
+{
+	TRANSMIT_MAILBOX_EMPTY =0,
+	FIFO0_MESSAGE_PENDING,
+	FIFO0_FULL,
+	FIFO0_OVERRUN,
+	FIFO1_MESSAGE_PENDING,
+	FIFO1_FULL,
+	FIFO1_OVERRUN,
+	ERROR_WARNING=8,
+	ERROR_PASSIVE,
+	BUS_OFF,
+	LAST_ERROR_CODE,
+	ESR_ERROR=15,
+	CAN_WAKEUP,
+	CAN_SLEEP,
+
+
+}MCAN_interrupt_t;
+
+
+
 STD_error_t MCAN_stderrorInit
 (
 	MCAN_Time_Triggered_Mode_t ARG_udt_TimeTriggeredMode,
@@ -292,6 +316,14 @@ STD_error_t MCAN_stderrorReceive
 	MCAN_RX_FRAME_S * ARG_pudtFrame
 );
 
+STD_error_t MCAN_stderrorEnableInterrupt
+(
+	MCAN_interrupt_t  ARG_pudtFrame
+);
 
+STD_error_t MCAN_stderrorDiableInterrupt
+(
+	MCAN_interrupt_t  ARG_pudtFrame
+);
 
 #endif

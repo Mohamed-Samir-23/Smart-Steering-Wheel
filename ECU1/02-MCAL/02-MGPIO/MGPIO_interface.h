@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: GPIO					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
+/*  Version		: 1.1					*/
 /*  Date		: October 09, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: October 23, 2023		*/
 /****************************************/
 
 #ifndef _MGPIO_INTERFACE_H_
@@ -83,6 +83,19 @@ typedef enum
 }MGPIO_Pull_t;
 
 
+typedef enum
+{
+	FULL_SWJ  	= 0,
+	FULL_SWJ_WITHOUT_NJTRST=1,
+	JTAG_DISABLED_AND_SW_ENABLED=2,
+	JTAG_DISABLED_AND_SW_DISABLED=4,
+
+}MGPIO_JTAG_Configuration_t;
+
+
+
+
+
 STD_error_t MGPIO_stderrorPinModeSelect
 (
 	MGPIO_Port_Name_t ARG_udtGPIOPort, 
@@ -118,6 +131,14 @@ STD_error_t MGPIO_stderrorSetPinPull_Up_Down
 	MGPIO_Pin_Number_t ARG_udtGPIOPin, 
 	MGPIO_Pull_t ARG_udtPullType
 );
+
+
+STD_error_t MGPIO_stderrorSerialWireJTAGConfiguration
+(
+	MGPIO_JTAG_Configuration_t ARG_udtJTAGConfiguration
+);
+
+
 
 
 #endif

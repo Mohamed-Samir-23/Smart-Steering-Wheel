@@ -1,10 +1,10 @@
 /*****************************************/
-/*   Author      : Mahmoud Ahmed         */
+/*   Author      : Mohamed Samir         */
 /*   SWC         : NVIC                  */
 /*   Layer       : MCAL                  */
-/*   Version     : 1.0                   */
-/*   Date        : October 2   , 2023    */
-/*   Last Edit   : N/A                   */
+/*   Version     : 1.1                   */
+/*   Date        : October 2 , 2023	     */
+/*   Last Edit   : October 23, 2023      */
 /*****************************************/
 
 
@@ -27,10 +27,14 @@ typedef struct
 	u32 RESERVED5[580];
 	u32 STIR;
 
-}NVIC_T;
-#define MNVIC ((volatile NVIC_T * ) 0xE000E100)
+}NVIC_t;
 
-typedef struct{
+#define MNVIC ((volatile NVIC_t * ) 0xE000E100)
+
+#ifndef	SCB_BASE_ADDRESS
+#define SCB_BASE_ADDRESS	0xE000E008
+typedef struct
+{
 	 u32 ACTLR[415];
 	 u32 CPUID;
 	 u32 ICSR;
@@ -47,9 +51,12 @@ typedef struct{
 	 u32 MMAR;
 	 u32 BFAR;
 	 u32 AFSR;
-}SCB_T;
+	 
+}SCB_t;
+#define MSCB				((volatile SCB_t *)SCB_BASE_ADDRESS)
+#endif
 
-#define 		SCB_BASE_ADDRESS	0xE000E008
-#define 		MSCB					((SCB_T *)SCB_BASE_ADDRESS)
+
+#define NO_CONFIG 8
 
 #endif

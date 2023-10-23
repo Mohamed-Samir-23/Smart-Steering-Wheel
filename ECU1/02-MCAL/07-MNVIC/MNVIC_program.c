@@ -1,78 +1,224 @@
 /*****************************************/
-/*   Author      : Mahmoud Ahmed         */
+/*   Author      : Mohamed Samir         */
 /*   SWC         : NVIC                  */
 /*   Layer       : MCAL                  */
-/*   Version     : 1.0                   */
-/*   Date        : October 2   , 2023    */
-/*   Last Edit   : N/A                   */
+/*   Version     : 1.1                   */
+/*   Date        : October 2 , 2023	     */
+/*   Last Edit   : October 23, 2023      */
 /*****************************************/
+
+/* Library Include */
 #include "LSTD_types.h"
-#include "LBIT_math.h"
 
-#include "MNVIC_interface.h"
+/* SWC Include */
 #include "MNVIC_private.h"
+#include "MNVIC_interface.h"
 
-static u8 PriorityConfig;
 
-void MNVIC_vEnableIRQ(u8 IRQn)
+static u8 MNVIC_u8PriorityConfig = NO_CONFIG;
+
+STD_error_t MNVIC_stderrorEnableIRQ
+(
+	IRQ_t ARG_udtIRQn
+)
 {
-	SET_BIT(MNVIC->ISER[IRQn/32] ,IRQn%32);
-}
-
-void MNVIC_vDisableIRQ(u8 IRQn)
-{
-	SET_BIT(MNVIC->ICER[IRQn/32] ,IRQn%32);
-}
-void MNVIC_vSetPendingIRQ(u8 IRQn)
-{
-	SET_BIT(MNVIC->ISPR[IRQn/32] ,IRQn%32);
-}
-void MNVIC_vClearPendingIRQ(u8 IRQn)
-{
-	SET_BIT(MNVIC->ICPR[IRQn/32] ,IRQn%32);
-}
-u8 MNVIC_u8GetPendingIRQ(u8 IRQn)
-{
-	return (GET_BIT(MNVIC->ISPR[IRQn/32],IRQn%32));
-}
-
-void MNVIC_vSetPriorityConfig (u8 Copy_u8PrioriyConfig)
-{
-	PriorityConfig = Copy_u8PrioriyConfig;
-	MSCB->AIRCR = (MNVIC_VECTKEY<<16) |  (Copy_u8PrioriyConfig<<8);
-}
-
-void MNVIC_vSetPriorityIRQ(u8 IRQn,u8 Copy_u8GroupId, u8 Copy_u8SubGroupId)
-{
-	u8 L_u8Priority = 0;
-	switch (PriorityConfig) {
-
-		case MNVIC_PRIORITY_GROUPS_0_SUBGROUPS_16:
-			L_u8Priority = Copy_u8SubGroupId<<4;
-			break;
-
-		case MNVIC_PRIORITY_GROUPS_16_SUBGROUPS_0:
-			L_u8Priority = Copy_u8GroupId<<4;
-			break;
-
-		case MNVIC_PRIORITY_GROUPS_2_SUBGROUPS_8:
-			L_u8Priority = (Copy_u8GroupId<<7) | ((Copy_u8SubGroupId<<4) & 0x70);
-			break;
-
-		case MNVIC_PRIORITY_GROUPS_4_SUBGROUPS_4:
-			L_u8Priority = 	(Copy_u8GroupId<<6)	| ((Copy_u8SubGroupId<<4) & 0x30);
-			break;
-
-		case MNVIC_PRIORITY_GROUPS_8_SUBGROUPS_2:
-			L_u8Priority = 	(Copy_u8GroupId<<5)	| ((Copy_u8SubGroupId<<4) & 0x10);
-			break;
-
-		default:
-			//error
-			return;
-			break;
+	STD_error_t L_stderrorError=E_NOK;
+	
+	if(ARG_udtIRQn<=59)
+	{
+		MNVIC->ISER[ARG_udtIRQn/32]= (1<<(ARG_udtIRQn%32));
+		L_stderrorError=E_OK;
 	}
-	MNVIC->IPR[IRQn/4] |= (L_u8Priority   << (8*(IRQn%4) )  );
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MNVIC_stderrorDisableIRQ
+(
+	IRQ_t ARG_udtIRQn
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(ARG_udtIRQn<=59)
+	{
+		MNVIC->ICER[ARG_udtIRQn/32] = (1<<(ARG_udtIRQn%32));
+		L_stderrorError=E_OK;
+	}
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+	return L_stderrorError;
+}
+
+
+
+STD_error_t MNVIC_stderrorSetPendingIRQ
+(
+	IRQ_t ARG_udtIRQn
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	
+	if(ARG_udtIRQn<=59)
+	{
+		MNVIC->ISPR[ARG_udtIRQn/32] = (1<<(ARG_udtIRQn%32));
+		L_stderrorError=E_OK;
+	}
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+	return L_stderrorError;
+}
+
+
+
+STD_error_t MNVIC_stderrorClearPendingIRQ
+(
+	IRQ_t ARG_udtIRQn
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	
+	if(ARG_udtIRQn<=59)
+	{
+		MNVIC->ICPR[ARG_udtIRQn/32] = (1<<(ARG_udtIRQn%32));
+		L_stderrorError=E_OK;
+	}
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+	return L_stderrorError;
+}
+
+
+
+STD_error_t MNVIC_stderrorGetPendingIRQ
+(
+	IRQ_t ARG_udtIRQn,
+	u8* ARG_u8PendingState
+)
+{
+	
+	STD_error_t L_stderrorError=E_NOK;
+	
+	if(ARG_u8PendingState != NULL_POINTER )
+	{
+		if(ARG_udtIRQn<=59)
+		{
+			*ARG_u8PendingState= (1&(MNVIC->ISPR[ARG_udtIRQn/32]>>(ARG_udtIRQn%32)));
+			
+			L_stderrorError=E_OK;
+		}
+		else
+		{
+			L_stderrorError=E_NOK;
+		}
+	}
+	else
+	{
+		L_stderrorError=E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MNVIC_stderrorSetPriorityConfig 
+(
+	SCB_PriorityGroup_t ARG_udtPrioriyConfig
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	
+	if((ARG_udtPrioriyConfig>=3)&&(ARG_udtPrioriyConfig>=7))
+	{
+		MNVIC_u8PriorityConfig = ARG_udtPrioriyConfig;
+		
+		MSCB->AIRCR = (MNVIC_VECTKEY<<16) |  (ARG_udtPrioriyConfig<<8);
+	}
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+	return L_stderrorError;
+}
+
+
+
+STD_error_t MNVIC_stderrorSetPriorityIRQ
+(
+	IRQ_t ARG_udtIRQn,
+	u8 ARG_u8GroupId,
+	u8 ARG_u8SubGroupId
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	
+	if(ARG_udtIRQn<=59)
+	{
+		u8 L_u8Priority = 0;
+	
+		switch (MNVIC_u8PriorityConfig)
+		{
+			case PRIGROUP_0GRU_16SUB:
+			{
+				L_u8Priority = ARG_u8SubGroupId<<4U;
+				L_stderrorError=E_OK;
+				break;
+			}
+			case PRIGROUP_16GRU_0SUB:
+			{
+				L_u8Priority = ARG_u8GroupId<<4U;
+				L_stderrorError=E_OK;
+				break;
+			}
+			case PRIGROUP_2GRU_8SUB:
+			{
+				L_u8Priority = (ARG_u8GroupId<<7U) | ((ARG_u8SubGroupId<<4U) & 0x70);
+				L_stderrorError=E_OK;
+				break;
+			}
+			case PRIGROUP_4GRU_4SUB:
+			{
+				L_u8Priority = 	(ARG_u8GroupId<<6U)	| ((ARG_u8SubGroupId<<4) & 0x30);
+				L_stderrorError=E_OK;
+				break;
+			}
+			case PRIGROUP_8GRU_2SUB:
+			{
+				L_u8Priority = 	(ARG_u8GroupId<<5U)	| ((ARG_u8SubGroupId<<4U) & 0x10);
+				L_stderrorError=E_OK;
+				break;
+			}
+			default:
+			{
+				L_stderrorError=E_NOK;
+				break;
+			}
+		}
+		
+		if(L_stderrorError==E_NOK)
+		{
+			MNVIC->IPR[ARG_udtIRQn/4] |= (L_u8Priority   << (8*(ARG_udtIRQn%4) )  );
+		}
+		else
+		{
+			
+			
+		}
+	}
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+		
+	return L_stderrorError;	
 }
 
 

@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
+/*  Version		: 1.1					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: October 23, 2023		*/
 /****************************************/
 
 #ifndef _MCAN_PRIVATE_H_
@@ -13,7 +13,6 @@
 
 
 #define CAN_BASE  			0x40006400 
-
 
 #define CAN_MCR				*((uv32 *)(0x00 + CAN_BASE))
 #define	DBF					16
@@ -49,6 +48,21 @@
 #define RFOM0				5
 
 #define CAN_IER				*((uv32 *)(0x14 + CAN_BASE))
+#define SLKIE				17
+#define WKUIE				16
+#define ERRIE				15
+#define LECIE				11
+#define BOFIE				10
+#define EPVIE				9
+#define EWGIE				8
+#define FOVIE1				6
+#define FFIE1				5
+#define FMPIE1				4
+#define FOVIE0				3
+#define FFIE0				2
+#define FMPIE0				1
+#define TMEIE				0
+
 
 #define CAN_ESR				*((uv32 *)(0x18 + CAN_BASE))
 

@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
+/*  Version		: 1.1					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: October 23, 2023		*/
 /****************************************/
 
 /* Library Include */
@@ -45,12 +45,9 @@ STD_error_t MCAN_stderrorInit
 		(ARG_udtRetransmissionMode<=1)&&
 		(ARG_udtCommunicationMode<=3)&&
 		(ARG_u32Prescaler<=1024)&&
-		(ARG_udtTime_Seg1<=16)&&
-		(ARG_udtTime_Seg1!=0)&&
-		(ARG_udtTime_Seg2<=8)&&
-		(ARG_udtTime_Seg2!=0)&&
-		(ARG_udtSyncJumpWidth<=4)&&
-		(ARG_udtSyncJumpWidth!=0)
+		(ARG_udtTime_Seg1<=15)&&
+		(ARG_udtTime_Seg2<=7)&&
+		(ARG_udtSyncJumpWidth<=3)
 	)
 	{
 		/*Initialization request*/
@@ -79,23 +76,21 @@ STD_error_t MCAN_stderrorInit
 		/*Transmit FIFO priority mode*/
 		CAN_MCR &=~(1<<TXFP);
 		CAN_MCR |=(ARG_udtTransmitPriority<<TXFP);
-		/*Communication Mode*/
-		CAN_BTR &=~(3<<LBKM);
-		CAN_BTR |=(ARG_udtCommunicationMode<<LBKM);
+
 		/*Communication Mode 
 		 *SyncJumpWidth
 		 *Time Seg1
 		 *Time Seg2
 		 *Prescaler
 		*/
-		CAN_BTR =0x00;
-		CAN_BTR |=(	(ARG_udtCommunicationMode<<LBKM)|
+		CAN_BTR = (	(ARG_udtCommunicationMode<<LBKM)|
 					(ARG_udtSyncJumpWidth<<SJW)|
 					(ARG_udtTime_Seg1<<TS1)|
 					(ARG_udtTime_Seg2<<TS2)|
 					((ARG_u32Prescaler-1)<<BRP));
 	
 		MCAN_udtState=NODE_INIT_READY;
+
 		L_stderrorError=E_OK;
 	}
 	else
@@ -344,12 +339,23 @@ STD_error_t MCAN_stderrorFilterInit
 				CAN_FS1R&=(~(1<<ARG_pudtFilter->udtSELECT_FILTER_BANK));
 				CAN_FS1R|=(ARG_pudtFilter->udtSET_FILTER_SCALE<<ARG_pudtFilter->udtSELECT_FILTER_BANK);
 				
-				/*set id and mask*/
-				CAN_FILTER[ARG_pudtFilter->udtSELECT_FILTER_BANK].FR1=	((0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_MASK_LOW) << 16U) |
-																		(0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_ID_LOW);
-																		
-				CAN_FILTER[ARG_pudtFilter->udtSELECT_FILTER_BANK].FR2=	((0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_MASK_HIGH) << 16U) |
-																		(0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_MASK_LOW);
+				if(ARG_pudtFilter->udtSET_FILTER_SCALE == FILTER_SCALE_16BIT)
+				{
+					/*set id and mask*/
+					CAN_FILTER[ARG_pudtFilter->udtSELECT_FILTER_BANK].FR1=	((0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_MASK_LOW) << 16U) |
+																			(0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_ID_LOW);
+
+					CAN_FILTER[ARG_pudtFilter->udtSELECT_FILTER_BANK].FR2=	((0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_MASK_HIGH) << 16U) |
+																			(0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_ID_HIGH);
+				}
+				else
+				{
+					CAN_FILTER[ARG_pudtFilter->udtSELECT_FILTER_BANK].FR1=	((0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_ID_HIGH) << 16U) |
+																						(0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_ID_LOW);
+
+					CAN_FILTER[ARG_pudtFilter->udtSELECT_FILTER_BANK].FR2=	((0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_MASK_HIGH) << 16U) |
+																						(0xFFFFU & (u32)ARG_pudtFilter->u32SET_FILTER_MASK_LOW);
+				}
 				
 				
 				/*set mask mode or list mode*/
@@ -394,6 +400,7 @@ STD_error_t MCAN_stderrorFilterInit
 }
 
 
+/*is there a massage in fifo*/
 static u8 MCAN_u8FIFOMailboxNumber
 (
 	u8 ARG_u8FIFOINDEX
@@ -439,6 +446,7 @@ STD_error_t MCAN_stderrorReceive
 	{
 		if(MCAN_udtState==NODE_INIT_READY||MCAN_udtState==NODE_NORMAL_LISTENING)
 		{
+			/*is there a massage in fifo*/
 			if(MCAN_u8FIFOMailboxNumber(ARG_pudtFrame->udtSET_FILTER_FIFO)!=0)
 			{
 				/*GET IDE*/
@@ -505,3 +513,73 @@ STD_error_t MCAN_stderrorReceive
 	return L_stderrorError;
 
 }
+
+
+
+
+
+STD_error_t MCAN_stderrorEnableInterrupt
+(
+	MCAN_interrupt_t  ARG_pudtFrame
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+
+	if(MCAN_udtState==NODE_INIT_READY||MCAN_udtState==NODE_NORMAL_LISTENING)
+	{
+
+		if((ARG_pudtFrame <=17))
+		{
+			CAN_IER|=(1<<ARG_pudtFrame);
+			L_stderrorError=E_OK;
+		}
+		else
+		{
+			L_stderrorError=E_NOK;
+		}
+
+	}
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+
+	return L_stderrorError;
+}
+
+
+STD_error_t MCAN_stderrorDiableInterrupt
+(
+	MCAN_interrupt_t  ARG_pudtFrame
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+
+	if(MCAN_udtState==NODE_INIT_READY||MCAN_udtState==NODE_NORMAL_LISTENING)
+	{
+
+		if((ARG_pudtFrame <=17))
+		{
+			CAN_IER&=~(1<<ARG_pudtFrame);
+
+			L_stderrorError=E_OK;
+		}
+		else
+		{
+			L_stderrorError=E_NOK;
+		}
+
+	}
+	else
+	{
+		L_stderrorError=E_NOK;
+	}
+
+	return L_stderrorError;
+}
+
+
+
+
+
+
