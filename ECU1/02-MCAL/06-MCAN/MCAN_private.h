@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.1					*/
+/*  Version		: 1.2					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: October 23, 2023		*/
+/*  Last Edit	: October 25, 2023		*/
 /****************************************/
 
 #ifndef _MCAN_PRIVATE_H_
@@ -38,14 +38,39 @@
 #define INAK				0
 
 #define CAN_TSR				*((uv32 *)(0x08 + CAN_BASE))
+#define LOW2                31
+#define LOW1                30
+#define LOW0                29
 #define TME2				28
 #define TME1				27
 #define TME0				26
 #define MAILBOX_CODE		24
+#define ABRQ2               23
+#define TERR2               19
+#define ALST2               18
+#define TXOK2               17
+#define RQCP2               16
+#define ABRQ1               15
+#define TERR1               11
+#define ALST1               10
+#define TXOK1               9
+#define RQCP1               8
+#define ABRQ0               7
+#define TERR0               3
+#define ALST0               2
+#define TXOK0               1
+#define RQCP0               0
+
+
+
+
 
 #define CAN_RF0R			*((uv32 *)(0x0C + CAN_BASE))
 #define CAN_RF1R			*((uv32 *)(0x10 + CAN_BASE))
 #define RFOM0				5
+#define FULL				3
+#define FOVR				4
+#define FMP					0
 
 #define CAN_IER				*((uv32 *)(0x14 + CAN_BASE))
 #define SLKIE				17
@@ -65,6 +90,7 @@
 
 
 #define CAN_ESR				*((uv32 *)(0x18 + CAN_BASE))
+#define LEC					4
 
 #define CAN_BTR				*((uv32 *)(0x1C + CAN_BASE))
 #define SILM				31

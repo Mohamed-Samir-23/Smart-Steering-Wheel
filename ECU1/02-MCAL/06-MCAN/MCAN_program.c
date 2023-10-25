@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.1					*/
+/*  Version		: 1.2					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: October 23, 2023		*/
+/*  Last Edit	: October 25, 2023		*/
 /****************************************/
 
 /* Library Include */
@@ -17,6 +17,16 @@
 
 
 volatile MCAN_State_t MCAN_udtState=NODE_SLEEP;
+static void (*pvoidfUserFunctionMailbox0)(void) =NULL_POINTER;
+static void (*pvoidfUserFunctionMailbox1)(void) =NULL_POINTER;
+static void (*pvoidfUserFunctionMailbox2)(void) =NULL_POINTER;
+static void (*pvoidfUserFunctionTXError)(void) =NULL_POINTER;
+
+
+static void (*pvoidfUserFunctionFIFO0)(void) =NULL_POINTER;
+static void (*pvoidfUserFunctionFIFO1)(void) =NULL_POINTER;
+static void (*pvoidfUserFunctionFIFOError)(void) =NULL_POINTER;
+
 
 
 STD_error_t MCAN_stderrorInit
@@ -128,6 +138,7 @@ STD_error_t MCAN_stderrorCanStart
 		}
 		else
 		{
+			MCAN_udtState=NODE_NORMAL_LISTENING;
 			L_stderrorError=E_OK;
 		}
 	}
@@ -515,9 +526,6 @@ STD_error_t MCAN_stderrorReceive
 }
 
 
-
-
-
 STD_error_t MCAN_stderrorEnableInterrupt
 (
 	MCAN_interrupt_t  ARG_pudtFrame
@@ -579,7 +587,338 @@ STD_error_t MCAN_stderrorDiableInterrupt
 }
 
 
+void USB_HP_CAN1_TX_IRQHandler(void)
+{
+	u8 L_u8errorcall0=0;
+	u8 L_u8errorcall1=0;
+	u8 L_u8errorcall2=0;
+	if(((1&(CAN_TSR>>RQCP0))==1)||((1&(CAN_TSR>>RQCP1))==1)||((1&(CAN_TSR>>RQCP2))==1))
+	{
+		if((1&(CAN_TSR>>RQCP0))==1)
+		{
+			if((1&(CAN_TSR>>TXOK0))==1)
+			{
+				if(NULL_POINTER!=pvoidfUserFunctionMailbox0)
+				{
+
+					pvoidfUserFunctionMailbox0();
+
+				}
+				else
+				{
+					/*Nothing*/
+				}
+
+			}
+			else
+			{
+				L_u8errorcall0=1;
+
+			}
+			/*clear flag Tr0*/
+			CAN_TSR|=(1<<RQCP0);
+			CAN_TSR&=~((1<<TXOK0)|(1<<ALST0)|(1<<TERR0));
+
+		}
+		else
+		{
+			L_u8errorcall0=1;
+		}
+
+		if((1&(CAN_TSR>>RQCP1))==1)
+		{
+			if((1&(CAN_TSR>>TXOK1))==1)
+			{
+				if(NULL_POINTER!=pvoidfUserFunctionMailbox1)
+				{
+
+					pvoidfUserFunctionMailbox1();
+
+				}
+				else
+				{
+					/*Nothing*/
+				}
+			}
+			else
+			{
+				L_u8errorcall1=1;
+
+			}
+			/*clear flag Tr1*/
+			CAN_TSR|=(1<<RQCP1);
+			CAN_TSR&=~((1<<TXOK1)|(1<<ALST1)|(1<<TERR1));
+
+		}
+		else
+		{
+			L_u8errorcall1=1;
+		}
 
 
+		if((1&(CAN_TSR>>RQCP0))==1)
+		{
+			if((1&(CAN_TSR>>TXOK0))==1)
+			{
+
+				if(NULL_POINTER!=pvoidfUserFunctionMailbox2)
+				{
+
+					pvoidfUserFunctionMailbox2();
+
+				}
+				else
+				{
+					/*Nothing*/
+				}
+
+			}
+			else
+			{
+				L_u8errorcall2=1;
+
+			}
+			/*clear flag Tr2*/
+			CAN_TSR|=(1<<RQCP2);
+			CAN_TSR&=~((1<<TXOK2)|(1<<ALST2)|(1<<TERR2));
 
 
+		}
+		else
+		{
+			L_u8errorcall2=1;
+		}
+	}
+	else
+	{
+		L_u8errorcall0=1;
+		L_u8errorcall1=1;
+		L_u8errorcall2=1;
+
+	}
+	if((L_u8errorcall0==0)||(L_u8errorcall1==0)||(L_u8errorcall2==0))
+	{
+
+	}
+	else
+	{
+		if(NULL_POINTER!=pvoidfUserFunctionTXError)
+		{
+
+			pvoidfUserFunctionTXError();
+
+		}
+		else
+		{
+			/*Nothing*/
+		}
+
+	}
+}
+
+
+void USB_LP_CAN1_RX0_IRQHandler(void)
+{
+
+	u8 L_u8errorcall0=0;
+	u8 L_u8errorcall1=0;
+
+	if(((1&(CAN_RF0R>>FMP))==1)||((1&(CAN_RF1R>>FMP))==1))
+	{
+		if(((1&(CAN_RF0R>>FMP))==1))
+		{
+
+			if(NULL_POINTER!=pvoidfUserFunctionFIFO0)
+			{
+
+				pvoidfUserFunctionFIFO0();
+
+			}
+			else
+			{
+				L_u8errorcall0=1;
+			}
+
+		}
+		else
+		{
+			L_u8errorcall0=1;
+		}
+		if(((1&(CAN_RF1R>>FMP))==1))
+		{
+
+			if(NULL_POINTER!=pvoidfUserFunctionFIFO1)
+			{
+
+				pvoidfUserFunctionFIFO1();
+
+			}
+			else
+			{
+				L_u8errorcall1=1;
+			}
+
+		}
+		else
+		{
+			L_u8errorcall1=1;
+		}
+
+
+	}
+
+	if((L_u8errorcall0==0)||(L_u8errorcall1==0))
+		{
+
+		}
+		else
+		{
+			if(NULL_POINTER!=pvoidfUserFunctionTXError)
+			{
+
+				pvoidfUserFunctionFIFOError();
+				/*CLEAR error flag*/
+				CAN_RF0R|=(3U<<FULL);
+				CAN_RF1R|=(3U<<FULL);
+				CAN_ESR&=~(7U<<LEC);
+				CAN_MSR|=(1U<<ERRI);
+			}
+			else
+			{
+				/*Nothing*/
+			}
+
+		}
+}
+
+STD_error_t MCAN_stderrorSetCallBackMailbox0
+(
+	void (*ARG_pvoidfUserFunction)(void)
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(NULL_POINTER!=ARG_pvoidfUserFunction)
+	{
+		pvoidfUserFunctionMailbox0=ARG_pvoidfUserFunction;
+		L_stderrorError=E_NOK;
+	}
+	else
+	{
+		L_stderrorError = E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MCAN_stderrorSetCallBackMailbox1
+(
+	void (*ARG_pvoidfUserFunction)(void)
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(NULL_POINTER!=ARG_pvoidfUserFunction)
+	{
+		pvoidfUserFunctionMailbox1=ARG_pvoidfUserFunction;
+		L_stderrorError=E_NOK;
+	}
+	else
+	{
+		L_stderrorError = E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MCAN_stderrorSetCallBackMailbox2
+(
+	void (*ARG_pvoidfUserFunction)(void)
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(NULL_POINTER!=ARG_pvoidfUserFunction)
+	{
+		pvoidfUserFunctionMailbox2=ARG_pvoidfUserFunction;
+		L_stderrorError=E_NOK;
+	}
+	else
+	{
+		L_stderrorError = E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MCAN_stderrorSetCallBackTXError
+(
+	void (*ARG_pvoidfUserFunction)(void)
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(NULL_POINTER!=ARG_pvoidfUserFunction)
+	{
+		pvoidfUserFunctionTXError=ARG_pvoidfUserFunction;
+		L_stderrorError=E_NOK;
+	}
+	else
+	{
+		L_stderrorError = E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MCAN_stderrorSetCallBackFIFO0
+(
+	void (*ARG_pvoidfUserFunction)(void)
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(NULL_POINTER!=ARG_pvoidfUserFunction)
+	{
+		pvoidfUserFunctionFIFO0=ARG_pvoidfUserFunction;
+		L_stderrorError=E_NOK;
+	}
+	else
+	{
+		L_stderrorError = E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MCAN_stderrorSetCallBackFIFO1
+(
+	void (*ARG_pvoidfUserFunction)(void)
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(NULL_POINTER!=ARG_pvoidfUserFunction)
+	{
+		pvoidfUserFunctionFIFO1=ARG_pvoidfUserFunction;
+		L_stderrorError=E_NOK;
+	}
+	else
+	{
+		L_stderrorError = E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}
+
+
+STD_error_t MCAN_stderrorSetCallBackFIFOError
+(
+	void (*ARG_pvoidfUserFunction)(void)
+)
+{
+	STD_error_t L_stderrorError=E_NOK;
+	if(NULL_POINTER!=ARG_pvoidfUserFunction)
+	{
+		pvoidfUserFunctionFIFOError=ARG_pvoidfUserFunction;
+		L_stderrorError=E_NOK;
+	}
+	else
+	{
+		L_stderrorError = E_NULL_POINTER;
+	}
+	return L_stderrorError;
+}

@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.1					*/
+/*  Version		: 1.2					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: October 23, 2023		*/
+/*  Last Edit	: October 25, 2023		*/
 /****************************************/
 
 
@@ -325,5 +325,41 @@ STD_error_t MCAN_stderrorDiableInterrupt
 (
 	MCAN_interrupt_t  ARG_pudtFrame
 );
+
+STD_error_t MCAN_stderrorSetCallBackMailbox0
+(
+	void (*ARG_pvoidfUserFunction)(void)
+);
+
+STD_error_t MCAN_stderrorSetCallBackMailbox1
+(
+	void (*ARG_pvoidfUserFunction)(void)
+);
+
+STD_error_t MCAN_stderrorSetCallBackMailbox2
+(
+	void (*ARG_pvoidfUserFunction)(void)
+);
+
+STD_error_t MCAN_stderrorSetCallBackTXError
+(
+	void (*ARG_pvoidfUserFunction)(void)
+);
+
+STD_error_t MCAN_stderrorSetCallBackFIFO0
+(
+	void (*ARG_pvoidfUserFunction)(void)
+);
+
+STD_error_t MCAN_stderrorSetCallBackFIFO1
+(
+	void (*ARG_pvoidfUserFunction)(void)
+);
+
+STD_error_t MCAN_stderrorSetCallBackFIFOError
+(
+	void (*ARG_pvoidfUserFunction)(void)
+);
+
 
 #endif

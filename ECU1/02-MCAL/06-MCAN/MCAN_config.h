@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
+/*  Version		: 1.1					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: October 25, 2023		*/
 /****************************************/
 
 
@@ -13,13 +13,6 @@
 
 
 #define MCAN_START_TIMEOUT 1000
-
-
-
-
-
-
-
 
 
 #endif
