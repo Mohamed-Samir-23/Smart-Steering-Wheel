@@ -30,11 +30,19 @@ void HREC_voidInit(void)
 {
 	/* Enable RCC for GPIOA and TIM3 */
 	RCC_EnablePeripheralClk( APB2, GPIOA_PER );
+	RCC_EnablePeripheralClk( APB2, AFIOEN_PER );
 	RCC_EnablePeripheralClk( APB1, TIM3EN_PER );
 	
 	/* Change PIN 0 and 1 in port A to alt func, push pull at 50mhz */
 	MGPIO_stderrorPinModeSelect(HREC_OUTPUT_A, ALTFUN_PUSH_PULL_SPEED_50MHZ );
 	MGPIO_stderrorPinModeSelect(HREC_OUTPUT_B, ALTFUN_PUSH_PULL_SPEED_50MHZ );
+
+	MGPIO_stderrorSetPinPull_Up_Down(HREC_OUTPUT_A, PULL_UP);
+	MGPIO_stderrorSetPinPull_Up_Down(HREC_OUTPUT_B, PULL_UP);
+
+	/*Partial remap: PB0 (TIM3_CH3) and PB1 (TIM3_CH4)*/
+	CLEAR_BIT(AFIO_MAPR, 10);
+	SET_BIT(AFIO_MAPR, 11);
 	
 	/* CC1S config as Capture TI1 */
 	SET_BIT(TIM3 -> CCMR1, 0);
@@ -96,6 +104,7 @@ void HREC_u16currentPosition( u8 *ARG_u8Rev, direction *ARG_directionState, u16 
 		*ARG_u8Rev = HREC_WHEEL_TURN - ( L_u16encoderCount / HREC_PULSE_PER_REV );
 		L_u16absCount = midPoint - L_u16encoderCount;
 	}
+	else{/* Do Nothing */}
 	
 	if( GET_BIT(TIM3 -> CR1, 4 ) )
 	{
