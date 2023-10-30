@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.2					*/
+/*  Version		: 1.0					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: October 25, 2023		*/
+/*  Last Edit	: N/A					*/
 /****************************************/
 
 #ifndef _MCAN_PRIVATE_H_

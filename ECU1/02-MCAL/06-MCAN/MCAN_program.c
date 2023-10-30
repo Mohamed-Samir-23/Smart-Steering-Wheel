@@ -2,9 +2,9 @@
 /*  Author		: Mohamed Samir			*/
 /*  SWC			: CAN					*/
 /*  Layer		: MCAL					*/
-/*  Version		: 1.2					*/
+/*  Version		: 1.3					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: October 25, 2023		*/
+/*  Last Edit	: October 30, 2023		*/
 /****************************************/
 
 /* Library Include */
@@ -617,7 +617,7 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 			}
 			/*clear flag Tr0*/
 			CAN_TSR|=(1<<RQCP0);
-			CAN_TSR&=~((1<<TXOK0)|(1<<ALST0)|(1<<TERR0));
+			CAN_TSR|=((1<<TXOK0)|(1<<ALST0)|(1<<TERR0));
 
 		}
 		else
@@ -632,7 +632,7 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 				if(NULL_POINTER!=pvoidfUserFunctionMailbox1)
 				{
 
-					pvoidfUserFunctionMailbox1();
+					pvoidfUserFunctionMailbox0();
 
 				}
 				else
@@ -647,7 +647,7 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 			}
 			/*clear flag Tr1*/
 			CAN_TSR|=(1<<RQCP1);
-			CAN_TSR&=~((1<<TXOK1)|(1<<ALST1)|(1<<TERR1));
+			CAN_TSR|=((1<<TXOK1)|(1<<ALST1)|(1<<TERR1));
 
 		}
 		else
@@ -664,7 +664,7 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 				if(NULL_POINTER!=pvoidfUserFunctionMailbox2)
 				{
 
-					pvoidfUserFunctionMailbox2();
+					pvoidfUserFunctionMailbox0();
 
 				}
 				else
@@ -680,7 +680,7 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 			}
 			/*clear flag Tr2*/
 			CAN_TSR|=(1<<RQCP2);
-			CAN_TSR&=~((1<<TXOK2)|(1<<ALST2)|(1<<TERR2));
+			CAN_TSR|=((1<<TXOK2)|(1<<ALST2)|(1<<TERR2));
 
 
 		}
@@ -723,11 +723,10 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 	u8 L_u8errorcall0=0;
 	u8 L_u8errorcall1=0;
 
-	if(((1&(CAN_RF0R>>FMP))==1)||((1&(CAN_RF1R>>FMP))==1))
+	if(((1&(CAN_RF0R>>FMP))==1))
 	{
 		if(((1&(CAN_RF0R>>FMP))==1))
 		{
-
 			if(NULL_POINTER!=pvoidfUserFunctionFIFO0)
 			{
 
@@ -738,57 +737,37 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 			{
 				L_u8errorcall0=1;
 			}
-
 		}
 		else
 		{
 			L_u8errorcall0=1;
 		}
-		if(((1&(CAN_RF1R>>FMP))==1))
-		{
-
-			if(NULL_POINTER!=pvoidfUserFunctionFIFO1)
-			{
-
-				pvoidfUserFunctionFIFO1();
-
-			}
-			else
-			{
-				L_u8errorcall1=1;
-			}
-
-		}
-		else
-		{
-			L_u8errorcall1=1;
-		}
-
-
+	}
+	else
+	{
+		/*DO NOTHING*/
 	}
 
-	if((L_u8errorcall0==0)||(L_u8errorcall1==0))
+	if((L_u8errorcall0==0))
+	{
+		/*DO NOTHING*/
+	}
+	else
+	{
+		if(NULL_POINTER!=pvoidfUserFunctionTXError)
 		{
 
+			pvoidfUserFunctionFIFOError();
+			/*CLEAR error flag*/
+			CAN_RF0R|=(3U<<FULL);
+			CAN_ESR&=~(7U<<LEC);
+			CAN_MSR|=(1U<<ERRI);
 		}
 		else
 		{
-			if(NULL_POINTER!=pvoidfUserFunctionTXError)
-			{
-
-				pvoidfUserFunctionFIFOError();
-				/*CLEAR error flag*/
-				CAN_RF0R|=(3U<<FULL);
-				CAN_RF1R|=(3U<<FULL);
-				CAN_ESR&=~(7U<<LEC);
-				CAN_MSR|=(1U<<ERRI);
-			}
-			else
-			{
-				/*Nothing*/
-			}
-
+			/*Nothing*/
 		}
+	}
 }
 
 STD_error_t MCAN_stderrorSetCallBackMailbox0

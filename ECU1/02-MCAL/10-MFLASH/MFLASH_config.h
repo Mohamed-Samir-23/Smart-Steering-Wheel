@@ -1,18 +1,14 @@
 /****************************************/
 /*  Author		: Mohamed Samir			*/
-/*  SWC			: CAN					*/
+/*  SWC			: FLASH					*/
 /*  Layer		: MCAL					*/
 /*  Version		: 1.0					*/
-/*  Date		: October 13, 2023		*/
+/*  Date		: October 29, 2023		*/
 /*  Last Edit	: N/A					*/
 /****************************************/
 
-
-#ifndef _MCAN_CONFIG_H_
-#define _MCAN_CONFIG_H_
-
-
-#define MCAN_START_TIMEOUT 1000
+#ifndef _MFLASH_CONFIG_H_
+#define _MFLASH_CONFIG_H_
 
 
 
