@@ -11,7 +11,7 @@
 
 typedef enum
 {
-  CLOCKWISE,
+	CLOCKWISE,
 	ANTICLOCKWISE,
 }direction;
 
