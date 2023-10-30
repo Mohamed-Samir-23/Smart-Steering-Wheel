@@ -94,26 +94,19 @@ void HREC_u16currentPosition( u8 *ARG_u8Rev, direction *ARG_directionState, u16 
 	u16 L_u16absCount;
 	u16 L_u16EncoderCount = TIM3 -> CCR1;
 
-	if(encoderCount > midPoint)
+	if(L_u16EncoderCount > midPoint)
 	{
 		*ARG_u8Rev = ( L_u16encoderCount / HREC_PULSE_PER_REV ) - HREC_WHEEL_TURN;
+		*ARG_directionState = CLOCKWISE;
 		L_u16absCount = L_u16encoderCount - midPoint;
 	}
-	else if(encoderCount < midPoint)
+	else if(L_u16EncoderCount < midPoint)
 	{
 		*ARG_u8Rev = HREC_WHEEL_TURN - ( L_u16encoderCount / HREC_PULSE_PER_REV );
+		*ARG_directionState = ANTICLOCKWISE;
 		L_u16absCount = midPoint - L_u16encoderCount;
 	}
 	else{/* Do Nothing */}
-	
-	if( GET_BIT(TIM3 -> CR1, 4 ) )
-	{
-		*ARG_directionState = ANTICLOCKWISE;
-	}
-	else
-	{
-		*ARG_directionState = CLOCKWISE;
-	}
 
 	*ARG_u16Angle = ( L_u16absCount * 360 ) / HREC_PULSE_PER_REV;
 }
