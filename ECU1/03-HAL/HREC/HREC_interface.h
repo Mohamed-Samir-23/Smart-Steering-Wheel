@@ -9,6 +9,14 @@
 #ifndef _HREC_INTERFACE_H_
 #define _HREC_INTERFACE_H_
 
+typedef enum
+{
+  CLOCKWISE,
+	ANTICLOCKWISE,
+}direction;
+
+direction state;
+
 #define HREC_PULSE_PER_REV    600
 
 void  HREC_voidInit(void);
