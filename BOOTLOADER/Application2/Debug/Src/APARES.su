@@ -1,0 +1,4 @@
+../Src/APARES.c:23:4:APARES_AsciToHex	24	static
+../Src/APARES.c:42:13:APARES_voidData	32	static
+../Src/APARES.c:91:6:APARES_voidRecord	16	static
+../Src/APARES.c:106:4:APARES_u8EndRecordFlag	16	static

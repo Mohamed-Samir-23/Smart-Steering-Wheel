@@ -1,0 +1,10 @@
+../Src/MFLASH_program.c:20:20:MFLASH_stderrorUnlock	16	static
+../Src/MFLASH_program.c:42:13:MFLASH_stderrorlock	4	static
+../Src/MFLASH_program.c:51:6:MFLASH_voidEraseAllSection	8	static,ignoring_inline_asm
+../Src/MFLASH_program.c:92:6:MFLASH_voidErasePage	16	static
+../Src/MFLASH_program.c:131:13:MFLASH_stderrorWrite32BitData	24	static
+../Src/MFLASH_program.c:180:13:MFLASH_voidWriteSection	32	static,ignoring_inline_asm
+../Src/MFLASH_program.c:234:13:MFLASH_voidReadPage	24	static
+../Src/MFLASH_program.c:262:6:MFLASH_voidEraseApp1Section	16	static
+../Src/MFLASH_program.c:276:6:MFLASH_voidEraseApp2Section	16	static
+../Src/MFLASH_program.c:290:6:MFLASH_voidEraseBootSection	16	static

@@ -1,0 +1,6 @@
+../Src/MGPIO_program.c:19:13:MGPIO_stderrorPinModeSelect	24	static
+../Src/MGPIO_program.c:128:13:MGPIO_stderrorGetPinValue	24	static
+../Src/MGPIO_program.c:197:13:MGPIO_stderrorSetPinValue	24	static
+../Src/MGPIO_program.c:263:13:MGPIO_stderrorSetPinValueBSSR	24	static
+../Src/MGPIO_program.c:373:13:MGPIO_stderrorSetPinPull_Up_Down	24	static
+../Src/MGPIO_program.c:441:13:MGPIO_stderrorSerialWireJTAGConfiguration	24	static
