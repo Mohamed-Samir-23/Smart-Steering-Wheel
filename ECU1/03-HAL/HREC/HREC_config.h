@@ -6,13 +6,28 @@
 /*  Date    : OCTOBER 20, 2023       */
 /*************************************/
 
-#ifndef _HREC_CONFIG_H_
-#define _HREC_CONFIG_H_
+#ifndef _HREC_INTERFACE_H_
+#define _HREC_INTERFACE_H_
 
-#define  HREC_OUTPUT_A    MGPIO_PORTB,PIN0
-#define  HREC_OUTPUT_B    MGPIO_PORTB,PIN1
+typedef enum
+{
+	POSITIVE,
+	NEGATIVE,
+}polarity;
 
-//No of turns to scan
-#define  HREC_WHEEL_TURN  4
+typedef enum
+{
+	CLOCKWISE,
+	ANTICLOCKWISE,
+}direction;
+
+#define HREC_PULSE_PER_REV    600
+
+void	HREC_voidInit( void );
+void	HREC_voidEnableEncoder( void );
+void	HREC_voidDisableEncoder( void );
+void HREC_voidCurrentPosition(  u16 *ARG_u16Angle , direction *ARG_directionState, polarity *ARG_polarityCond);
+
+;
 
 #endif
