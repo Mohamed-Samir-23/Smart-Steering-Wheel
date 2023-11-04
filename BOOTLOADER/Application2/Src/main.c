@@ -102,7 +102,7 @@ void APP2_voidFlash(volatile u8* ARG_Pu8Data)
 {
 	if(APP2_u8BLWriteReq ==1)
 	{
-		MFLASH_voidEraseApp2Section();
+		MFLASH_voidEraseApp1Section();
 
 		APP2_u8BLWriteReq = 0;
 	}
