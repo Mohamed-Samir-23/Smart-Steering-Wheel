@@ -19,7 +19,7 @@
 #include "HREC_config.h"
 
 
-volatile u16 L_u16encoderCount = 0;
+volatile u16 L_u16encoderCount = 600;
 
 
 void HREC_voidInit(void)
@@ -54,7 +54,7 @@ void HREC_voidInit(void)
 	TIM4 -> SMCR |= 0b011; // Set SMS bits to count on TI1 and TI2 edges
 	
 	
-	TIM4 -> ARR = 600; //set autoreload to max value
+	TIM4 -> ARR = 2*HREC_PULSE_PER_REV; //set autoreload to max value
 
 	TIM4 -> PSC = 0x0000; //prescalar value
 	
@@ -73,18 +73,18 @@ void HREC_voidDisableEncoder(void)
 void HREC_voidCurrentPosition(  u16 *ARG_u16Angle , direction *ARG_directionState, polarity *ARG_polarityCond)
 {
 	u16 L_u16absCount;
-	L_u16encoderCount = TIM4 -> CNT;
+	u16 L_u16encoderCount = TIM4 -> CNT;
 
-	if(L_u16encoderCount > 0)
+	if(L_u16encoderCount < HREC_PULSE_PER_REV)
 	{
 		*ARG_polarityCond = POSITIVE;
 		L_u16absCount = L_u16encoderCount ;
 	}
-	else if(L_u16encoderCount < 0)
+	else if(L_u16encoderCount > HREC_PULSE_PER_REV)
 	{
 		//*ARG_u8Rev = HREC_WHEEL_TURN - ( L_u16encoderCount / HREC_PULSE_PER_REV );
 		*ARG_polarityCond = NEGATIVE;
-		L_u16absCount = HREC_PULSE_PER_REV - L_u16encoderCount;
+		L_u16absCount = 2*HREC_PULSE_PER_REV - L_u16encoderCount;
 	}
 	else{/* Do Nothing */}
 
