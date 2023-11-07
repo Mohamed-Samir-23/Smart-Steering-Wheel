@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="2.12.0"/>
+    <errors>
+        <error id="missingInclude" severity="information" msg="Include file: &amp;quot;LSTD_types.h&amp;quot; not found." verbose="Include file: &amp;quot;LSTD_types.h&amp;quot; not found." sinceDate="M/d/yyyy">
+            <location file="MSPI_program.c" line="10"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &amp;quot;LBIT_math.h&amp;quot; not found." verbose="Include file: &amp;quot;LBIT_math.h&amp;quot; not found." sinceDate="M/d/yyyy">
+            <location file="MSPI_program.c" line="11"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;MSPI1_vSendData&amp;#039; is never used." verbose="The function &amp;#039;MSPI1_vSendData&amp;#039; is never used." cwe="561" sinceDate="M/d/yyyy">
+            <location file="MSPI_program.c" line="106"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;MSPI1_vSetCallBack&amp;#039; is never used." verbose="The function &amp;#039;MSPI1_vSetCallBack&amp;#039; is never used." cwe="561" sinceDate="M/d/yyyy">
+            <location file="MSPI_program.c" line="116"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;MSPI_vInit&amp;#039; is never used." verbose="The function &amp;#039;MSPI_vInit&amp;#039; is never used." cwe="561" sinceDate="M/d/yyyy">
+            <location file="MSPI_program.c" line="19"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SPI1_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;SPI1_IRQHandler&amp;#039; is never used." cwe="561" sinceDate="M/d/yyyy">
+            <location file="MSPI_program.c" line="124"/>
+        </error>
+    </errors>
+</results>

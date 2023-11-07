@@ -1,0 +1,4 @@
+MSPI_vInit call:[CLEAR_BIT,SET_BIT]
+MSPI1_vSendData call:[GET_BIT,return] noreturn:[return]
+MSPI1_vSetCallBack global:[MSPI1_CallBack]
+SPI1_IRQHandler global:[MSPI1_CallBack] call:[MSPI1_CallBack] noreturn:[MSPI1_CallBack]
