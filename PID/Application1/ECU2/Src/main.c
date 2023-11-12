@@ -1,10 +1,10 @@
 /****************************************/
-/*  Author		: Mohamed Samir			*/
-/*  SWC			: EXTI					*/
-/*  Layer		: MCAL					*/
-/*  Version		: 1.0					*/
-/*  Date		: November 10, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Author	: Mohamed Samir		*/
+/*  SWC		: PID			*/
+/*  Layer	: APPLICATION		*/
+/*  Version	: 1.0			*/
+/*  Date	: November 10, 2023	*/
+/*  Last Edit	: N/A			*/
 /****************************************/
 
 /* Library Include */
