@@ -4,7 +4,7 @@
 /*  Layer		: MCAL					*/
 /*  Version		: 1.1					*/
 /*  Date		: October  10, 2023		*/
-/*  Last Edit	: November 03, 2023		*/
+/*  Last Edit	: November 10, 2023		*/
 /****************************************/
 
 /* Library Include */
@@ -123,45 +123,21 @@ void MSYSTICK_voidStopTICK
 }
 
 
-STD_error_t MSYSTICK_voidElepsedTime
+u32 MSYSTICK_voidElepsedTime
 (
-	u32 * ARG_pu32ElepsedTime
+	void
 )
 {
-	
-	STD_error_t L_stderrorError=E_NOK;
-	
-	if(ARG_pu32ElepsedTime != NULL_POINTER)
-	{
-		*ARG_pu32ElepsedTime = STK_LOAD-STK_VAL;
-	}
-	else
-	{
-		L_stderrorError=E_NULL_POINTER;
-	}
-	
-	return L_stderrorError;
+	return (STK_LOAD-STK_VAL);
 }
 
 
-STD_error_t MSYSTICK_voidRemainingTime
+u32 MSYSTICK_voidRemainingTime
 (
-	u32 * ARG_pu32RemainingTime
+	void
 )
 {
-	
-	STD_error_t L_stderrorError=E_NOK;
-	
-	if(ARG_pu32RemainingTime != NULL_POINTER)
-	{
-		*ARG_pu32RemainingTime = STK_VAL;
-	}
-	else
-	{
-		L_stderrorError=E_NULL_POINTER;
-	}
-	
-	return L_stderrorError;
+	return STK_VAL;
 }
 
 
@@ -170,7 +146,6 @@ void MSYSTICK_EnableInterrupt
 	void
 )
 {
-	
 	STK_CTRL |=(1<<1);
 }
 
@@ -209,6 +184,7 @@ void SysTick_Handler(void)
 	
 	if(MSYSTICK_u8SelectISR ==0)
 	{
+		
 		MSYSTICK_pvoidfUserFunctionSysTick();
 		STK_CTRL &=~(3U);
 	}

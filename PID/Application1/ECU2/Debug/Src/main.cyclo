@@ -1,0 +1,7 @@
+../Src/main.c:62:5:main	6
+../Src/main.c:248:6:ECU2_ENCODER	3
+../Src/main.c:275:6:ECU2_voidUpdateTime	1
+../Src/main.c:281:6:ECU2_voidMotorControlWithSoftStarters	6
+../Src/main.c:314:6:ECU2_voidDelay	2
+../Src/main.c:326:4:ECU2_u8Map	1
+../Src/main.c:331:6:ECU2_voidNewMsg	8

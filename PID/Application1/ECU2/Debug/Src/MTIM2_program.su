@@ -1,0 +1,5 @@
+../Src/MTIM2_program.c:18:6:MTIM2_voidStartCount	4	static
+../Src/MTIM2_program.c:27:6:MTIM2_voidStopCount	4	static
+../Src/MTIM2_program.c:37:6:MTIM2_voidDisabledUpdataEvent	4	static
+../Src/MTIM2_program.c:46:6:MTIM2_voidEnabledUpdataEvent	4	static
+../Src/MTIM2_program.c:55:6:MTIM2_voidPWMGeneration	24	static

@@ -1,0 +1,5 @@
+../Src/HHBDG_program.c:20:6:HHBDG_voidInit	1
+../Src/HHBDG_program.c:38:13:HHBDG_stderrorPWMGeneration	3
+../Src/HHBDG_program.c:69:6:HHBDG_voidRotateRight	1
+../Src/HHBDG_program.c:81:6:HHBDG_voidRotateLeft	1
+../Src/HHBDG_program.c:94:6:HHBDG_voidStopAll	1
