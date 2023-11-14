@@ -1,0 +1,6 @@
+../Src/MGPIO_program.c:19:13:MGPIO_stderrorPinModeSelect	14
+../Src/MGPIO_program.c:128:13:MGPIO_stderrorGetPinValue	9
+../Src/MGPIO_program.c:197:13:MGPIO_stderrorSetPinValue	9
+../Src/MGPIO_program.c:263:13:MGPIO_stderrorSetPinValueBSSR	15
+../Src/MGPIO_program.c:373:13:MGPIO_stderrorSetPinPull_Up_Down	9
+../Src/MGPIO_program.c:441:13:MGPIO_stderrorSerialWireJTAGConfiguration	3

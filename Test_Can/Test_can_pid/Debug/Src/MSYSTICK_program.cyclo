@@ -1,0 +1,12 @@
+../Src/MSYSTICK_program.c:22:13:MSYSTICK_stderrorInit	2
+../Src/MSYSTICK_program.c:49:13:MSYSTICK_stderrorSetBusyWait	2
+../Src/MSYSTICK_program.c:65:13:MSYSTICK_stderrorSetSingleInterval	2
+../Src/MSYSTICK_program.c:92:13:MSYSTICK_stderrorSetPeriodiceInterval	2
+../Src/MSYSTICK_program.c:118:6:MSYSTICK_voidStopTICK	1
+../Src/MSYSTICK_program.c:127:5:MSYSTICK_voidElepsedTime	1
+../Src/MSYSTICK_program.c:136:5:MSYSTICK_voidRemainingTime	1
+../Src/MSYSTICK_program.c:145:6:MSYSTICK_EnableInterrupt	1
+../Src/MSYSTICK_program.c:154:6:MSYSTICK_DisableInterrupt	1
+../Src/MSYSTICK_program.c:164:6:MSYSTICK_Delay_Ms	1
+../Src/MSYSTICK_program.c:173:6:MSYSTICK_Delay_us	1
+../Src/MSYSTICK_program.c:183:6:SysTick_Handler	3

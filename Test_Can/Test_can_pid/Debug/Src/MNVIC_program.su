@@ -1,0 +1,8 @@
+../Src/MNVIC_program.c:20:13:MNVIC_stderrorEnableIRQ	24	static
+../Src/MNVIC_program.c:40:13:MNVIC_stderrorDisableIRQ	24	static
+../Src/MNVIC_program.c:60:13:MNVIC_stderrorSetPendingIRQ	24	static
+../Src/MNVIC_program.c:81:13:MNVIC_stderrorClearPendingIRQ	24	static
+../Src/MNVIC_program.c:102:13:MNVIC_stderrorGetPendingIRQ	24	static
+../Src/MNVIC_program.c:132:13:MNVIC_stderrorSetPriorityConfig	24	static
+../Src/MNVIC_program.c:154:13:MNVIC_stderrorSetPriorityIRQ	24	static
+../Src/MNVIC_program.c:226:6:NVIC_voidResetRequest	4	static,ignoring_inline_asm

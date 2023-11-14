@@ -1,0 +1,4 @@
+../Src/MRCC_program.c:20:13:MRCC_stderrorInit	26
+../Src/MRCC_program.c:144:13:MRCC_stderrorSetPllClockFreq	5
+../Src/MRCC_program.c:181:13:RCC_EnablePeripheralClk	5
+../Src/MRCC_program.c:223:13:RCC_DisablePeripheralClk	5
