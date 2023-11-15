@@ -1,10 +1,10 @@
 /****************************************/
-/*  Author	: Mohamed Samir		*/
-/*  SWC		: PID			*/
-/*  Layer	: APPLICATION		*/
-/*  Version	: 1.0			*/
-/*  Date	: November 10, 2023	*/
-/*  Last Edit	: N/A			*/
+/*  Author		: Mohamed Samir			*/
+/*  SWC			: PID					*/
+/*  Layer		: MCAL					*/
+/*  Version		: 1.0					*/
+/*  Date		: November 10, 2023		*/
+/*  Last Edit	: November 14, 2023		*/
 /****************************************/
 
 /* Library Include */
@@ -18,22 +18,18 @@
 #include "MNVIC_interface.h"
 #include "HHBDG_interface.h"
 #include "MCAN_interface.h"
+#include "main.h"
 #include <math.h>
+#include <stdlib.h>
 
 
 u8 ECU2_u8counterdr0 ;
 
 u8 ECU2_u8counterdr1;
 
-s32 ECU2_s32Encodercounter =0;
-
-void ECU2_voidUpdateTime(void);
-
-void ECU2_ENCODER(MEXTI_Line_t ARG_udtEXTILine);
+s16 ECU2_s16Encodercounter =0;
 
 u32 ECU2_u32CountOverFlow=0;
-
-void ECU2_voidMotorControlWithSoftStarters(u8 ARG_u8PWMValue , u8 ARG_u8DIR);
 
 volatile s32 ECU2_u32CTPosition=0;
 
@@ -43,25 +39,29 @@ float ECU2_u32PVError=0;
 
 float ECU2_u32CTError=0;
 
-u32 ECU2_u32SetPoint=1000;
-
-void ECU2_voidDelay(u32 ARG_u32Milliseconds);
-
-u8 ECU2_u8Map(u16 x, u16 in_min, u16 in_max, u16 out_min, u16 out_max);
-
-void ECU2_voidNewMsg(void);
+s16 ECU2_S16SetPoint=1000;
 
 u8 TxData[8];
+
 u8 RxData[8];
+
 MCAN_TX_FRAME_S ECU2_udtPIDMsgFram;
+
 MCAN_RX_FRAME_S ECU2_udtPIDResiveMsgFram;
 
 u8 ECU2_u8PIDState=0 ;
 
 
+
+void USB_LP_CAN_RX0_IRQHandler (void)
+{
+	MCAN_RX0_IRQHandler();
+}
+
+
 int main(void)
 {
-	MRCC_stderrorInit(HSI,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
+	MRCC_stderrorInit(HSE_Crystal,AHB_PreScaler1,APB_PreScaler1,APB_PreScaler1);
 	RCC_EnablePeripheralClk(APB2, GPIOA_PER);
 	RCC_EnablePeripheralClk(APB2, AFIOEN_PER);
 	RCC_EnablePeripheralClk(APB1, TIM2EN_PER);
@@ -99,7 +99,8 @@ int main(void)
 	MEXTI_stderrorTriggerMode(EXTI_LINE3,RISING_EDGE);
 
 	MEXTI_VoidEnableEXTI(EXTI_LINE2);
-	MEXTI_VoidEnableEXTI(EXTI_LINE3);
+
+	s32 s32_LPVEncodercounter =0;
 
 	/*CAN BUS CONFIG*/
 	MGPIO_stderrorPinModeSelect(GPIOA, PIN11, INPUT_FLOAT);
@@ -114,10 +115,10 @@ int main(void)
 			RETRANSMISSION_UNTIL_DONE,
 			RECEIVE_FIFO_OVERWRITE,
 			PRIORITY_DRIVEN_BY_ID_MSG,
-			LOOP_BACK_MODE,
+			NORMAL_MODE,
 			1,
-			Ts1_6,
-			Ts2_1,
+			Ts1_13,
+			Ts2_2,
 			RJW_1
 	);
 
@@ -150,7 +151,15 @@ int main(void)
 
 	MCAN_stderrorFilterInit(&ECU2_udtMsgsFilter);
 
+
+
+	/*SetCallBack Function*/
 	MCAN_stderrorSetCallBackFIFO0(ECU2_voidNewMsg);
+	MCAN_stderrorSetCallBackFIFOError(ECU2_voidCanError);
+
+	/*Can interrupt & NVIC enable*/
+	MCAN_stderrorEnableInterrupt(FIFO0_MESSAGE_PENDING);
+	MNVIC_stderrorEnableIRQ(USB_HP_CAN_RX0);
 
 	/*Start can*/
 	if(MCAN_stderrorCanStart()!=E_OK)
@@ -162,9 +171,6 @@ int main(void)
 		}
 	}
 
-	MCAN_stderrorEnableInterrupt(FIFO0_MESSAGE_PENDING);
-
-
 
 	while(1)
 	{
@@ -175,25 +181,30 @@ int main(void)
 			float L_fKd=0.0;
 			float L_fKi=0.0;
 
-			MSYSTICK_stderrorSetSingleInterval(16000000UL, ECU2_voidUpdateTime);
+
 			/*calculate current time*/
 			u64 CTTime=((ECU2_u32CountOverFlow*16000000UL)+(MSYSTICK_voidElepsedTime()));
 			double L_DuDeltaT = ((float)(CTTime-ECU2_u32PVTime))/(1000000);
 			ECU2_u32PVTime=CTTime;
-
+			MSYSTICK_stderrorSetSingleInterval(16000000UL, ECU2_voidUpdateTime);
 			ECU2_u32CTPosition=0;
 
 			/*take Encoder value*/
-			MNVIC_stderrorDisableIRQ(EXTI_LINE2);
-			ECU2_u32CTPosition=ECU2_s32Encodercounter;
-			MEXTI_VoidEnableEXTI(EXTI_LINE2);
-
+			ECU2_u32CTPosition=ECU2_s16Encodercounter;
 
 			/*Proportional*/
-			s32 Error = ECU2_u32CTPosition-ECU2_u32SetPoint;
+			s32 Error = ECU2_u32CTPosition-ECU2_S16SetPoint;
 
 			/*Derivative*/
-			float L_fDeltaError = (Error-ECU2_u32PVError)/L_DuDeltaT;
+			float L_fDeltaError;
+			if(L_DuDeltaT ==0)
+			{
+				L_fDeltaError=0;
+			}
+			else
+			{
+				L_fDeltaError= (Error-ECU2_u32PVError)/L_DuDeltaT;
+			}
 
 			/*Integral*/
 			ECU2_u32CTError+=Error*L_DuDeltaT;
@@ -223,7 +234,10 @@ int main(void)
 
 			}
 
-			if(fabs(ECU2_u32SetPoint-ECU2_s32Encodercounter)<=1)
+			/*Tolerance*/
+			u32 L_u32absError = abs (ECU2_S16SetPoint - ECU2_s16Encodercounter);
+
+			if(L_u32absError<=2)
 			{
 				/*stop motor control*/
 				ECU2_voidMotorControlWithSoftStarters(0 ,L_u8Direction_Motor);
@@ -232,6 +246,16 @@ int main(void)
 			{
 				/*motor control*/
 				ECU2_voidMotorControlWithSoftStarters(((u8)L_fPWM) ,L_u8Direction_Motor);
+			}
+
+			if(s32_LPVEncodercounter ==ECU2_s16Encodercounter)
+			{
+				ECU2_voidMotorControlWithSoftStarters(0 ,L_u8Direction_Motor);
+			}
+			else
+			{
+				/*stop motor control*/
+				s32_LPVEncodercounter = ECU2_s16Encodercounter;
 			}
 		}
 		else
@@ -257,11 +281,11 @@ void ECU2_ENCODER(MEXTI_Line_t ARG_udtEXTILine)
 
 		if(L_u8A==LOW)
 		{
-			ECU2_s32Encodercounter++;//right
+			ECU2_s16Encodercounter++;//right
 		}
 		else
 		{
-			ECU2_s32Encodercounter--;//left
+			ECU2_s16Encodercounter--;//left
 		}
 	}
 	else
@@ -282,7 +306,7 @@ void ECU2_voidMotorControlWithSoftStarters(u8 ARG_u8PWMValue , u8 ARG_u8DIR)
 {
 	if(ARG_u8PWMValue !=0)
 	{
-		ARG_u8PWMValue=ECU2_u8Map(ARG_u8PWMValue,0,100,15,40);
+		ARG_u8PWMValue=ECU2_u8Map(ARG_u8PWMValue,0,100,15,30);
 
 		if(ARG_u8DIR ==0)
 		{
@@ -350,37 +374,23 @@ void ECU2_voidNewMsg(void)
 		case 0x30:
 		{
 			/*PID state*/
-			ECU2_u8PIDState^=1;
+			ECU2_u8PIDState=0;
 			break;
 		}
 		case 0x31:
 		{
 			/*get Set Point*/
-			if(ECU2_udtPIDResiveMsgFram.pu8Payload[2]=='-')
-			{
-				ECU2_u32SetPoint =(u32)(ECU2_udtPIDResiveMsgFram.pu8Payload[1]|(ECU2_udtPIDResiveMsgFram.pu8Payload[0]<<8))*-1;
-			}
-			else
-			{
-				ECU2_u32SetPoint =(u32)(ECU2_udtPIDResiveMsgFram.pu8Payload[1]|(ECU2_udtPIDResiveMsgFram.pu8Payload[0]<<8));
-			}
+			ECU2_u8PIDState=1;
+			ECU2_S16SetPoint =(u32)ECU2_s32StringToShort((const char *)RxData);
 			break;
 		}
 		case 0x32:
 		{
 			/*Send Encoder value*/
 			ECU2_udtPIDMsgFram.u32Msg_Id=0x40;
-			TxData[0]=(u8)((ECU2_s32Encodercounter>>8)&0xFF);
-			TxData[1]=(u8)((ECU2_s32Encodercounter)&0xFF);
-			if(ECU2_s32Encodercounter>0)
-			{
-				TxData[2]='+';
-			}
-			else
-			{
-				TxData[2]='-';
-			}
+			ECU2_voidshortToString(ECU2_s16Encodercounter,(char *)TxData);
 			MCAN_stderrorSend(&ECU2_udtPIDMsgFram);
+
 			break;
 		}
 		case 0x33:
@@ -390,3 +400,112 @@ void ECU2_voidNewMsg(void)
 		}
 	}
 }
+
+
+void ECU2_voidCanError(void)
+{
+	MGPIO_stderrorSetPinValueBSSR(GPIOA, PIN6, HIGH);
+}
+
+
+
+void ECU2_voidReverseString(char *ARG_pcharStr, s32 ARG_s32Length)
+{
+    s32 L_s32Start = 0;
+    s32 L_s32End = ARG_s32Length - 1;
+    while (L_s32Start < L_s32End)
+    {
+        /*Swap characters at start and end*/
+        char L_charTemp = ARG_pcharStr[L_s32Start];
+        ARG_pcharStr[L_s32Start] = ARG_pcharStr[L_s32End];
+        ARG_pcharStr[L_s32End] = L_charTemp;
+
+        /*Move towards the center*/
+        L_s32Start++;
+        L_s32End--;
+    }
+}
+
+
+void ECU2_voidshortToString(s16 ARG_s16Number, char *ARG_pcharResult)
+{
+    s32 L_s32I = 0;
+    s32 L_s32isNegative = 0;
+
+    /*Handle negative numbers*/
+    if (ARG_s16Number < 0)
+    {
+    	L_s32isNegative = 1;
+        ARG_s16Number = -ARG_s16Number;
+    }
+
+    /*Handle special case when the number is 0*/
+    if (ARG_s16Number == 0)
+    {
+    	ARG_pcharResult[L_s32I++] = '0';
+    }
+
+    /*Extract digits one by one*/
+    while (ARG_s16Number != 0)
+    {
+        s32 L_digit = ARG_s16Number % 10;
+        /* Convert digit to character*/
+        ARG_pcharResult[L_s32I++] = '0' + L_digit;
+        ARG_s16Number = ARG_s16Number / 10;
+    }
+
+    /*Add '-' for negative numbers*/
+    if (L_s32isNegative)
+    {
+    	ARG_pcharResult[L_s32I++] = '-';
+    }
+
+    /*Null-terminate the string*/
+    ARG_pcharResult[L_s32I] = '\0';
+
+    /*Reverse the string to get the correct order*/
+    ECU2_voidReverseString(ARG_pcharResult, L_s32I);
+}
+
+
+
+s32 ECU2_s32StringToShort(const char *ARG_pccharStr)
+{
+    s32 L_s32Result = 0;
+    s32 L_s32isNegative = 0;
+    s32 L_s32I = 0;
+
+    /*Handle negative numbers*/
+    if (ARG_pccharStr[0] == '-') {
+    	L_s32isNegative = 1;
+    	/*Start from the next character*/
+    	L_s32I = 1;
+    }
+
+    /*Process each character in the string*/
+    while (ARG_pccharStr[L_s32I] != '\0')
+    {
+        /*Convert character to digit*/
+        s32 L_s32Digit = ARG_pccharStr[L_s32I] - '0';
+
+        /*Update result based on the digit*/
+        L_s32Result = L_s32Result * 10 + L_s32Digit;
+
+        /*Move to the next character*/
+        L_s32I++;
+    }
+
+    /*Apply the sign*/
+    if (L_s32isNegative) {
+    	L_s32Result = -L_s32Result;
+    }
+
+    return L_s32Result;
+}
+
+
+
+
+
+
+

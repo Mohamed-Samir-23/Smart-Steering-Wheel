@@ -4,7 +4,7 @@
 /*  Layer		: MCAL					*/
 /*  Version		: 1.0					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: November 14, 2023		*/
 /****************************************/
 
 /* Library Include */
@@ -125,10 +125,12 @@ STD_error_t MCAN_stderrorCanStart
 	{
 		/*Request to be Normal Mode*/
 		CAN_MCR &=~(1<<INRQ);
+
+
 		/*Normal Mode acknowledge*/
 		while(((1&(CAN_MSR>>INAK))!=0)&&(L_u16TimeoutCounter<MCAN_START_TIMEOUT))
 		{
-			L_u16TimeoutCounter++;
+			//L_u16TimeoutCounter++;
 		}
 		if(L_u16TimeoutCounter==MCAN_START_TIMEOUT)
 		{
@@ -717,11 +719,10 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 }
 
 
-void USB_LP_CAN1_RX0_IRQHandler(void)
+void MCAN_RX0_IRQHandler(void)
 {
 
 	u8 L_u8errorcall0=0;
-	u8 L_u8errorcall1=0;
 
 	if(((1&(CAN_RF0R>>FMP))==1))
 	{

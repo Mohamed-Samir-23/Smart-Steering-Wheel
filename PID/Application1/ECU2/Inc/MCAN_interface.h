@@ -4,7 +4,7 @@
 /*  Layer		: MCAL					*/
 /*  Version		: 1.0					*/
 /*  Date		: October 13, 2023		*/
-/*  Last Edit	: N/A					*/
+/*  Last Edit	: November 14, 2023		*/
 /****************************************/
 
 
@@ -17,6 +17,7 @@ typedef enum
 	TIME_TRIGGERED_DISABLED=0,
 	TIME_TRIGGERED_ENABLED=1,
 }MCAN_Time_Triggered_Mode_t;
+
 
 typedef enum 
 {
@@ -361,5 +362,9 @@ STD_error_t MCAN_stderrorSetCallBackFIFOError
 	void (*ARG_pvoidfUserFunction)(void)
 );
 
+void MCAN_RX0_IRQHandler
+(
+	void
+);
 
 #endif
