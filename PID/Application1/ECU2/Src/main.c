@@ -142,10 +142,10 @@ int main(void)
 	ECU2_udtMsgsFilter.udtFILTER_ACTIVATION_STATE=FILTER_ENABLED;
 	ECU2_udtMsgsFilter.udtSELECT_FILTER_BANK=FILTER_BANK0;
 	ECU2_udtMsgsFilter.udtSET_FILTER_FIFO=FILTER_FIFO0;
-	ECU2_udtMsgsFilter.u32SET_FILTER_ID_HIGH=(0x30)<<5;
-	ECU2_udtMsgsFilter.u32SET_FILTER_ID_LOW=(0x31)<<5;
-	ECU2_udtMsgsFilter.u32SET_FILTER_MASK_HIGH=(0x32)<<5;
-	ECU2_udtMsgsFilter.u32SET_FILTER_MASK_LOW=(0x33)<<5;
+	ECU2_udtMsgsFilter.u32SET_FILTER_ID_HIGH=(ECU2_MSG_ID_PID_OFF)<<5;
+	ECU2_udtMsgsFilter.u32SET_FILTER_ID_LOW=(ECU2_MSG_ID_GET_SET_POINT)<<5;
+	ECU2_udtMsgsFilter.u32SET_FILTER_MASK_HIGH=(ECU2_MSG_ID_SEND_ENCODER_VALUE)<<5;
+	ECU2_udtMsgsFilter.u32SET_FILTER_MASK_LOW=(ECU2_MSG_ID_FlASH)<<5;
 	ECU2_udtMsgsFilter.udtSET_FILTER_MODE=FILTER_IDLIST;
 	ECU2_udtMsgsFilter.udtSET_FILTER_SCALE=FILTER_SCALE_16BIT;
 
@@ -281,16 +281,16 @@ void ECU2_ENCODER(MEXTI_Line_t ARG_udtEXTILine)
 
 		if(L_u8A==LOW)
 		{
-			ECU2_s16Encodercounter++;//right
+			ECU2_s16Encodercounter++;/*right*/
 		}
 		else
 		{
-			ECU2_s16Encodercounter--;//left
+			ECU2_s16Encodercounter--;/*left*/
 		}
 	}
 	else
 	{
-
+		/*Nothing*/
 
 	}
 }
@@ -371,20 +371,20 @@ void ECU2_voidNewMsg(void)
 
 	switch(ECU2_udtPIDResiveMsgFram.u32Msg_Id)
 	{
-		case 0x30:
+		case ECU2_MSG_ID_PID_OFF:
 		{
-			/*PID state*/
+			/*PID OFF*/
 			ECU2_u8PIDState=0;
 			break;
 		}
-		case 0x31:
+		case ECU2_MSG_ID_GET_SET_POINT:
 		{
 			/*get Set Point*/
 			ECU2_u8PIDState=1;
 			ECU2_S16SetPoint =(u32)ECU2_s32StringToShort((const char *)RxData);
 			break;
 		}
-		case 0x32:
+		case ECU2_MSG_ID_SEND_ENCODER_VALUE:
 		{
 			/*Send Encoder value*/
 			ECU2_udtPIDMsgFram.u32Msg_Id=0x40;
@@ -393,7 +393,7 @@ void ECU2_voidNewMsg(void)
 
 			break;
 		}
-		case 0x33:
+		case ECU2_MSG_ID_FlASH:
 		{
 			/*Flash*/
 			break;
